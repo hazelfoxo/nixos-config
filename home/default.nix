@@ -17,6 +17,11 @@
     pkgs."spotify-adblock"
   ];
 
+
+   services.flatpak.enable = true;
+
+   xdg.portal.enable = true;
+
   programs.fish = {
     enable = true;
 
@@ -46,10 +51,6 @@
     enableFishIntegration = true;
     settings = builtins.fromTOML (builtins.readFile ./starship/jetpack.toml);
   };
-
-   services.flatpak.enable = true;
-
-  xdg.portal.enable = true;
 
   xdg.configFile."fontconfig/fonts.conf".text = ''
 <?xml version='1.0'?>
