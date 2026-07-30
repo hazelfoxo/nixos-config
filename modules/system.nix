@@ -35,9 +35,13 @@
     libreoffice
   ];
 
+   services.flatpak.enable = true;
+
+   xdg.portal.enable = true;
+
   fonts = {
     packages = with pkgs; [
-      corefonts
+     corefonts
       nerd-fonts.caskaydia-mono
       nerd-fonts.caskaydia-cove
     ];

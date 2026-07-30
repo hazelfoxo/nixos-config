@@ -17,11 +17,6 @@
     pkgs."spotify-adblock"
   ];
 
-
-   services.flatpak.enable = true;
-
-   xdg.portal.enable = true;
-
   programs.fish = {
     enable = true;
 
