@@ -32,10 +32,12 @@
     btop
     fastfetch
     kdePackages.sddm-kcm
+    libreoffice
   ];
 
   fonts = {
     packages = with pkgs; [
+      corefonts
       nerd-fonts.caskaydia-mono
       nerd-fonts.caskaydia-cove
     ];

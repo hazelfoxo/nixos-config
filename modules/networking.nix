@@ -1,5 +1,5 @@
 {
-  networking.hostName = "nixos";
+  networking.hostName = "hazie-pc";
 
   networking.networkmanager.enable = true;
 }
