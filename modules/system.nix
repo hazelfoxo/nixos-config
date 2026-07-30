@@ -24,6 +24,9 @@
     "flakes"
   ];
 
+
+  programs.gpu-screen-recorder.enable = true; # For promptless recording on both CLI and GUI
+
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
@@ -33,6 +36,7 @@
     fastfetch
     kdePackages.sddm-kcm
     libreoffice
+    gpu-screen-recorder-gtk
   ];
 
    services.flatpak.enable = true;
@@ -50,8 +54,6 @@
       enable = true;
     };
   };
-
-  security.polkit.enable = true;
 
   system.stateVersion = "26.05";
 }
