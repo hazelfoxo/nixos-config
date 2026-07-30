@@ -47,6 +47,10 @@
     settings = builtins.fromTOML (builtins.readFile ./starship/jetpack.toml);
   };
 
+   services.flatpak.enable = true;
+
+  xdg.portal.enable = true;
+
 #   xdg.configFile."kdeglobals".text = ''
 #     [General]
 #     fixed=Caskaydia Cove,10,-1,50,50,0,0,0,0,0
