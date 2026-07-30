@@ -51,5 +51,7 @@
     };
   };
 
+  security.polkit.enable = true;
+
   system.stateVersion = "26.05";
 }
