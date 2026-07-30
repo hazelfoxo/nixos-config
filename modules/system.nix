@@ -25,7 +25,6 @@
   ];
 
   nixpkgs.config.allowUnfree = true;
-  programs.gpu-screen-recorder.enable = true;
 
   environment.systemPackages = with pkgs; [
     git
@@ -33,7 +32,6 @@
     btop
     fastfetch
     kdePackages.sddm-kcm
-    gpu-screen-recorder-gtk # GUI app
   ];
 
   fonts = {
