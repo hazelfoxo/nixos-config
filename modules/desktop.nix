@@ -10,7 +10,7 @@
     variant = "";
   };
 
-  services.printing.enable = true;
+  services.printing.enable = false;
 
   programs.firefox.enable = true;
 

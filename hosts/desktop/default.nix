@@ -4,13 +4,14 @@
   imports = [
     ./hardware-configuration.nix
     ./nvidia.nix
-    ./bluetooth.nix
 
+    ../../modules/bluetooth.nix
     ../../modules/audio.nix
     ../../modules/desktop.nix
     ../../modules/networking.nix
     ../../modules/system.nix
     ../../modules/users.nix
+    ../../modules/localsend.nix
   ];
 
   boot.loader.systemd-boot.enable = true;

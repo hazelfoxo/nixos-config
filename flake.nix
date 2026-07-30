@@ -24,13 +24,13 @@
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
 
-        home-manager.users.hazie = import ./home.nix;
+        home-manager.users.hazie = import ./home/default.nix;
       }
 
       {
           nixpkgs.overlays = [
             (final: prev: {
-              spotify-adblock = final.callPackage ./packages/spotify-adblock.nix {};
+              spotify-adblock = final.callPackage ./packages/spotify.adblock.nix {};
             })
           ];
         }

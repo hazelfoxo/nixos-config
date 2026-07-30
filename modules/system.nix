@@ -34,5 +34,16 @@
     kdePackages.sddm-kcm
   ];
 
+  fonts = {
+    packages = with pkgs; [
+      nerd-fonts.caskaydia-mono
+      nerd-fonts.caskaydia-cove
+    ];
+
+    fontconfig = {
+      enable = true;
+    };
+  };
+
   system.stateVersion = "26.05";
 }

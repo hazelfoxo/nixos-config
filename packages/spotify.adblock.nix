@@ -8,8 +8,26 @@ rustPlatform.buildRustPackage {
     owner = "abba23";
     repo = "spotify-adblock";
     rev = "v1.1.0";
-    hash = lib.fakeHash;
+    hash = "sha256-Em8ICO+GtA1k/urBA7e9+OdZmHvthTy+iRWueUz4+40=";
   };
 
-  cargoHash = lib.fakeHash;
+  cargoHash = "sha256-gxGetdqaoJa/ZF1VnW6UXJyJfLBGZxZnyKpT/Qk/8Og=";
+
+  postInstall = ''
+    mkdir -p $out/share/applications
+
+    cat > $out/share/applications/spotify-adblock.desktop <<EOF
+[Desktop Entry]
+Type=Application
+Name=Spotify (adblock)
+GenericName=Music Player
+Icon=spotify-client
+TryExec=spotify
+Exec=env LD_PRELOAD=$out/lib/spotify-adblock.so spotify %U
+Terminal=false
+MimeType=x-scheme-handler/spotify;
+Categories=Audio;Music;Player;AudioVideo;
+StartupWMClass=spotify
+EOF
+  '';
 }
