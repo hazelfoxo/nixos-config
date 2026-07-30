@@ -51,11 +51,6 @@
 
   xdg.portal.enable = true;
 
-#   xdg.configFile."kdeglobals".text = ''
-#     [General]
-#     fixed=Caskaydia Cove,10,-1,50,50,0,0,0,0,0
-#   '';
-
   xdg.configFile."fontconfig/fonts.conf".text = ''
 <?xml version='1.0'?>
 <fontconfig>
