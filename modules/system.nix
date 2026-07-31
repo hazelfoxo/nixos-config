@@ -54,6 +54,9 @@
       enable = true;
     };
   };
+  
+
+  services.xserver.xkb.options = "";
 
   system.stateVersion = "26.05";
 }
