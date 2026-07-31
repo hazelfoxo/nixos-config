@@ -14,6 +14,7 @@
     telegram-desktop
     spotify
     localsend
+    kdePackages.kweather
     pkgs."spotify-adblock"
   ];
 
@@ -28,6 +29,10 @@
     functions = {
       nrs = ''
         sudo nixos-rebuild switch --flake ~/nixos-config#$NIXOS_HOST
+        '';
+
+        nix-clean = ''
+        sudo nix-collect-garbage -d
         '';
     };
 
