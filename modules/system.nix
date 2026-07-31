@@ -37,7 +37,7 @@
     kdePackages.sddm-kcm
     libreoffice
     gpu-screen-recorder-gtk
-  ];
+  ];  
 
    services.flatpak.enable = true;
 
