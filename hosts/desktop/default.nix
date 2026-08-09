@@ -4,6 +4,7 @@
   imports = [
     ./hardware-configuration.nix
 
+    ../../modules/locale.nix
     ../../modules/nvidia.nix
     ../../modules/programs.nix
     ../../modules/bluetooth.nix
