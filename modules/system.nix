@@ -24,7 +24,6 @@
     "flakes"
   ];
 
-
   programs.gpu-screen-recorder.enable = true; # For promptless recording on both CLI and GUI
 
   nixpkgs.config.allowUnfree = true;
@@ -53,8 +52,6 @@
       enable = true;
     };
   };
-  
-  services.xserver.xkb.options = "";
 
   system.stateVersion = "26.05";
 }

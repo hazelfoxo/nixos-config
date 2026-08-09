@@ -8,6 +8,7 @@
   services.xserver.xkb = {
     layout = "gb";
     variant = "";
+    options = "";
   };
 
   services.printing.enable = false;
@@ -16,7 +17,8 @@
 
   programs.steam.enable = true;
 
-    environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs; [
     kdePackages.sddm-kcm
   ];
+
 }
