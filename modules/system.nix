@@ -19,6 +19,7 @@
   # Allow UnFree NixOS Packages
   nixpkgs.config.allowUnfree = true;
 
+  # Install system packages
   environment.systemPackages = with pkgs; [
     git
     htop
@@ -41,6 +42,9 @@
       enable = true;
     };
   };
+
+  # Enable Polkit Service
+  security.polkit.enable = true;
 
   system.stateVersion = "26.05";
 }

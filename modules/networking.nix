@@ -1,6 +1,6 @@
 { ... }:
 
 {
-  security.polkit.enable = true;
+  # Enable Network Manager Service
   networking.networkmanager.enable = true;
 }
