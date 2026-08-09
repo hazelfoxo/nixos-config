@@ -1,7 +1,6 @@
 { pkgs, ... }:
 
 {
-  services.xserver.enable = false;
 
   services.displayManager.sddm.enable = true;
 
