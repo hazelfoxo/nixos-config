@@ -14,9 +14,10 @@
     ../../modules/localsend.nix
   ];
 
+  networking.hostName = "hazie-pc";
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   environment.variables.NIXOS_HOST = "desktop";
-
 }
