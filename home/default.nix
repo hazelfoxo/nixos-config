@@ -27,7 +27,12 @@
     };
 
     functions = {
-      nrs = ''
+      nix-switch= ''
+        sudo nixos-rebuild switch --flake ~/nixos-config#$NIXOS_HOST
+        '';
+
+        nix-update = ''
+        sudo nix flake update /etc/nixos
         sudo nixos-rebuild switch --flake ~/nixos-config#$NIXOS_HOST
         '';
 
