@@ -3,8 +3,8 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./nvidia.nix
 
+    ../../modules/nvidia.nix
     ../../modules/bluetooth.nix
     ../../modules/audio.nix
     ../../modules/desktop.nix
