@@ -16,6 +16,7 @@
     localsend
     kdePackages.kweather
     pkgs."spotify-adblock"
+    vacuum-tube
   ];
 
   programs.fish = {
