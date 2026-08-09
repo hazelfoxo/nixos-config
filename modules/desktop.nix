@@ -1,25 +1,19 @@
 { pkgs, ... }:
 
 {
-
+  # Enable SDDM login manager service
   services.displayManager.sddm.enable = true;
 
+  # Enable KDE Plasma
   services.desktopManager.plasma6.enable = true;
 
-  services.xserver.xkb = {
-    layout = "gb";
-    variant = "";
-    options = "";
-  };
-
-  services.xserver.excludePackages = [ pkgs.xterm ];
-
-  services.printing.enable = false;
-
+  # Enable Firefox Serivce
   programs.firefox.enable = true;
 
+  # Enable Steam Service
   programs.steam.enable = true;
 
+  # Install KDE Specific Packages
   environment.systemPackages = with pkgs; [
     kdePackages.sddm-kcm
   ];
