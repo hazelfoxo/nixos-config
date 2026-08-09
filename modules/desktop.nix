@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  services.xserver.enable = true;
+  services.xserver.enable = false;
 
   services.displayManager.sddm.enable = true;
 
@@ -12,6 +12,8 @@
     variant = "";
     options = "";
   };
+
+  services.xserver.excludePackages = [ pkgs.xterm ];
 
   services.printing.enable = false;
 
