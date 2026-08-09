@@ -50,7 +50,6 @@
     htop
     btop
     fastfetch
-    libreoffice
     gpu-screen-recorder-gtk # gpu-screen recorder glk ui
   ];  
 
