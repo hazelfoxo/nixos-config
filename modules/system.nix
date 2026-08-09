@@ -26,6 +26,12 @@
     "flakes"
   ];
 
+  # Enable fish service
+  programs.fish.enable = true;
+
+   # Enable Flatpak Service
+  services.flatpak.enable = true;
+
   # Enable GPU Screen Recorder Service
   programs.gpu-screen-recorder.enable = true;
 
@@ -40,9 +46,6 @@
     libreoffice
     gpu-screen-recorder-gtk # gpu-screen recorder glk ui
   ];  
-
- # Enable Flatpak Service
-  services.flatpak.enable = true;
 
   xdg.portal.enable = true;
 
