@@ -1,13 +1,16 @@
 { lib, fetchFromGitHub, rustPlatform }:
 
+let
+  version = "1.1.0";
+in
 rustPlatform.buildRustPackage {
   pname = "spotify-adblock";
-  version = "1.1.0";
+  inherit version;
 
   src = fetchFromGitHub {
     owner = "abba23";
     repo = "spotify-adblock";
-    rev = "v1.1.0";
+    rev = "v${version}";
     hash = "sha256-Em8ICO+GtA1k/urBA7e9+OdZmHvthTy+iRWueUz4+40=";
   };
 
@@ -17,17 +20,17 @@ rustPlatform.buildRustPackage {
     mkdir -p $out/share/applications
 
     cat > $out/share/applications/spotify-adblock.desktop <<EOF
-[Desktop Entry]
-Type=Application
-Name=Spotify (adblock)
-GenericName=Music Player
-Icon=spotify-client
-TryExec=spotify
-Exec=env LD_PRELOAD=$out/lib/spotify-adblock.so spotify %U
-Terminal=false
-MimeType=x-scheme-handler/spotify;
-Categories=Audio;Music;Player;AudioVideo;
-StartupWMClass=spotify
-EOF
+    [Desktop Entry]
+    Type=Application
+    Name=Spotify (adblock)
+    GenericName=Music Player
+    Icon=spotify-client
+    TryExec=spotify
+    Exec=env LD_PRELOAD=$out/lib/spotify-adblock.so spotify %U
+    Terminal=false
+    MimeType=x-scheme-handler/spotify;
+    Categories=Audio;Music;Player;AudioVideo;
+    StartupWMClass=spotify
+    EOF
   '';
 }
