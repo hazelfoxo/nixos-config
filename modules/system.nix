@@ -34,7 +34,6 @@
     htop
     btop
     fastfetch
-    kdePackages.sddm-kcm
     libreoffice
     gpu-screen-recorder-gtk
   ];  
@@ -55,7 +54,6 @@
     };
   };
   
-
   services.xserver.xkb.options = "";
 
   system.stateVersion = "26.05";
