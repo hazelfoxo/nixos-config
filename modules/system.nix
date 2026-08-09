@@ -1,6 +1,7 @@
 { pkgs, ... }:
 
 {
+ # Default NixOS UK Locale Settings
   time.timeZone = "Europe/London";
 
   i18n.defaultLocale = "en_GB.UTF-8";
@@ -19,13 +20,16 @@
 
   console.keyMap = "uk";
 
+ # Enable experimental NixOS Features e.g. commands and flakes
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
   ];
 
-  programs.gpu-screen-recorder.enable = true; # For promptless recording on both CLI and GUI
+  # Enable GPU Screen Recorder Service
+  programs.gpu-screen-recorder.enable = true;
 
+  # Allow UnFree NixOS Packages
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
@@ -34,16 +38,18 @@
     btop
     fastfetch
     libreoffice
-    gpu-screen-recorder-gtk
+    gpu-screen-recorder-gtk # gpu-screen recorder glk ui
   ];  
 
-   services.flatpak.enable = true;
+ # Enable Flatpak Service
+  services.flatpak.enable = true;
 
-   xdg.portal.enable = true;
+  xdg.portal.enable = true;
 
+  # Install extra fonts and nerd fonts
   fonts = {
     packages = with pkgs; [
-     corefonts
+      corefonts
       nerd-fonts.caskaydia-mono
       nerd-fonts.caskaydia-cove
     ];
