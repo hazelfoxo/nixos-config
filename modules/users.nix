@@ -13,5 +13,4 @@
     ];
   };
 
-  programs.fish.enable = true;
 }
