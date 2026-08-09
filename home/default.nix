@@ -31,7 +31,7 @@
         sudo nixos-rebuild switch --flake ~/nixos-config#$NIXOS_HOST
         '';
 
-        nix-update = ''
+        nix-upgrade = ''
         sudo nix flake update /etc/nixos
         sudo nixos-rebuild switch --flake ~/nixos-config#$NIXOS_HOST
         '';
