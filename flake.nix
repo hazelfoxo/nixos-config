@@ -10,31 +10,23 @@
     };
   };
 
- outputs = { self, nixpkgs, home-manager, ... }:
-{
-  nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
-    system = "x86_64-linux";
+  outputs = { nixpkgs, home-manager, ... }:
+    {
+      nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
 
-    modules = [
-      ./hosts/desktop
+        modules = [
+          ./hosts/desktop
+          ./modules/overlays.nix
 
-      home-manager.nixosModules.home-manager
+          home-manager.nixosModules.home-manager
 
-      {
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-
-        home-manager.users.hazie = import ./home/default.nix;
-      }
-
-      {
-          nixpkgs.overlays = [
-            (final: prev: {
-              spotify-adblock = final.callPackage ./packages/spotify-adblock.nix {};
-            })
-          ];
-        }
-    ];
-  };
-};
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.hazie = import ./home/default.nix;
+          }
+        ];
+      };
+    };
 }
