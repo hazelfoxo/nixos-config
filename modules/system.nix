@@ -20,6 +20,13 @@
 
   console.keyMap = "uk";
 
+   # Set Keyboard Layout
+    services.xserver.xkb = {
+    layout = "gb";
+    variant = "";
+    options = ""; # Disable X11 Specific Global Keyboard Shortcuts
+  };
+
  # Enable experimental NixOS Features e.g. commands and flakes
   nix.settings.experimental-features = [
     "nix-command"
