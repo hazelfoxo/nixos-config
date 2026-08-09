@@ -5,6 +5,7 @@
     ./hardware-configuration.nix
 
     ../../modules/nvidia.nix
+    ../../modules/programs.nix
     ../../modules/bluetooth.nix
     ../../modules/audio.nix
     ../../modules/desktop.nix
