@@ -2,10 +2,12 @@
 
 {
   programs.ssh = {
+    # Enable SSH Service
     enable = true;
-
+    # Disable default SSH config to prepare for removal of defaults
+    enableDefaultConfig = false;
+    # Automatically use github ssh keys for repo access
     extraConfig = ''
-      # Test if github.com works with ssh for cloning
       Host github.com
         IdentityFile ~/.ssh/github
         IdentitiesOnly yes

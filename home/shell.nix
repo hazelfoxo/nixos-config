@@ -2,42 +2,60 @@
 
 {
   programs.fish = {
+    # Enable fish servicew
     enable = true;
 
+    # Define fish aliases
     shellAliases = {
       ll = "ls -lah";
       gs = "git status";
     };
 
+    # Define fish functions
     functions = {
-      nix-switch = ''
-        sudo nixos-rebuild switch --flake ~/nixos-config#$NIXOS_HOST
-      '';
 
-      nix-upgrade = ''
-        sudo nix flake update /etc/nixos
-        sudo nixos-rebuild switch --flake ~/nixos-config#$NIXOS_HOST
-      '';
+    # NiXOS Commonly Used Commands
 
-      nix-clean = ''
-        sudo nix-collect-garbage -d
-      '';
+        # Rebuild system from flake
+        nix-switch = ''
+            sudo nixos-rebuild switch --flake ~/nixos-config#$NIXOS_HOST
+        '';
+
+        # Upgrade package lock and then packages for system
+        nix-upgrade = ''
+            sudo nix flake update --flake /etc/nixos
+            sudo nixos-rebuild switch --flake ~/nixos-config#$NIXOS_HOST
+        '';
+
+        # Deletes generations older than 14d days and garbage-collects old stores
+        nix-clean = ''
+            sudo nix-collect-garbage --delete-older-than 14d
+        '';
+
+        # Deletes all old generations and garbage-collects old stores
+        nix-clean-all = ''
+            sudo nix-collect-garbage -d
+        '';
     };
 
-    interactiveShellInit = ''
-      function fish_greeting
-        fastfetch
-      end
-    '';
+        # Define inital command ran when fish shel is started
+        interactiveShellInit = ''
+            function fish_greeting
+                fastfetch
+            end
+        '';
   };
 
-  home.file.".config/fastfetch".source = ./fastfetch;
+    # Copy fastfetch config files from repo
+    home.file.".config/fastfetch".source = ./fastfetch;
 
-  programs.starship = {
-    enable = true;
-    enableFishIntegration = true;
-    settings = builtins.fromTOML (
-      builtins.readFile ./starship/jetpack.toml
-    );
-  };
+    programs.starship = {
+    # Enable startship service
+        enable = true;
+        # Configure starship for fish
+        enableFishIntegration = true;
+        settings = builtins.fromTOML (
+        builtins.readFile ./starship/jetpack.toml
+        );
+    };
 }
