@@ -2,13 +2,13 @@
 
 {
   programs.ssh = {
-  enable = true;
+    enable = true;
 
-  extraConfig = ‘’
-    # Test if github.com works with ssh for cloning
-    Host github.com
-    IdentityFile ~/.ssh/github
-    ‘’;
+    extraConfig = ''
+      # Test if github.com works with ssh for cloning
+      Host github.com
+        IdentityFile ~/.ssh/github
+        IdentitiesOnly yes
+    '';
   };
-
-};
+}

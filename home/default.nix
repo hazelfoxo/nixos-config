@@ -12,6 +12,7 @@
     ./kde.nix
     ./shell.nix
     ./git.nix
+    ./ssh.nix
     ./appearance.nix
   ];
 
