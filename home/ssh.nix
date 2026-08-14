@@ -14,4 +14,5 @@
         IdentitiesOnly yes
     '';
   };
+  services.ssh-agent.enable = true;
 }
