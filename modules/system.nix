@@ -43,6 +43,13 @@
     };
   };
 
+  # Enable automatic NixOS store garbage collection
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
+
   # Enable Polkit Service
   security.polkit.enable = true;
 
