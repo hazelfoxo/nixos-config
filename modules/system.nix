@@ -13,9 +13,6 @@
    # Enable Flatpak Service
   services.flatpak.enable = true;
 
-  # Enable GPU Screen Recorder Service
-  programs.gpu-screen-recorder.enable = true;
-
   # Allow UnFree NixOS Packages
   nixpkgs.config.allowUnfree = true;
 
@@ -25,7 +22,6 @@
     htop
     btop
     fastfetch
-    gpu-screen-recorder-gtk # gpu-screen recorder glk ui
   ];  
 
   xdg.portal.enable = true;

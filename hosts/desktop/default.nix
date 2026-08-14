@@ -3,7 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-
+    ../../modules/gpu-screenrecorder.nix
     ../../modules/locale.nix
     ../../modules/nvidia.nix
     ../../modules/programs.nix
