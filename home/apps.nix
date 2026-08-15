@@ -9,6 +9,5 @@
         localsend
         pkgs."spotify-adblock"
         libreoffice
-        mprisence
     ];
 }
