@@ -20,6 +20,7 @@ in
       userSettings = {
         "workbench.colorTheme" = "Catppuccin Mocha";
         "chat.titleBar.openInAgentsWindow.enabled" = false;
+          "chat.titleBar.signIn.enabled" = false;
       };
     };
   };
