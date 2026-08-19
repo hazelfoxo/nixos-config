@@ -2,34 +2,6 @@
 
 {
 
-# KDE Appearance Config
-  gtk = {
-  # Enable GTK Theming
-    enable = true;
-
-    # Set all themes to breeze
-    theme = {
-      name = "Breeze";
-      package = pkgs.kdePackages.breeze-gtk;
-    };
-
-    iconTheme = {
-      name = "Breeze";
-      package = pkgs.kdePackages.breeze-icons;
-    };
-
-    cursorTheme = {
-      name = "Breeze";
-      package = pkgs.kdePackages.breeze-icons;
-    };
-    # Set default system font to Noto
-    font = {
-      name = "Noto Sans";
-      size = 10;
-    };
-  };
-
-  # Force default KDE text hinting and anti-aliasing settings
   xdg.configFile."fontconfig/fonts.conf".text = ''
     <?xml version='1.0'?>
     <fontconfig>
