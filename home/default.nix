@@ -18,6 +18,7 @@
     ./shell.nix
     ./git.nix
     ./ssh.nix
+    ./vscode.nix
    ./mprisence.nix
     ./appearance.nix
   ];
