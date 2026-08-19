@@ -11,7 +11,7 @@ rustPlatform.buildRustPackage {
     owner = "abba23";
     repo = "spotify-adblock";
     rev = "v${version}";
-    hash = "sha256-Em8ICO+GtA1k/urBA7e9+OdZmHvthTy+iRWueUz4+40=";
+    hash = "sha256-R1xM/a+EzFd3I94EVCphbW+M114x6CtIeCOi9Fd9tpc=";
   };
 
   cargoHash = "sha256-gxGetdqaoJa/ZF1VnW6UXJyJfLBGZxZnyKpT/Qk/8Og=";
