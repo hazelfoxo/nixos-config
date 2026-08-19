@@ -4,6 +4,6 @@
   # Enable Firefox
   programs.firefox.enable = true;
 
-  # Enable Steam
-  programs.steam.enable = true;
+  # Enable Fish
+  programs.fish.enable = true;
 }

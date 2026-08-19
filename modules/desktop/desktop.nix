@@ -12,4 +12,10 @@
     kdePackages.sddm-kcm
   ];
 
+  # Enable XDG Portal
+  xdg.portal.enable = true;
+
+   # Enable Flatpak Service
+  services.flatpak.enable = true;
+
 }

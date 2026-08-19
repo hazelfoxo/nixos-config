@@ -3,18 +3,8 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/tailscale.nix
-    ../../modules/gpu-screenrecorder.nix
-    ../../modules/locale.nix
-    ../../modules/nvidia.nix
-    ../../modules/programs.nix
-    ../../modules/bluetooth.nix
-    ../../modules/audio.nix
-    ../../modules/desktop.nix
-    ../../modules/networking.nix
-    ../../modules/system.nix
-    ../../modules/users.nix
-    ../../modules/localsend.nix
+    ../../modules/common.nix
+    ../../modules/hardware/nvidia.nix
   ];
 
   networking.hostName = "hazie-pc";
