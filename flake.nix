@@ -40,7 +40,7 @@
             inherit inputs;
           };
 
-          home-manager.users.hazie = import ./home/default.nix;
+          home-manager.users.hazie = import ./home/home.nix;
         }
       ];
     };
