@@ -12,6 +12,7 @@
       Host github.com
         IdentityFile ~/.ssh/github
         IdentitiesOnly yes
+        AddKeysToAgent yes
     '';
   };
   services.ssh-agent.enable = true;
