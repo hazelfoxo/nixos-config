@@ -21,7 +21,8 @@ in
         "workbench.colorTheme" = "Catppuccin Mocha";
         "chat.titleBar.openInAgentsWindow.enabled" = false;
         "chat.titleBar.signIn.enabled" = false;
-          "editor.fontFamily" = "'CaskaydiaCove Nerd Font', monospace";
+        "editor.fontFamily" = "'CaskaydiaCove Nerd Font', monospace";
+        "git.confirmSync" =  false;
       };
     };
   };
