@@ -1,7 +1,7 @@
 { lib, fetchFromGitHub, rustPlatform }:
 
 let
-  version = "1.1.0";
+  version = "1.1.1";
 in
 rustPlatform.buildRustPackage {
   pname = "spotify-adblock";

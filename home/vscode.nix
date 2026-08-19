@@ -1,5 +1,10 @@
 { pkgs, inputs, ... }:
 
+let
+  vscode-marketplace =
+    inputs.nix-vscode-extensions.extensions.${pkgs.stdenv.hostPlatform.system}
+      .vscode-marketplace;
+in
 {
   programs.vscode = {
     enable = true;
@@ -8,13 +13,13 @@
       extensions = with pkgs.vscode-extensions; [
         catppuccin.catppuccin-vsc
 
-        inputs.nix-vscode-extensions.extensions.${pkgs.stdenv.hostPlatform.system}
-          .vscode-marketplace.icrawl.discord-vscode
+        vscode-marketplace.icrawl.discord-vscode
+        vscode-marketplace.jnoortheen.nix-ide
       ];
 
       userSettings = {
         "workbench.colorTheme" = "Catppuccin Mocha";
-          "chat.titleBar.openInAgentsWindow.enabled" = false;
+        "chat.titleBar.openInAgentsWindow.enabled" = false;
       };
     };
   };

@@ -4,11 +4,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    gsr-ui-nix = {
-      url = "github:rPlakama/gsr-ui-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nix-vscode-extensions.url =
       "github:nix-community/nix-vscode-extensions";
 
@@ -18,31 +13,47 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, ... }: {
-    nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
+  outputs = inputs@{ self, nixpkgs, home-manager, ... }:
+    let
       system = "x86_64-linux";
+      overlay = import ./overlays/default.nix;
 
-      specialArgs = {
-        inherit inputs;
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [ overlay ];
       };
+    in {
+      overlays.default = overlay;
 
-      modules = [
-        ./hosts/desktop
-        ./modules/overlays.nix
+      packages.${system}.spotify-adblock = pkgs.spotify-adblock;
 
-        home-manager.nixosModules.home-manager
+      nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
+        inherit system;
 
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
+        specialArgs = {
+          inherit inputs;
+        };
 
-          home-manager.extraSpecialArgs = {
-            inherit inputs;
-          };
+        modules = [
+          ./hosts/desktop
 
-          home-manager.users.hazie = import ./home/home.nix;
-        }
-      ];
+          {
+            nixpkgs.overlays = [ self.overlays.default ];
+          }
+
+          home-manager.nixosModules.home-manager
+
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+
+            home-manager.extraSpecialArgs = {
+              inherit inputs;
+            };
+
+            home-manager.users.hazie = import ./home/home.nix;
+          }
+        ];
+      };
     };
-  };
 }
