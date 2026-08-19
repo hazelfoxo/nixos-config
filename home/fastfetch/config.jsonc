@@ -53,8 +53,8 @@
       "keyColor": "green"
     },
     {
-      "type": "terminal",
-      "key": "   Terminal",
+      "type": "shell",
+      "key": "   Shell",
       "keyColor": "yellow"
     },
     {
