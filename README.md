@@ -37,16 +37,17 @@ $ sudo nixos-rebuild switch --flake /etc/nixos#desktop
 - GPU Screenrecorder
 
 ## Hardware
-- Nvidia support  
+- Bluetooth
+- Optional Nvidia Module
 
 ## Structure
 nixos-config/
-├── home/       # Home Manager and user configuration
-├── hosts/      # Host-specific NixOS configurations
-├── modules/    # NixOS modules
-├── overlays/   # Nixpkgs overlays and package modifications
-├── packages/   # Custom packages and package definitions
-└── flake.nix   # Flake entry point and system configuration
+├── home/       # Home Manager and user configuration  
+├── hosts/      # Host-specific NixOS configurations  
+├── modules/    # NixOS modules  
+├── overlays/   # Nixpkgs overlays and package modifications  
+├── packages/   # Custom packages and package definitions  
+└── flake.nix   # Flake entry point and system configuration  
 
 ## Hosts
 - Desktop host with NVIDIA driver support
