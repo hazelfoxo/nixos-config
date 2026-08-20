@@ -37,21 +37,21 @@
         modules = [
           ./hosts/desktop
 
-          {
-            nixpkgs.overlays = [ self.overlays.default ];
-          }
-
           home-manager.nixosModules.home-manager
 
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
+            nixpkgs.overlays = [ overlay ];
 
-            home-manager.extraSpecialArgs = {
-              inherit inputs;
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+
+              extraSpecialArgs = {
+                inherit inputs;
+              };
+
+              users.hazie = import ./home/home.nix;
             };
-
-            home-manager.users.hazie = import ./home/home.nix;
           }
         ];
       };
