@@ -23,6 +23,7 @@ in
         "chat.titleBar.signIn.enabled" = false;
         "editor.fontFamily" = "'CaskaydiaCove Nerd Font', monospace";
         "git.confirmSync" =  false;
+        "git.enableSmartCommit"= true;
       };
     };
   };
