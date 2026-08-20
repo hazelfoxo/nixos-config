@@ -41,7 +41,7 @@ $ sudo nixos-rebuild switch --flake /etc/nixos#desktop
 - Optional Nvidia Module
 
 ## Structure
-nixos-config/
+nixos-config/  
 ├── home/       # Home Manager and user configuration  
 ├── hosts/      # Host-specific NixOS configurations  
 ├── modules/    # NixOS modules  
