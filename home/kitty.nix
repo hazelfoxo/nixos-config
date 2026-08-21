@@ -6,7 +6,7 @@ programs.kitty = {
 
   settings = {
     background = "#000000";
-    foreground = "#eee8f5";
+    foreground = "#ffffff";
 
     cursor = "#f7c8e0";
     cursor_text_color = "#000000";
@@ -37,8 +37,8 @@ programs.kitty = {
     color6 = "#a7d5d5";
     color14 = "#b9e5e4";
 
-    color7 = "#d9d2df";
-    color15 = "#f5eff8";
+    color7 = "#d0d0d0";
+    color15 = "#ffffff";
 
     tab_bar_background = "#000000";
     active_tab_background = "#d8c0eb";
