@@ -10,6 +10,5 @@
         pkgs."spotify-adblock"
         libreoffice
         code
-        kitty
     ];
 }

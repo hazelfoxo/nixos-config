@@ -12,10 +12,11 @@
     ./apps.nix
     ./kde.nix
     ./shell.nix
+    ./kitty.nix
     ./git.nix
     ./ssh.nix
     ./vscode.nix
-   ./mprisence.nix
+    ./mprisence.nix
     ./appearance.nix
   ];
 
