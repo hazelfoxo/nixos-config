@@ -4,6 +4,10 @@
 programs.kitty = {
   enable = true;
 
+   font = {
+    name = "CaskaydiaCove Nerd Font";
+  };
+
   settings = {
     background = "#000000";
     foreground = "#ffffff";
