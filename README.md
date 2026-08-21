@@ -1,7 +1,7 @@
 # nixos-config
 A basic NixOS config for own personal use built for KDE Plasma, with all apps and tools I use regularly. 
 
-It's a nix flake based setup that I've tailored for my own workflow. It contains a stock KDE install with some optional quality of life applications and tweaks that I use. 
+It's a nix flake based setup that I've tailored for my own workflow. It contains a stock KDE Plasma install with some optional KDE apps.
 
 ## Installation
 1. Create the configuration directory
