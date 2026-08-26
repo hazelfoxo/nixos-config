@@ -27,6 +27,7 @@ nixos-config/
 
 ## Hosts
 - Desktop host with NVIDIA driver support
+- Laptop host with Intel GPU support
 
 ## Aliased Commands
 ### Nix Commands
