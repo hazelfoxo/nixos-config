@@ -11,5 +11,6 @@
     ./mprisence.nix
     ./fastfetch.nix
     ./starship.nix
+    ./thunderbird.nix
   ];
 }
