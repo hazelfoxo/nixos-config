@@ -11,6 +11,7 @@
    imports = [
     ./programs
     ./desktop
+    ./shell
   ];
 
 }
