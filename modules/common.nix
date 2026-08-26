@@ -7,5 +7,6 @@
     ./system
     ./networking
     ./gaming
+    ./video-editing
   ];
 }
