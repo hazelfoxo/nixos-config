@@ -2,5 +2,10 @@
 
   {
   # Enable Steam
-  programs.steam.enable = true;
-  }
+  programs.steam = {
+    enable = true;
+    extraPackages = with pkgs; [
+      kdePackages.breeze
+    ];
+  };
+}
