@@ -4,32 +4,8 @@ A basic NixOS config for own personal use built for KDE Plasma, with all apps an
 It's a nix flake based setup that I've tailored for my own workflow. It contains a stock KDE Plasma install with some optional KDE apps.
 
 ## Installation
-1. Create the configuration directory
-```
-$ mkdir -p ~/nixos-config
-```
-
-3. Move into it
-```
-$ cd ~/nixos-config
-```
-
-4. Clone the repository into the current directory
-```
-$ git clone git@github.com:hazelfoxo/nixos-config.git .
-```
-
-6. Replace /etc/nixos with a symlink to the configuration
-```
-$ sudo rm -rf /etc/nixos
-$ sudo ln -s ~/nixos-config /etc/nixos
-```
-
-5. Build and activate the configuration
-```
-$ sudo nixos-rebuild switch --flake /etc/nixos#desktop
-```
-
+1. Download `setup.sh` script and execute it.   
+2. Follow the installation steps within the script.
 ## Apps
 - Discord
 - Telegram
