@@ -16,7 +16,7 @@ $ cd ~/nixos-config
 
 4. Clone the repository into the current directory
 ```
-$ git clone https://github.com/hazelfoxo/nixos-config.git .
+$ git clone git@github.com:hazelfoxo/nixos-config.git .
 ```
 
 6. Replace /etc/nixos with a symlink to the configuration
