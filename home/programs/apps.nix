@@ -10,5 +10,6 @@
         pkgs."spotify-adblock"
         libreoffice
         google-chrome
+        yt-dlp
     ];
 }
