@@ -5,7 +5,7 @@
     ./hardware-configuration.nix
     ../../modules/common.nix
     ../../modules/hardware/intel.nix
-    ../../modules/media/bigscreen.nix
+    ../../modules/tv/apps.nix
   ];
 
   networking.hostName = "hazie-laptop";
