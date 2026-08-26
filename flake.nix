@@ -1,5 +1,5 @@
 {
-  description = "Hazie's Desktop PCs";
+  description = "Hazie's NixOS systems";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -16,44 +16,52 @@
   outputs = inputs@{ self, nixpkgs, home-manager, ... }:
     let
       system = "x86_64-linux";
+
       overlay = import ./overlays/default.nix;
 
       pkgs = import nixpkgs {
         inherit system;
         overlays = [ overlay ];
       };
-    in {
+
+      mkSystem = host:
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+
+          specialArgs = {
+            inherit inputs;
+          };
+
+          modules = [
+            ./hosts/${host}
+
+            home-manager.nixosModules.home-manager
+
+            {
+              nixpkgs.overlays = [ overlay ];
+
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+
+                extraSpecialArgs = {
+                  inherit inputs;
+                };
+
+                users.hazie = import ./home/home.nix;
+              };
+            }
+          ];
+        };
+    in
+    {
       overlays.default = overlay;
 
       packages.${system}.spotify-adblock = pkgs.spotify-adblock;
 
-      nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
-        inherit system;
-
-        specialArgs = {
-          inherit inputs;
-        };
-
-        modules = [
-          ./hosts/desktop
-
-          home-manager.nixosModules.home-manager
-
-          {
-            nixpkgs.overlays = [ overlay ];
-
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-
-              extraSpecialArgs = {
-                inherit inputs;
-              };
-
-              users.hazie = import ./home/home.nix;
-            };
-          }
-        ];
+      nixosConfigurations = {
+        desktop = mkSystem "desktop";
+        laptop = mkSystem "laptop";
       };
     };
 }
