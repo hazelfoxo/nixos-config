@@ -24,6 +24,7 @@ in
         "editor.fontFamily" = "'CaskaydiaCove Nerd Font', monospace";
         "git.confirmSync" =  false;
         "git.enableSmartCommit"= true;
+        "git.autofetch" = true;
       };
     };
   };
