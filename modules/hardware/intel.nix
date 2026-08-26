@@ -10,5 +10,8 @@
     ];
   };
 
+  # Intel CPU thermal management
+  services.thermald.enable = true;
+
   hardware.enableRedistributableFirmware = true;
 }
