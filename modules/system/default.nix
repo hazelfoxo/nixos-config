@@ -9,5 +9,6 @@
     ./fonts.nix
     ./programs.nix
     ./users.nix
+    ./plymouth.nix
   ];
 }
