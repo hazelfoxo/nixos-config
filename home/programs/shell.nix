@@ -46,16 +46,4 @@
         '';
   };
 
-    # Copy fastfetch config files from repo
-    home.file.".config/fastfetch".source = ./fastfetch;
-
-    programs.starship = {
-    # Enable startship service
-        enable = true;
-        # Configure starship for fish
-        enableFishIntegration = true;
-        settings = builtins.fromTOML (
-        builtins.readFile ./starship/jetpack.toml
-        );
-    };
 }
