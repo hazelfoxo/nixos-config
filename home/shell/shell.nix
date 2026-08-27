@@ -14,6 +14,11 @@
 
     # NiXOS Commonly Used Commands
 
+        # Pull latest repo commits
+        nix-pull = ''
+            git -C ~/nixos-config pull
+        '';
+
         # Rebuild system from flake
         nix-switch = ''
             sudo nixos-rebuild switch --flake ~/nixos-config#$NIXOS_HOST
