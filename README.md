@@ -21,9 +21,9 @@ nixos-config/
 ├── home/       # Home Manager and user configuration  
 ├── hosts/      # Host-specific NixOS configurations  
 ├── modules/    # NixOS modules  
-├── overlays/   # Nixpkgs overlays and package modifications  
-├── packages/   # Custom packages and package definitions  
+├── secrets/    # Stores secrets for SSH and Wireguard
 └── flake.nix   # Flake entry point and system configuration  
+└── setup.sh    # Bootstrap for installing repo
 
 ## Hosts
 - Desktop host with NVIDIA driver support
