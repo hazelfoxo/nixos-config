@@ -3,9 +3,8 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./ssh.nix
-    ./wireguard.nix
-    
+    ./VPN
+
     ../../modules/common.nix
     ../../modules/system/secrets
     
