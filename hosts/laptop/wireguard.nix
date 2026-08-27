@@ -3,6 +3,8 @@
 {
   my.wireguard = {
     enable = true;
+    
+    connectionName = "HomeVPN";
 
     address = [
       "10.0.0.2/32"
