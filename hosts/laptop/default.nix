@@ -9,6 +9,10 @@
     ../../modules/tv/apps.nix
   ];
 
+  sops.defaultSopsFile = ../../secrets/laptop.yaml;
+
+  sops.secrets.test_secret = {};
+
   networking.hostName = "hazie-laptop";
 
   boot.loader.systemd-boot.enable = true;
