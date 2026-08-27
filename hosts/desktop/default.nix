@@ -3,8 +3,12 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./ssh.nix
+    ./wireguard.nix
+
     ../../modules/common.nix
     ../../modules/system/secrets
+    
     ../../modules/hardware/nvidia.nix
   ];
   
