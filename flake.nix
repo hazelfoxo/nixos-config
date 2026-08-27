@@ -2,6 +2,7 @@
   description = "Hazie's NixOS systems";
 
   inputs = {
+
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     nix-vscode-extensions.url =
@@ -16,14 +17,23 @@
       url = "github:SpotX-Official/SpotX-Nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, ... }:
+
     let
+
       system = "x86_64-linux";
 
       mkSystem = host:
         nixpkgs.lib.nixosSystem {
+
           inherit system;
 
           specialArgs = {
@@ -31,12 +41,17 @@
           };
 
           modules = [
+
             ./hosts/${host}
 
             home-manager.nixosModules.home-manager
 
+            inputs.sops-nix.nixosModules.sops
+
             {
+
               nixpkgs = {
+
                 overlays = [
                   inputs.spotx-nix.overlays.default
                 ];
@@ -46,9 +61,11 @@
                     "spotify"
                     "spotify-spotx"
                   ];
+
               };
 
               home-manager = {
+
                 useGlobalPkgs = true;
                 useUserPackages = true;
 
@@ -57,15 +74,26 @@
                 };
 
                 users.hazie = import ./home/home.nix;
+
               };
+
             }
+
           ];
+
         };
+
     in
+
     {
+
       nixosConfigurations = {
+
         desktop = mkSystem "desktop";
         laptop = mkSystem "laptop";
+
       };
+
     };
+
 }

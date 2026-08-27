@@ -4,6 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/common.nix
+    ../../modules/system/secrets
     ../../modules/hardware/intel.nix
     ../../modules/tv/apps.nix
   ];
