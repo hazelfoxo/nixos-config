@@ -7,8 +7,6 @@
 
     # Define fish aliases
     shellAliases = {
-      ll = "ls -lah";
-      gs = "git status";
     };
 
     # Define fish functions
