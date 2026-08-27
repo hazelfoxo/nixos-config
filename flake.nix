@@ -11,18 +11,16 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    spotx-nix = {
+      url = "github:SpotX-Official/SpotX-Nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, ... }:
     let
       system = "x86_64-linux";
-
-      overlay = import ./overlays/default.nix;
-
-      pkgs = import nixpkgs {
-        inherit system;
-        overlays = [ overlay ];
-      };
 
       mkSystem = host:
         nixpkgs.lib.nixosSystem {
@@ -38,7 +36,17 @@
             home-manager.nixosModules.home-manager
 
             {
-              nixpkgs.overlays = [ overlay ];
+              nixpkgs = {
+                overlays = [
+                  inputs.spotx-nix.overlays.default
+                ];
+
+                config.allowUnfreePredicate = pkg:
+                  builtins.elem (nixpkgs.lib.getName pkg) [
+                    "spotify"
+                    "spotify-spotx"
+                  ];
+              };
 
               home-manager = {
                 useGlobalPkgs = true;
@@ -55,10 +63,6 @@
         };
     in
     {
-      overlays.default = overlay;
-
-      packages.${system}.spotify-adblock = pkgs.spotify-adblock;
-
       nixosConfigurations = {
         desktop = mkSystem "desktop";
         laptop = mkSystem "laptop";
