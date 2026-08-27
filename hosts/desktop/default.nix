@@ -4,8 +4,11 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/common.nix
+    ../../modules/system/secrets
     ../../modules/hardware/nvidia.nix
   ];
+  
+  sops.defaultSopsFile = ../../secrets/desktop.yaml;
 
   networking.hostName = "hazie-pc";
 
