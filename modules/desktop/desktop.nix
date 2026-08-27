@@ -18,4 +18,6 @@
    # Enable Flatpak Service
   services.flatpak.enable = true;
 
+  # Enable KDE Partition Manager
+  programs.partition-manager.enable = true;
 }
