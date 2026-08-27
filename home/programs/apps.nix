@@ -6,7 +6,7 @@
         discord
         telegram-desktop
         localsend
-        pkgs.spotify-spotx
+        spotify-spotx
         libreoffice
         google-chrome
         yt-dlp
