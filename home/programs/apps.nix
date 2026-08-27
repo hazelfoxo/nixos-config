@@ -11,5 +11,6 @@
         libreoffice
         google-chrome
         yt-dlp
+        krita
     ];
 }
