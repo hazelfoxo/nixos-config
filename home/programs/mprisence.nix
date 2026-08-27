@@ -10,5 +10,6 @@
   home.file.".config/mprisence/config.toml".text = ''
     [web_player.youtube]
     ignore = false
+    override_activity_type = "watching"
   '';
 }
