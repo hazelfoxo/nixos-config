@@ -1,0 +1,7 @@
+# SOPS / age private keys
+*.agekey
+keys.txt
+
+# Editor files
+*.swp
+*.swo
