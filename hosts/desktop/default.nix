@@ -6,7 +6,7 @@
     ./hardware-configuration.nix
     ./VPN
     
-    ../../modules/system/systemd-boot.nix
+    ../../modules/system/secureboot.nix
     ../../modules/hardware/nvidia.nix
   ];
   
