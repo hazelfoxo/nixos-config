@@ -11,5 +11,6 @@
     ./users.nix
     ./plymouth.nix
     ./boot.nix
+    ./secrets.nix
   ];
 }
