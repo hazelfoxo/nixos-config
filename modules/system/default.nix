@@ -10,5 +10,6 @@
     ./programs.nix
     ./users.nix
     ./plymouth.nix
+    ./boot.nix
   ];
 }
