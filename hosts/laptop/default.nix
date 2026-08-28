@@ -1,24 +1,20 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 {
   imports = [
+    ../../modules/common.nix
     ./hardware-configuration.nix
     ./VPN
-
-    ../../modules/common.nix
-    ../../modules/system/secrets
+    
+    ../../modules/tv/apps.nix
     
     ../../modules/hardware/intel.nix
-    ../../modules/tv/apps.nix
+    ../../modules/system/systemd-boot.nix
   ];
 
   sops.defaultSopsFile = ../../secrets/laptop.yaml;
 
   networking.hostName = "hazie-laptop";
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
   environment.variables.NIXOS_HOST = "laptop";
-
 }

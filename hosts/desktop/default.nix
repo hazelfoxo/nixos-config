@@ -2,11 +2,9 @@
 
 {
   imports = [
+    ./../modules/common.nix
     ./hardware-configuration.nix
     ./VPN
-
-    ../../modules/common.nix
-    ../../modules/system/secrets
     
     ../../modules/system/systemd-boot.nix
     ../../modules/hardware/nvidia.nix
