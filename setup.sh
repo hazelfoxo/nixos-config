@@ -33,7 +33,7 @@ echo "==> Installing device key..."
 sudo install -d -m 700 /var/lib/sops-nix
 
 sops decrypt "$DEVICE_SECRET" |
-sudo install -m 600 /dev/stdin /var/lib/sops-nix/key.txt
+sudo install -m 600 /dev/stdin /var/lib/sops-nix/device-key.txt
 
 echo "==> Rebuilding NixOS..."
 
