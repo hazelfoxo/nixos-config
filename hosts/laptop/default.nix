@@ -10,7 +10,7 @@
     ../../modules/system/systemd-boot.nix
   ];
 
-  sops.defaultSopsFile = ../../secrets/laptop.yaml;
+  sops.defaultSopsFile = ../../secrets/hosts/laptop.yaml;
 
   networking.hostName = "hazie-laptop";
 

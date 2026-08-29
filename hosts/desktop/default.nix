@@ -10,7 +10,7 @@
     ../../modules/hardware/nvidia.nix
   ];
   
-  sops.defaultSopsFile = ../../secrets/desktop.yaml;
+  sops.defaultSopsFile = ../../secrets/hosts/desktop.yaml;
 
   networking.hostName = "hazie-pc";
 
