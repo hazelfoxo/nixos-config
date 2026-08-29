@@ -2,44 +2,36 @@
 
 set -euo pipefail
 
-if [[ -z "${IN_NIX_SHELL:-}" ]]; then
-echo "Entering temporary shell with sops..."
-exec nix-shell -p sops --run "bash '$0'"
-fi
-
-echo "sops is available."
-
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-CONFIG_DIR="$HOME/nixos-config"
-ETC_LINK="/etc/nix-os"
-
-echo "Copying config..."
-
-rm -rf "$CONFIG_DIR"
-cp -a "$SCRIPT_DIR" "$CONFIG_DIR"
-
-echo "Creating symlink..."
-
-sudo rm -rf "$ETC_LINK"
-sudo ln -s "$CONFIG_DIR" "$ETC_LINK"
+REPO_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+ETC_NIXOS="/etc/nixos"
 
 read -rp "Host: " HOST
-read -rp "Personal age key: " KEY
 
-KEY="${KEY/#~/$HOME}"
+Temporary personal key copied into the repo directory.
+
+KEY="$REPO_DIR/keys.txt"
+
+if [[ ! -f "$KEY" ]]; then
+echo "Missing personal key: $KEY"
+exit 1
+fi
+
+echo "Linking /etc/nixos..."
+
+sudo rm -rf "$ETC_NIXOS"
+sudo ln -s "$REPO_DIR" "$ETC_NIXOS"
 
 echo "Installing device key..."
 
 sudo install -d -m 700 /var/lib/sops-nix
 
 SOPS_AGE_KEY_FILE="$KEY"
-sops decrypt "$CONFIG_DIR/secrets/$HOST.yaml" |
+sops decrypt "$REPO_DIR/secrets/device-keys/$HOST.yaml" |
 sudo install -m 600 /dev/stdin /var/lib/sops-nix/age-key.txt
 
 echo "Rebuilding..."
 
-sudo nixos-rebuild switch --flake "$CONFIG_DIR#$HOST"
+sudo nixos-rebuild switch --flake "$ETC_NIXOS#$HOST"
 
 echo "Removing temporary key..."
 
