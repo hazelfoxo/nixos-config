@@ -8,7 +8,7 @@ KEY="$REPO_DIR/keys.txt"
 
 read -rp "Host: " HOST
 
-DEVICE_SECRET="$REPO_DIR/secrets/device-keys/$HOST.yaml"
+DEVICE_SECRET="$REPO_DIR/secrets/$HOST.yaml"
 
 [[ -f "$KEY" ]] || {
 echo "Missing personal key: $KEY"
