@@ -34,7 +34,7 @@ echo "Installing device key..."
 sudo install -d -m 700 /var/lib/sops-nix
 
 SOPS_AGE_KEY_FILE="$KEY"
-sops decrypt "$CONFIG_DIR/secrets/device-keys/$HOST.yaml" |
+sops decrypt "$CONFIG_DIR/secrets/$HOST.yaml" |
 sudo install -m 600 /dev/stdin /var/lib/sops-nix/age-key.txt
 
 echo "Rebuilding..."
