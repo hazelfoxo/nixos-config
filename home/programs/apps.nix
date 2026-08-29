@@ -11,5 +11,6 @@
         google-chrome
         yt-dlp
         krita
+        handbrake
     ];
 }
