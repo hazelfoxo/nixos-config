@@ -10,6 +10,8 @@
   # Install KDE Specific Packages
   environment.systemPackages = with pkgs; [
     kdePackages.sddm-kcm
+    kdePackages.kate
+    haruna
   ];
 
   # Enable XDG Portal
