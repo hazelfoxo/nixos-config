@@ -7,6 +7,15 @@
     owner = "hazie";
 
     hosts = {
+      github = {
+        address = "github.com";
+        user = "git";
+
+        sopsKey = "github-ssh-private-key";
+
+        knownHostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
+      };
+
       homeserver = {
         address = "10.0.0.1";
         user = "hazie";
