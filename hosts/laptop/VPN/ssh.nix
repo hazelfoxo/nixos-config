@@ -7,7 +7,7 @@
     owner = "hazie";
 
     hosts = {
-      github = {
+      "github.com" = {
         address = "github.com";
         user = "git";
 
