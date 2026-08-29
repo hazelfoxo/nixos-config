@@ -2,8 +2,11 @@
 {
   my.ssh = {
     enable = true;
+  
+    name = "homeserver";
+    address = "10.0.0.1";
+    port = 2222;
 
-    host = "10.0.0.1";
     user = "hazie";
 
     knownHostKey =
