@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./desktop.nix
+    ./kde.nix
     ./gpu-screenrecorder.nix
   ];
 }
