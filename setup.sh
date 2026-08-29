@@ -2,38 +2,37 @@
 
 set -euo pipefail
 
-REPO_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+REPO_DIR="$PWD"
 ETC_NIXOS="/etc/nixos"
+KEY="$REPO_DIR/keys.txt"
 
 read -rp "Host: " HOST
 
-Temporary personal key copied into the repo directory.
+DEVICE_SECRET="$REPO_DIR/secrets/device-keys/$HOST.yaml"
 
-KEY="$REPO_DIR/keys.txt"
-
-if [[ ! -f "$KEY" ]]; then
+[[ -f "$KEY" ]] || {
 echo "Missing personal key: $KEY"
 exit 1
-fi
+}
 
-echo "Linking /etc/nixos..."
+[[ -f "$DEVICE_SECRET" ]] || {
+echo "Missing device secret: $DEVICE_SECRET"
+exit 1
+}
+
+export SOPS_AGE_KEY_FILE="$KEY"
+
+echo "Using key: $SOPS_AGE_KEY_FILE"
 
 sudo rm -rf "$ETC_NIXOS"
 sudo ln -s "$REPO_DIR" "$ETC_NIXOS"
 
-echo "Installing device key..."
-
 sudo install -d -m 700 /var/lib/sops-nix
 
-SOPS_AGE_KEY_FILE="$KEY"
-sops decrypt "$REPO_DIR/secrets/device-keys/$HOST.yaml" |
+sops decrypt "$DEVICE_SECRET" |
 sudo install -m 600 /dev/stdin /var/lib/sops-nix/age-key.txt
 
-echo "Rebuilding..."
-
 sudo nixos-rebuild switch --flake "$ETC_NIXOS#$HOST"
-
-echo "Removing temporary key..."
 
 rm -f "$KEY"
 
