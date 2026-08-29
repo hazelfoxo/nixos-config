@@ -96,6 +96,7 @@ programs.ssh.extraConfig =
             User ${hostCfg.user}
             IdentityFile ${config.sops.secrets.${hostCfg.sopsKey}.path}
             IdentitiesOnly yes
+            AddKeysToAgent yes
             ${hostCfg.extraConfig}
         ''
       )
