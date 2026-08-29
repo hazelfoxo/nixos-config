@@ -1,119 +1,118 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 let
-
 cfg = config.my.ssh;
 
+hostsWithKnownKeys = lib.filterAttrs (
+_: hostCfg: hostCfg.knownHostKey != null
+) cfg.hosts;
+
 in
-
 {
-
 options.my.ssh = {
+enable = lib.mkEnableOption "SSH client configuration";
 
-enable = lib.mkEnableOption "SSH client";
-
-privateKeySecret = lib.mkOption {
-
+owner = lib.mkOption {
   type = lib.types.str;
-
-  default = "ssh_remote_server_private_key";
-
-  description = "SOPS secret containing the SSH private key.";
-
+  description = "Local user who should own the SSH private keys.";
 };
 
-name = lib.mkOption {
-
+group = lib.mkOption {
   type = lib.types.str;
-
-  description = "Local SSH alias used to connect to the remote server.";
-
+  default = "users";
+  description = "Group that should own the SSH private keys.";
 };
 
-address = lib.mkOption {
+hosts = lib.mkOption {
+  type = lib.types.attrsOf (
+    lib.types.submodule {
+      options = {
+        address = lib.mkOption {
+          type = lib.types.str;
+          description = "Hostname or IP address of the remote server.";
+        };
 
-  type = lib.types.str;
+        port = lib.mkOption {
+          type = lib.types.port;
+          default = 22;
+          description = "SSH port of the remote server.";
+        };
 
-  description = "Hostname or IP address of the remote server.";
+        user = lib.mkOption {
+          type = lib.types.str;
+          description = "SSH username on the remote server.";
+        };
 
-};
+        privateKeySecret = lib.mkOption {
+          type = lib.types.str;
+          description = "Name of the SOPS secret containing the SSH private key.";
+        };
 
-port = lib.mkOption {
+        knownHostKey = lib.mkOption {
+          type = lib.types.nullOr lib.types.str;
+          default = null;
+          description = "SSH public host key.";
+        };
 
-  type = lib.types.port;
+        extraConfig = lib.mkOption {
+          type = lib.types.lines;
+          default = "";
+          description = "Additional SSH configuration for this host.";
+        };
+      };
+    }
+  );
 
-  default = 22;
+  default = { };
 
-  description = "SSH port of the remote server.";
+  description = ''
+    SSH hosts to configure.
 
-};
-
-user = lib.mkOption {
-
-  type = lib.types.str;
-
-  description = "SSH username on the remote server.";
-
-};
-
-knownHostKey = lib.mkOption {
-
-  type = lib.types.str;
-
-  description = "SSH host key for the remote server.";
-
+    The attribute name is used as the SSH alias.
+  '';
 };
 
 };
 
 config = lib.mkIf cfg.enable {
+sops.secrets = lib.mapAttrs' (
+_: hostCfg:
+lib.nameValuePair hostCfg.privateKeySecret {
+owner = cfg.owner;
+group = cfg.group;
+mode = "0400";
+}
+) cfg.hosts;
 
-environment.systemPackages = [
+programs.ssh.extraConfig =
+  lib.concatStringsSep "\n"
+    (
+      lib.mapAttrsToList (
+        name: hostCfg:
+        ''
+          Host ${name}
+            HostName ${hostCfg.address}
+            Port ${toString hostCfg.port}
+            User ${hostCfg.user}
+            IdentityFile ${config.sops.secrets.${hostCfg.privateKeySecret}.path}
+            IdentitiesOnly yes
+            ${hostCfg.extraConfig}
+        ''
+      )
+      cfg.hosts
+    );
 
-  pkgs.openssh
+programs.ssh.knownHosts = lib.mapAttrs (
+  _: hostCfg:
+  {
+    hostNames = [
+      hostCfg.address
+      "[${hostCfg.address}]:${toString hostCfg.port}"
+    ];
 
-];
-
-sops.secrets.${cfg.privateKeySecret} = {
-
-  owner = "hazie";
-
-  group = "users";
-
-  mode = "0400";
-
-};
-
-programs.ssh.extraConfig = ''
-
-  Host ${cfg.name}
-
-    HostName ${cfg.address}
-
-    Port ${toString cfg.port}
-
-    User ${cfg.user}
-
-    IdentityFile ${config.sops.secrets.${cfg.privateKeySecret}.path}
-
-    IdentitiesOnly yes
-
-'';
-
-programs.ssh.knownHosts.${cfg.name} = {
-
-  hostNames = [
-
-    cfg.address
-
-    "[${cfg.address}]:${toString cfg.port}"
-
-  ];
-
-  publicKey = cfg.knownHostKey;
+    publicKey = hostCfg.knownHostKey;
+  }
+) hostsWithKnownKeys;
 
 };
-
-};
-
 }
