@@ -8,7 +8,7 @@ KEY="$REPO_DIR/keys.txt"
 
 read -rp "Host: " HOST
 
-DEVICE_SECRET="$REPO_DIR/secrets/$HOST.yaml"
+DEVICE_SECRET="$REPO_DIR/secrets/device-keys/$HOST.yaml"
 
 [[ -f "$KEY" ]] || {
 echo "Missing personal key: $KEY"
@@ -30,7 +30,7 @@ sudo ln -s "$REPO_DIR" "$ETC_NIXOS"
 sudo install -d -m 700 /var/lib/sops-nix
 
 sops decrypt "$DEVICE_SECRET" |
-sudo install -m 600 /dev/stdin /var/lib/sops-nix/age-key.txt
+sudo install -m 600 /dev/stdin /var/lib/sops-nix/key.txt
 
 sudo nixos-rebuild switch --flake "$ETC_NIXOS#$HOST"
 
