@@ -6,8 +6,6 @@
     ./hardware-configuration.nix
     ./VPN
     
-    ../../modules/tv/apps.nix
-    
     ../../modules/hardware/intel.nix
     ../../modules/system/systemd-boot.nix
   ];
