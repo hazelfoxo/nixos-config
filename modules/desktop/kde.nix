@@ -11,6 +11,7 @@
   environment.systemPackages = with pkgs; [
     kdePackages.sddm-kcm
     kdePackages.kate
+    kdePackages.kcalc
     haruna
   ];
 
