@@ -43,7 +43,7 @@ hosts = lib.mkOption {
           description = "SSH username on the remote server.";
         };
 
-        privateKeySecret = lib.mkOption {
+        sopsKey = lib.mkOption {
           type = lib.types.str;
           description = "Name of the SOPS secret containing the SSH private key.";
         };
@@ -77,7 +77,7 @@ hosts = lib.mkOption {
 config = lib.mkIf cfg.enable {
 sops.secrets = lib.mapAttrs' (
 _: hostCfg:
-lib.nameValuePair hostCfg.privateKeySecret {
+lib.nameValuePair hostCfg.sopsKey {
 owner = cfg.owner;
 group = cfg.group;
 mode = "0400";
@@ -94,7 +94,7 @@ programs.ssh.extraConfig =
             HostName ${hostCfg.address}
             Port ${toString hostCfg.port}
             User ${hostCfg.user}
-            IdentityFile ${config.sops.secrets.${hostCfg.privateKeySecret}.path}
+            IdentityFile ${config.sops.secrets.${hostCfg.sopsKey}.path}
             IdentitiesOnly yes
             ${hostCfg.extraConfig}
         ''
