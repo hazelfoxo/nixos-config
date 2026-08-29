@@ -2,15 +2,24 @@
 
 set -euo pipefail
 
-echo "Copying config..."
+if [[ -z "${IN_NIX_SHELL:-}" ]]; then
+echo "Entering temporary shell with sops..."
+exec nix-shell -p sops --run "bash '$0'"
+fi
+
+echo "sops is available."
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 CONFIG_DIR="$HOME/nixos-config"
 ETC_LINK="/etc/nix-os"
 
+echo "Copying config..."
+
 rm -rf "$CONFIG_DIR"
 cp -a "$SCRIPT_DIR" "$CONFIG_DIR"
+
+echo "Creating symlink..."
 
 sudo rm -rf "$ETC_LINK"
 sudo ln -s "$CONFIG_DIR" "$ETC_LINK"
