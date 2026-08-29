@@ -3,22 +3,20 @@
 {
   my.wireguard = {
     enable = true;
-    
-    connectionName = "HomeVPN";
 
-    address = [
-      "10.0.0.4/32"
-    ];
+    profiles = {
+      HomeVPN = {
+        privateKeySecret = "homeserver_wg_private_key";
 
-    serverPublicKey =
-      "SY57GcLr+gbxxN278xyepRXm37ZbLikM5+b4pRp+anQ=";
+        interface = "wg0";
+        address = [ "10.0.0.4/32" ];
 
-    endpoint = "hazie.duckdns.org:51820";
+        serverPublicKey = "SY57GcLr+gbxxN278xyepRXm37ZbLikM5+b4pRp+anQ=";
+        endpoint = "hazie.duckdns.org:51820";
 
-    allowedIPs = [
-      "10.0.0.1/32"
-    ];
-
-    persistentKeepalive = 25;
+        allowedIPs = [ "10.0.0.1/32" ];
+      };
+    };
   };
 }
+
