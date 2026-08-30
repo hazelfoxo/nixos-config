@@ -44,9 +44,15 @@ sudo install -d -m 700 /var/lib/sops-nix
 sops decrypt "$DEVICE_SECRET" |
     sudo install -m 600 /dev/stdin /var/lib/sops-nix/device-key.txt
 
+echo "==> Updating flake.lock..."
+(
+    cd "$FINAL_REPO"
+    nix --extra-experimental-features "nix-command flakes" flake update
+)
+
 echo "==> Building bootstrap NixOS generation..."
 
-sudo nixos-rebuild switch --flake "$BOOTSTRAP_DIR#$HOST"
+sudo nixos-rebuild switch --flake "$BOOTSTRAP_DIR#$HOST" --extra-experimental-features "nix-command flakes"
 
 echo
 echo "==> Bootstrap generation activated."
