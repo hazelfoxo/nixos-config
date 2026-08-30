@@ -30,7 +30,7 @@
 
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, ... }:
+  outputs = inputs@{ nixpkgs, ... }:
 
     let
 
@@ -46,57 +46,17 @@
           };
 
           modules = [
-
             ./hosts/${host}
-
-            home-manager.nixosModules.home-manager
-
-            inputs.sops-nix.nixosModules.sops
-
-            {
-
-              nixpkgs = {
-
-                overlays = [
-                  inputs.spotx-nix.overlays.default
-                ];
-
-                config.allowUnfreePredicate = pkg:
-                  builtins.elem (nixpkgs.lib.getName pkg) [
-                    "spotify"
-                    "spotify-spotx"
-                  ];
-
-              };
-
-              home-manager = {
-
-                useGlobalPkgs = true;
-                useUserPackages = true;
-
-                extraSpecialArgs = {
-                  inherit inputs;
-                };
-
-                users.hazie = import ./home/home.nix;
-
-              };
-
-            }
-
+            ./modules/common.nix
           ];
 
         };
 
-    in
-
-    {
+    in {
 
       nixosConfigurations = {
-
         desktop = mkSystem "desktop";
         laptop = mkSystem "laptop";
-
       };
 
     };
