@@ -2,6 +2,10 @@
 
 set -euo pipefail
 
+if ! command -v sops >/dev/null 2>&1; then
+    exec nix-shell -p sops --run "bash '$0'"
+fi
+
 BOOTSTRAP_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 
 FINAL_REPO="$HOME/nixos-config"
