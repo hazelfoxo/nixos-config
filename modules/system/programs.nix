@@ -6,4 +6,6 @@
 
   # Enable Fish
   programs.fish.enable = true;
+
+  programs.localsend.enable = true;
 }

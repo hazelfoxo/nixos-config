@@ -5,7 +5,6 @@
     home.packages = with pkgs; [
         discord
         telegram-desktop
-        localsend
         spotify-spotx
         libreoffice
         google-chrome
