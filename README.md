@@ -4,8 +4,11 @@ A basic NixOS config for own personal use built for KDE Plasma, with all apps an
 It's a nix flake based setup that I've tailored for my own workflow. It contains a stock KDE Plasma install with some optional KDE apps.
 
 ## Installation
-1. Download `setup.sh` script and execute it.   
-2. Follow the installation steps within the script.
+1. Clone the repo and move it into a directory that isn't `~/nixos-config`.
+2. Copy your personal key into the repo and run `setup.sh`
+3. Chose a configuration and let the system build itself.
+4. Enjoy your build system.
+
 ## Apps
 - Discord
 - Telegram
