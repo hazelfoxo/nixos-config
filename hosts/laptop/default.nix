@@ -1,18 +1,14 @@
-{ ... }:
+{ host, ... }:
 
 {
   imports = [
     ./hardware-configuration.nix
     ./vpn
-    ../../modules/profiles/workstation.nix
-    
-    ../../modules/hardware/gpu/intel.nix
-    ../../modules/core/boot/systemd-boot.nix
   ];
 
-  sops.defaultSopsFile = ../../secrets/hosts/laptop.yaml;
+  sops.defaultSopsFile = host.sopsFile;
 
-  networking.hostName = "hazie-laptop";
+  networking.hostName = host.hostName;
 
-  environment.variables.NIXOS_HOST = "laptop";
+  environment.variables.NIXOS_HOST = host.name;
 }

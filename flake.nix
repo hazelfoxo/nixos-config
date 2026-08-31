@@ -36,28 +36,48 @@
 
       system = "x86_64-linux";
 
-      mkSystem = host:
+      hosts = {
+        desktop = {
+          hostName = "hazie-pc";
+          sopsFile = ./secrets/hosts/desktop.yaml;
+          modules = [
+            ./modules/profiles/workstation.nix
+            ./modules/core/boot/secureboot.nix
+            ./modules/hardware/gpu/nvidia.nix
+          ];
+        };
+
+        laptop = {
+          hostName = "hazie-laptop";
+          sopsFile = ./secrets/hosts/laptop.yaml;
+          modules = [
+            ./modules/profiles/workstation.nix
+            ./modules/core/boot/systemd-boot.nix
+            ./modules/hardware/gpu/intel.nix
+          ];
+        };
+      };
+
+      mkSystem = name: hostConfig:
         nixpkgs.lib.nixosSystem {
 
           inherit system;
 
           specialArgs = {
             inherit inputs;
+            host = hostConfig // { inherit name; };
           };
 
           modules = [
-            ./hosts/${host}
+            ./hosts/${name}
             ./modules/core
-          ];
+          ] ++ hostConfig.modules;
 
         };
 
     in {
 
-      nixosConfigurations = {
-        desktop = mkSystem "desktop";
-        laptop = mkSystem "laptop";
-      };
+      nixosConfigurations = nixpkgs.lib.mapAttrs mkSystem hosts;
 
     };
 
