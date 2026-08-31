@@ -4,7 +4,11 @@
   imports = [
     ./hardware-configuration.nix
     ./access.nix
+    ./fail2ban.nix
+    ./firewall.nix
     ./host-key.nix
+    ./wifi.nix
+    ./wireguard.nix
   ];
 
   networking.hostName = host.hostName;

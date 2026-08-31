@@ -14,7 +14,20 @@
 
   services.openssh = {
     enable = true;
-    openFirewall = true;
-    settings.AllowUsers = [ "hazie" ];
+    openFirewall = false;
+    ports = [ 2222 ];
+
+    settings = {
+      AllowUsers = [ "hazie" ];
+      PermitRootLogin = "no";
+      MaxAuthTries = 3;
+      PubkeyAuthentication = true;
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      X11Forwarding = false;
+      PrintMotd = false;
+      ClientAliveInterval = 100;
+      ClientAliveCountMax = 3;
+    };
   };
 }
