@@ -23,7 +23,12 @@ It's a nix flake based setup that I've tailored for my own workflow. It contains
 nixos-config/  
 ├── home/       # Home Manager and user configuration  
 ├── hosts/      # Host-specific NixOS configurations  
-├── modules/    # NixOS modules  
+├── modules/    # Reusable NixOS modules
+│   ├── core/       # Base OS, Nix, users, secrets, and boot settings
+│   ├── features/   # Optional desktop, gaming, media, and TV features
+│   ├── hardware/   # Shared hardware and GPU-driver modules
+│   ├── networking/ # Shared network and VPN module definitions
+│   └── profiles/   # Compositions of modules, e.g. the workstation profile
 ├── secrets/    # Stores secrets for SSH and Wireguard  
 └── flake.nix   # Flake entry point and system configuration  
 └── setup.sh    # Bootstrap for installing repo

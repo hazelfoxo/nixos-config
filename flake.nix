@@ -47,7 +47,7 @@
 
           modules = [
             ./hosts/${host}
-            ./modules/common.nix
+            ./modules/core
           ];
 
         };

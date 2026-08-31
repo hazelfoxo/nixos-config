@@ -3,10 +3,11 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./VPN
+    ./vpn
+    ../../modules/profiles/workstation.nix
     
-    ../../modules/system/secureboot.nix
-    ../../modules/hardware/nvidia.nix
+    ../../modules/core/boot/secureboot.nix
+    ../../modules/hardware/gpu/nvidia.nix
   ];
   
   sops.defaultSopsFile = ../../secrets/hosts/desktop.yaml;
