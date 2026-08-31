@@ -11,6 +11,7 @@
       ./packages.nix
       ./fonts.nix
       ./programs.nix
+      ./security.nix
       ./boot
       ./secrets.nix
       ./nixpkgs.nix

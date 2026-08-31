@@ -4,6 +4,7 @@
   imports = [
     ../core/locale.nix
     ../core/nix.nix
+    ../core/security.nix
   ];
 
   # Keep this profile independent from the desktop-oriented core module.
