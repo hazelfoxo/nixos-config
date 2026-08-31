@@ -42,6 +42,7 @@
           sopsFile = ./secrets/hosts/desktop.yaml;
           modules = [
             ./modules/profiles/workstation.nix
+            ./modules/users/hazie.nix
             ./modules/core/boot/secureboot.nix
             ./modules/hardware/gpu/nvidia.nix
           ];
@@ -52,6 +53,7 @@
           sopsFile = ./secrets/hosts/laptop.yaml;
           modules = [
             ./modules/profiles/workstation.nix
+            ./modules/users/hazie.nix
             ./modules/core/boot/systemd-boot.nix
             ./modules/hardware/gpu/intel.nix
           ];
