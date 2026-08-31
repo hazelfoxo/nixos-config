@@ -7,7 +7,7 @@
         # Configure starship for fish
         enableFishIntegration = true;
         settings = builtins.fromTOML (
-        builtins.readFile ../files/starship/jetpack.toml
+        builtins.readFile ../../files/starship/jetpack.toml
         );
     };
 }

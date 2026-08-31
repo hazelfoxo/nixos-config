@@ -7,5 +7,5 @@
     };
     
     # Copy fastfetch config files from repo
-    home.file.".config/fastfetch".source = ../files/fastfetch;
+    home.file.".config/fastfetch".source = ../../files/fastfetch;
 }
