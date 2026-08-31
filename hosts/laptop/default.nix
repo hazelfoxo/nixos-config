@@ -4,6 +4,12 @@
   imports = [
     ./hardware-configuration.nix
     ./vpn
+    ./wifi.nix
+
+    ../../modules/profiles/workstation.nix
+    ../../modules/users/hazie.nix
+    ../../modules/core/boot/systemd-boot.nix
+    ../../modules/hardware/gpu/intel.nix
   ];
 
   sops.defaultSopsFile = host.sopsFile;

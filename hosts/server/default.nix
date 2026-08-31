@@ -7,6 +7,8 @@
     ./host-key.nix
     ./wifi.nix
     ./wireguard.nix
+
+    ../../modules/profiles/server.nix
   ];
 
   networking.hostName = host.hostName;

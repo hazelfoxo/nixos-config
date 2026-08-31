@@ -40,31 +40,16 @@
         desktop = {
           hostName = "hazie-pc";
           sopsFile = ./secrets/hosts/desktop.yaml;
-          modules = [
-            ./modules/profiles/workstation.nix
-            ./modules/users/hazie.nix
-            ./modules/core/boot/secureboot.nix
-            ./modules/hardware/gpu/nvidia.nix
-          ];
         };
 
         laptop = {
           hostName = "hazie-laptop";
           sopsFile = ./secrets/hosts/laptop.yaml;
-          modules = [
-            ./modules/profiles/workstation.nix
-            ./modules/users/hazie.nix
-            ./modules/core/boot/systemd-boot.nix
-            ./modules/hardware/gpu/intel.nix
-          ];
         };
 
         server = {
           hostName = "hazie-server";
           baseModules = [ ];
-          modules = [
-            ./modules/profiles/server.nix
-          ];
         };
       };
 
@@ -83,7 +68,7 @@
 
           modules = [
             ./hosts/${name}
-          ] ++ baseModules ++ hostConfig.modules;
+          ] ++ baseModules;
 
         };
 

@@ -1,17 +1,23 @@
 { config, lib, ... }:
 
 let
-  cfg = config.my.server.wifi;
+  cfg = config.my.wifi;
 in
 {
-  options.my.server.wifi = {
+  options.my.wifi = {
     enable = lib.mkEnableOption "a NetworkManager Wi-Fi profile";
     connectionName = lib.mkOption { type = lib.types.str; default = "Home Wi-Fi"; };
     ssidSecret = lib.mkOption { type = lib.types.str; default = "wifi-ssid"; };
     passwordSecret = lib.mkOption { type = lib.types.str; default = "wifi-password"; };
-    address = lib.mkOption { type = lib.types.str; };
-    gateway = lib.mkOption { type = lib.types.str; };
-    dns = lib.mkOption { type = lib.types.listOf lib.types.str; default = [ ]; };
+    ipv4 = {
+      method = lib.mkOption {
+        type = lib.types.enum [ "auto" "manual" ];
+        default = "auto";
+      };
+      address = lib.mkOption { type = lib.types.nullOr lib.types.str; default = null; };
+      gateway = lib.mkOption { type = lib.types.nullOr lib.types.str; default = null; };
+      dns = lib.mkOption { type = lib.types.listOf lib.types.str; default = [ ]; };
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -20,7 +26,7 @@ in
       ${cfg.passwordSecret}.mode = "0400";
     };
 
-    sops.templates.server-wifi-environment = {
+    sops.templates.wifi-environment = {
       mode = "0400";
       content = ''
         WIFI_SSID=${config.sops.placeholder.${cfg.ssidSecret}}
@@ -31,7 +37,7 @@ in
     networking.networkmanager = {
       enable = true;
       ensureProfiles = {
-        environmentFiles = [ config.sops.templates.server-wifi-environment.path ];
+        environmentFiles = [ config.sops.templates.wifi-environment.path ];
         profiles.${cfg.connectionName} = {
           connection = {
             id = cfg.connectionName;
@@ -40,12 +46,16 @@ in
           };
           wifi = { mode = "infrastructure"; ssid = "$WIFI_SSID"; };
           wifi-security = { key-mgmt = "wpa-psk"; psk = "$WIFI_PASSWORD"; psk-flags = 0; };
-          ipv4 = {
-            method = "manual";
-            addresses = cfg.address;
-            gateway = cfg.gateway;
-            dns = lib.concatStringsSep ";" cfg.dns;
-          };
+          ipv4 = { method = cfg.ipv4.method; }
+            // lib.optionalAttrs (cfg.ipv4.address != null) {
+              addresses = cfg.ipv4.address;
+            }
+            // lib.optionalAttrs (cfg.ipv4.gateway != null) {
+              gateway = cfg.ipv4.gateway;
+            }
+            // lib.optionalAttrs (cfg.ipv4.dns != [ ]) {
+              dns = lib.concatStringsSep ";" cfg.ipv4.dns;
+            };
           ipv6.method = "ignore";
         };
       };
