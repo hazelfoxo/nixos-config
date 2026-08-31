@@ -4,8 +4,6 @@
   imports = [
     ./hardware-configuration.nix
     ./access.nix
-    ./fail2ban.nix
-    ./firewall.nix
     ./host-key.nix
     ./wifi.nix
     ./wireguard.nix
@@ -14,9 +12,13 @@
   networking.hostName = host.hostName;
   environment.variables.NIXOS_HOST = host.name;
 
-  # Add this server's hardware-configuration.nix, bootloader, users, and
-  # services here when the target machine is ready.
+  sops = {
+    defaultSopsFile = ../../secrets/hosts/server.yaml;
+    age.keyFile = "/var/lib/sops-nix/device-key.txt";
+  };
 
-  # Set this to true after following hosts/server/README.md.
+  my.server.firewall.enable = true;
+
+  # Enable after the SOPS device key and encrypted SSH host key are restored.
   my.server.hostKey.enable = false;
 }
