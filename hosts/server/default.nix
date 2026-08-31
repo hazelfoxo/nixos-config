@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./access.nix
   ];
 
   networking.hostName = host.hostName;
