@@ -1,6 +1,6 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
-{
+lib.mkIf config.my.features.desktop.enable {
   # Enable SDDM login manager service
   services.displayManager.sddm.enable = true;
 
