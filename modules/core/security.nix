@@ -1,21 +1,20 @@
 { ... }:
 
 {
+  # Enable NixOS firewall
   networking.firewall.enable = true;
 
   security = {
+    # Enable AppArmor
     apparmor.enable = true;
-
-    # Only administrators explicitly placed in the wheel group may use sudo.
+    # Explicity restrict sudo to users in sudo wheel
     sudo.execWheelOnly = true;
   };
 
-  # Avoid retaining potentially sensitive process memory after a crash.
+  # Disable coredump
   systemd.coredump.enable = false;
 
-  # Reduce the amount of useful kernel information exposed to unprivileged
-  # local users. Network-related sysctls intentionally stay unchanged to keep
-  # the existing VPN and WireGuard setup compatible.
+  # Make some kernel info read-only by root
   boot.kernel.sysctl = {
     "fs.protected_fifos" = 2;
     "fs.protected_hardlinks" = 1;
@@ -26,8 +25,7 @@
     "kernel.yama.ptrace_scope" = 1;
   };
 
-  # These apply when an SSH server is enabled later; SSH remains disabled by
-  # default in the minimal server profile.
+  # SSH server settings
   services.openssh.settings = {
     KbdInteractiveAuthentication = false;
     PasswordAuthentication = false;
