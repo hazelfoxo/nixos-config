@@ -5,8 +5,7 @@
     ./hardware-configuration.nix
     ./access.nix
     ./host-key.nix
-    ./wifi.nix
-    ./wireguard.nix
+    ./networking
 
     ../../modules/profiles/server.nix
   ];

@@ -3,8 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./vpn
-    ./wifi.nix
+    ./networking
 
     ../../modules/profiles/workstation.nix
     ../../modules/users/hazie.nix

@@ -1,3 +1,5 @@
+{ ... }:
+
 {
   my.server.wireguard = {
     enable = true;

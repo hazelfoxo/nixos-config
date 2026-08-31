@@ -1,3 +1,5 @@
+{ ... }:
+
 {
   my.wifi = {
     enable = true;
