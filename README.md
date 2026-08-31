@@ -36,6 +36,8 @@ nixos-config/
 ## Hosts
 - Desktop host with NVIDIA driver support
 - Laptop host with Intel GPU support
+- Minimal headless server template; replace its generic hardware template and
+  add users and services before deploying it
 
 ## Aliased Commands
 ### Nix Commands

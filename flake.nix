@@ -58,9 +58,20 @@
             ./modules/hardware/gpu/intel.nix
           ];
         };
+
+        server = {
+          hostName = "hazie-server";
+          baseModules = [ ];
+          modules = [
+            ./modules/profiles/server.nix
+          ];
+        };
       };
 
       mkSystem = name: hostConfig:
+        let
+          baseModules = hostConfig.baseModules or [ ./modules/core ];
+        in
         nixpkgs.lib.nixosSystem {
 
           inherit system;
@@ -72,8 +83,7 @@
 
           modules = [
             ./hosts/${name}
-            ./modules/core
-          ] ++ hostConfig.modules;
+          ] ++ baseModules ++ hostConfig.modules;
 
         };
 
