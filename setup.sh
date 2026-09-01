@@ -7,15 +7,28 @@ if ! command -v sops >/dev/null 2>&1; then
 fi
 
 BOOTSTRAP_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-
-FINAL_REPO="$HOME/nixos-config"
-
-ETC_NIXOS="/etc/nixos"
+TARGET_ROOT="/mnt"
+FINAL_REPO="$TARGET_ROOT/etc/nixos"
 KEY="$BOOTSTRAP_DIR/keys.txt"
 
 REMOTE_URL="git@github.com:YOUR_USERNAME/YOUR_NIXOS_CONFIG.git"
 
 read -rp "Host: " HOST
+
+echo
+echo "==> Optional Disko setup"
+echo "WARNING: Disko will destroy, format, and mount every disk defined for '$HOST'."
+read -rp "Type 'ERASE $HOST' to run Disko, or press Enter to skip: " DISKO_CONFIRMATION
+
+if [[ "$DISKO_CONFIRMATION" == "ERASE $HOST" ]]; then
+    echo "==> Running Disko for '$HOST'..."
+    sudo nix --extra-experimental-features "nix-command flakes" \
+        run github:nix-community/disko -- \
+        --mode destroy,format,mount \
+        --flake "$BOOTSTRAP_DIR#$HOST"
+else
+    echo "==> Skipping Disko."
+fi
 
 DEVICE_SECRET="$BOOTSTRAP_DIR/secrets/device-keys/$HOST.txt"
 
@@ -29,52 +42,38 @@ DEVICE_SECRET="$BOOTSTRAP_DIR/secrets/device-keys/$HOST.txt"
     exit 1
 }
 
-[[ ! -e "$FINAL_REPO" ]] || {
-    echo "Error: Final repository already exists: $FINAL_REPO"
+mountpoint -q "$TARGET_ROOT" || {
+    echo "Error: $TARGET_ROOT is not mounted. Run Disko or mount the target system first."
     exit 1
 }
 
-export SOPS_AGE_KEY_FILE="$KEY"
+[[ ! -e "$FINAL_REPO" ]] || {
+    echo "Error: Canonical configuration path already exists: $FINAL_REPO"
+    exit 1
+}
 
 echo
-echo "==> Installing device key..."
+echo "==> Installing device key in the target system..."
 
-sudo install -d -m 700 /var/lib/sops-nix
+sudo install -d -m 700 "$TARGET_ROOT/var/lib/sops-nix"
+
+export SOPS_AGE_KEY_FILE="$KEY"
 
 sops decrypt "$DEVICE_SECRET" |
-    sudo install -m 600 /dev/stdin /var/lib/sops-nix/device-key.txt
+    sudo install -m 600 /dev/stdin "$TARGET_ROOT/var/lib/sops-nix/device-key.txt"
 
-echo "==> Updating flake.lock..."
-(
-    cd "$FINAL_REPO"
-    nix --extra-experimental-features "nix-command flakes" flake update
-)
+echo "==> Cloning canonical configuration repository into the target system..."
 
-echo "==> Building bootstrap NixOS generation..."
-
-sudo nixos-rebuild switch --flake "$BOOTSTRAP_DIR#$HOST" --extra-experimental-features "nix-command flakes"
-
-echo
-echo "==> Bootstrap generation activated."
-echo "==> Cloning canonical configuration repository..."
-
+sudo install -d -m 755 -o "$(id -u)" -g "$(id -g)" "$TARGET_ROOT/etc"
 git clone "$REMOTE_URL" "$FINAL_REPO"
+sudo chown -R root:root "$TARGET_ROOT/etc"
 
-echo "==> Copying local decryption key to cloned repository..."
+echo "==> Installing NixOS from the canonical Git repository..."
 
-install -m 600 "$KEY" "$FINAL_REPO/keys.txt"
-
-KEY="$FINAL_REPO/keys.txt"
-export SOPS_AGE_KEY_FILE="$KEY"
-
-echo "==> Linking canonical repository to /etc/nixos..."
-
-sudo rm -rf "$ETC_NIXOS"
-sudo ln -s "$FINAL_REPO" "$ETC_NIXOS"
-
-echo "==> Rebuilding from canonical Git repository..."
-
-sudo nixos-rebuild switch --flake "$FINAL_REPO#$HOST"
+sudo nixos-install \
+    --flake "$FINAL_REPO#$HOST" \
+    --no-root-passwd \
+    --extra-experimental-features "nix-command flakes"
 
 echo
-echo "Done."
+echo "==> Installation complete. Reboot into the installed system."
