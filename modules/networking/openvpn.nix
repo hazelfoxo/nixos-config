@@ -146,7 +146,7 @@ in
 
             ${profile.passwordSecret} =
               {
-                owner = "hazie";
+                owner = config.my.secrets.secretsUser;
                 group = "users";
                 mode = "0400";
               }
