@@ -15,7 +15,6 @@
   # Set boot parameters for clean boot animation
   boot.kernelParams = [
     "quiet"
-    "splash"
   ];
 
   # Supress boot messages
