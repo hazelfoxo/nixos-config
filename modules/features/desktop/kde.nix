@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 
-lib.mkIf config.my.features.desktop.enable {
+lib.mkIf config.my.features.desktop.kde.enable {
   # Enable SDDM login manager service
   services.displayManager.sddm.enable = true;
 
@@ -14,12 +14,6 @@ lib.mkIf config.my.features.desktop.enable {
     kdePackages.kcalc
     haruna
   ];
-
-  # Enable XDG Portal
-  xdg.portal.enable = true;
-
-   # Enable Flatpak Service
-  services.flatpak.enable = true;
 
   # Enable KDE Partition Manager
   programs.partition-manager.enable = true;

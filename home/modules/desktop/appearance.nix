@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, osConfig, ... }:
 
 {
 
@@ -32,4 +32,36 @@
       </match>
     </fontconfig>
   '';
+
+  xdg.dataFile."plasma-systemmonitor/applications.page" = lib.mkIf
+    osConfig.my.features.desktop.kde.enable {
+      text = ''
+    [Face-94920553440704][Appearance]
+    chartFace=org.kde.ksysguard.applicationstable
+    showTitle=false
+
+    [page]
+    Title=Applications
+    actionsFace=Face-94920553440704
+    icon=applications-all-symbolic
+    loadType=
+    margin=0
+    version=1
+
+    [page][row-0]
+    heightMode=balanced
+    isTitle=false
+    name=row-0
+
+    [page][row-0][column-0]
+    name=column-0
+    noMargins=true
+    showBackground=false
+
+    [page][row-0][column-0][section-0]
+    face=Face-94920553440704
+    isSeparator=false
+    name=section-0
+      '';
+    };
 }

@@ -19,7 +19,10 @@
 
   my.profiles.workstation = {
     enable = true;
-    desktop.enable = true;
+    desktop = {
+      enable = true;
+      kde.enable = true;
+    };
     gaming.enable = true;
     videoEditing.enable = true;
     tailscale.enable = true;
