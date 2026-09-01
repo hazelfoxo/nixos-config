@@ -26,8 +26,20 @@
 
         # Upgrade package lock and then packages for system
         nix-upgrade = ''
-            sudo nix flake update --flake /etc/nixos
-            sudo nixos-rebuild switch --flake ~/nixos-config#$NIXOS_HOST
+	    echo "==> Pulling latest NixOS configuration..."
+	    git -C /etc/nixos pull --ff-only
+	    and echo "==> Updating flake inputs..."
+            nix flake update --flake /etc/nixos
+	    and echo "==> Rebuilding and switching NixOS..."
+            sudo nixos-rebuild switch --flake /etc/nixos#$NIXOS_HOST
+	    git -C /etc/nixos add flake.lock
+	    git -C /etc/nixos commit -m 'Update flake.lock'
+	    echo "==> Pushing flake.lock file..."
+            if git -C /etc/nixos push
+    		echo "==> Push successful! Flake.lock updated!"
+	    else
+    		echo "==> Push failed! No changes."
+	    end
         '';
 
         # Deletes generations older than 14d days and garbage-collects old stores
