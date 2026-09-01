@@ -25,7 +25,10 @@ in
           connectionName = "School VPN";
           usernameSecret = "school-openvpn-username";
           passwordSecret = "school-openvpn-password";
-          config = builtins.readFile ../../assets/openvpn/school.ovpn;
+          remote = "vpn.chester.ac.uk";
+          port = 1195;
+          protocol = "udp";
+          configFile = ../../assets/openvpn/school.ovpn;
         };
       };
     })
