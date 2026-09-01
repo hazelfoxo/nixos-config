@@ -3,8 +3,10 @@
 {
   imports = [
     ./hardware-configuration.nix
+    # ./disko.nix
     ./networking
 
+    # inputs.disko.nixosModules.disko
     ../../modules/profiles/workstation.nix
     ../../modules/users/hazie.nix
     ../../modules/core/boot/secureboot.nix
