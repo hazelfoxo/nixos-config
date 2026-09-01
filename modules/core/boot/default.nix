@@ -19,4 +19,7 @@
 
   # Supress boot messages
   boot.consoleLogLevel = 3;
+
+  # Disable bootloader menu timeout
+  boot.loader.timeout = 0;
 }
