@@ -11,9 +11,6 @@
     sudo.execWheelOnly = true;
   };
 
-  # Disable coredump
-  systemd.coredump.enable = false;
-
   # Make some kernel info read-only by root
   boot.kernel.sysctl = {
     "fs.protected_fifos" = 2;
