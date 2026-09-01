@@ -19,7 +19,8 @@
   networking.hostName = host.hostName;
 
   environment.variables.NIXOS_HOST = host.name;
-
+  
+  my.secrets.secretsUser = "hazie";
   my.sharedSecrets.enable = true;
   my.profiles.sharedNetworking = {
     wifi.enable = true;
