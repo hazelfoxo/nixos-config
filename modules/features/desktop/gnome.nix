@@ -9,4 +9,11 @@ lib.mkIf config.my.features.desktop.gnome.enable {
 
   # Provides credential storage for GNOME applications and network services.
   services.gnome.gnome-keyring.enable = true;
+  
+  # Remove some default GNOME apps
+  environment.gnome.excludePackages = with pkgs; [ 
+    gnome-tour 
+    gnome-user-docs 
+  ];
+
 }
