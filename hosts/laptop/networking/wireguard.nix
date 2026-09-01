@@ -4,7 +4,7 @@
   my.wireguard = {
     enable = true;
 
-    profiles.HomeVPN = {
+    profiles."Home VPN" = {
       privateKeySecret = "homeserver_wg_private_key";
       interface = "wg0";
       address = [ "10.0.0.2/32" ];
