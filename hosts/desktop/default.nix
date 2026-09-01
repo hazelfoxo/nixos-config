@@ -8,6 +8,7 @@
 
     # inputs.disko.nixosModules.disko
     ../../modules/profiles/workstation.nix
+    ../../modules/profiles/shared-networking.nix
     ../../modules/users/hazie.nix
     ../../modules/core/boot/secureboot.nix
     ../../modules/hardware/gpu/nvidia.nix
@@ -18,6 +19,12 @@
   networking.hostName = host.hostName;
 
   environment.variables.NIXOS_HOST = host.name;
+
+  my.sharedSecrets.enable = true;
+  my.profiles.sharedNetworking = {
+    wifi.enable = true;
+    schoolVpn.enable = true;
+  };
 
   my.profiles.workstation = {
     enable = true;

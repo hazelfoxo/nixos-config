@@ -4,6 +4,13 @@ keys:
   - &desktop age16evxrv8apm5gnn6rx06r89md54yj80epyq25wgq4tcwcsz6vaf2sh0lte2
   - &server age1mjkz9psplks5z4xewxamqxxw6g0mp065gn0la8vrztmpzxd68auq7k2y8j
 creation_rules:
+  - path_regex: secrets/shared\.yaml$
+    key_groups:
+      - age:
+          - *user
+          - *laptop
+          - *desktop
+
   - path_regex: secrets/hosts/laptop\.yaml$
     key_groups:
       - age:

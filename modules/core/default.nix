@@ -14,6 +14,7 @@
       ./security.nix
       ./boot
       ./secrets.nix
+      ./shared-secrets.nix
       ./nixpkgs.nix
     ];
   }

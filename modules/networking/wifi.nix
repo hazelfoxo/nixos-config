@@ -2,6 +2,10 @@
 
 let
   cfg = config.my.wifi;
+  sharedSecrets = config.my.sharedSecrets or {
+    enable = false;
+    file = null;
+  };
 in
 {
   options.my.wifi = {
@@ -9,6 +13,10 @@ in
     connectionName = lib.mkOption { type = lib.types.str; default = "Home Wi-Fi"; };
     ssidSecret = lib.mkOption { type = lib.types.str; default = "wifi-ssid"; };
     passwordSecret = lib.mkOption { type = lib.types.str; default = "wifi-password"; };
+    sopsFile = lib.mkOption {
+      type = lib.types.nullOr lib.types.path;
+      default = if sharedSecrets.enable then sharedSecrets.file else null;
+    };
     ipv4 = {
       method = lib.mkOption {
         type = lib.types.enum [ "auto" "manual" ];
@@ -22,8 +30,8 @@ in
 
   config = lib.mkIf cfg.enable {
     sops.secrets = {
-      ${cfg.ssidSecret}.mode = "0400";
-      ${cfg.passwordSecret}.mode = "0400";
+      ${cfg.ssidSecret} = { mode = "0400"; } // lib.optionalAttrs (cfg.sopsFile != null) { sopsFile = cfg.sopsFile; };
+      ${cfg.passwordSecret} = { mode = "0400"; } // lib.optionalAttrs (cfg.sopsFile != null) { sopsFile = cfg.sopsFile; };
     };
 
     sops.templates.wifi-environment = {

@@ -2,6 +2,10 @@
 
 let
   cfg = config.my.openvpn;
+  sharedSecrets = config.my.sharedSecrets or {
+    enable = false;
+    file = null;
+  };
   nmcli = "${config.networking.networkmanager.package}/bin/nmcli";
 in
 {
@@ -36,6 +40,10 @@ in
             type = lib.types.str;
             description = "Name of the SOPS secret containing the VPN password.";
           };
+          sopsFile = lib.mkOption {
+            type = lib.types.nullOr lib.types.path;
+            default = if sharedSecrets.enable then sharedSecrets.file else null;
+          };
 
           autoConnect = lib.mkOption {
             type = lib.types.bool;
@@ -68,8 +76,8 @@ in
     sops.secrets = lib.foldl'
       (secrets: profile:
         secrets // {
-          ${profile.usernameSecret}.mode = "0400";
-          ${profile.passwordSecret}.mode = "0400";
+          ${profile.usernameSecret} = { mode = "0400"; } // lib.optionalAttrs (profile.sopsFile != null) { sopsFile = profile.sopsFile; };
+          ${profile.passwordSecret} = { mode = "0400"; } // lib.optionalAttrs (profile.sopsFile != null) { sopsFile = profile.sopsFile; };
         })
       { }
       (lib.attrValues cfg.profiles);
