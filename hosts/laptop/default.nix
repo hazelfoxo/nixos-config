@@ -3,7 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./disko.nix
+    # ./disko.nix
     ./networking
 
     inputs.disko.nixosModules.disko
