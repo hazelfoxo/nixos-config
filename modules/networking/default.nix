@@ -8,5 +8,6 @@
     ./wifi.nix
     ./ssh.nix
     ./proton-vpn.nix
+    ./openvpn.nix
   ];
 }
