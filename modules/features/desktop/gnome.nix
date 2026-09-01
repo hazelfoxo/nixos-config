@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 lib.mkIf config.my.features.desktop.gnome.enable {
   services.displayManager.gdm.enable = true;
