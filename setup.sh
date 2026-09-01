@@ -11,7 +11,7 @@ TARGET_ROOT="/mnt"
 FINAL_REPO="$TARGET_ROOT/etc/nixos"
 KEY="$BOOTSTRAP_DIR/keys.txt"
 
-REMOTE_URL="git@github.com:YOUR_USERNAME/YOUR_NIXOS_CONFIG.git"
+REMOTE_URL="git@github.com:hazelfoxo/nixos-config.git"
 
 read -rp "Host: " HOST
 
