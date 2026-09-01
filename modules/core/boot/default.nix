@@ -16,6 +16,8 @@
   boot.kernelParams = [
     "quiet"
     "splash"
-    "loglevel=3"
   ];
+
+  # Supress boot messages
+  boot.consoleLogLevel = 3;
 }
