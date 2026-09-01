@@ -37,19 +37,18 @@
 
         and begin
             if git -C /etc/nixos diff --quiet flake.lock
-                echo "==> flake.lock unchanged; nothing to commit or push."
+                echo "==> flake.lock unchanged. Nothing to commit or push."
             else
                 echo "==> Staging updated flake.lock..."
                 git -C /etc/nixos add flake.lock
 
-                and echo "==> Committing updated flake.lock..."
                 and git -C /etc/nixos commit -m 'Update flake.lock'
 
                 and begin
                     echo "==> Pushing updated flake.lock..."
 
                     if git -C /etc/nixos push
-                        echo "==> Push successful! flake.lock changes uploaded."
+                        echo "==> Push successful! flake.lock updated."
                     else
                         echo "==> Push failed!"
                     end
