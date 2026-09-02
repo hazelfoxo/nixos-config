@@ -9,6 +9,11 @@ programs.kitty = {
   };
 
   settings = {
+
+    remember_window_size = "no";
+    initial_window_width = "120c";
+    initial_window_height = "35c";
+
     background = "#000000";
     foreground = "#ffffff";
 
