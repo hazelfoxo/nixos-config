@@ -12,7 +12,6 @@
     ../../modules/users/hazie.nix
     ../../modules/core/boot/systemd-boot.nix
     ../../modules/hardware/gpu/intel.nix
-    ../../modules/hardware/battery.nix
   ];
 
   sops.defaultSopsFile = host.sopsFile;
