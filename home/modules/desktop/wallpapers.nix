@@ -1,4 +1,4 @@
 { ... }:
 {
-    home.file.".local/share/wallpapers".source = ../../files/wallpapers;
+  home.file.".local/share/wallpapers".source = ../../files/wallpapers;
 }

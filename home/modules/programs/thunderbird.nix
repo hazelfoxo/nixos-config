@@ -1,14 +1,14 @@
-{  ... }:
+{ ... }:
 {
-    programs.thunderbird = {
+  programs.thunderbird = {
     enable = true;
 
     profiles.default = {
-        isDefault = true;
+      isDefault = true;
 
-        settings = {
-            "mailnews.start_page.enabled" = false;
-        };
+      settings = {
+        "mailnews.start_page.enabled" = false;
+      };
     };
-    };
+  };
 }

@@ -15,8 +15,8 @@
 
   # Bootloader and GPU drivers are selected through the
   # my.profiles.workstation.host options imported above.
-  my.secrets.secretsUser = "hazie";
-  my.sharedSecrets.enable = true;
+  # my.secrets.secretsUser and my.sharedSecrets are set by the workstation
+  # profile when its desktop is enabled.
 
   my.profiles.sharedNetworking = {
     wifi.enable = true;

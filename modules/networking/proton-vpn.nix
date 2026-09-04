@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.my.features.protonVpn;
@@ -10,7 +15,7 @@ in
     networking.firewall.checkReversePath = false;
 
     environment.systemPackages = with pkgs; [
-        proton-vpn
+      proton-vpn
     ];
   };
 }

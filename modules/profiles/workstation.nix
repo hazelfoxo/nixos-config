@@ -51,7 +51,7 @@ in
   };
 
   imports = [
-    ./ssh.nix
+    ./ssh-client.nix
     ../hardware
     ../features/desktop
     ../networking
@@ -60,29 +60,40 @@ in
     ../features/tv
   ];
 
-  config = lib.mkIf cfg.enable {
-    my.core.desktop.enable = true;
+  config = lib.mkMerge [
+    (lib.mkIf cfg.enable {
+      my.core.desktop.enable = true;
 
-    my.hardware.gpu = cfg.host.gpu;
+      my.hardware.gpu = cfg.host.gpu;
 
-    my.boot.loader = cfg.host.boot;
+      my.boot.loader = cfg.host.boot;
 
-    my.features.desktop.enable = cfg.desktop.enable;
+      my.features.desktop.enable = cfg.desktop.enable;
 
-    my.features.desktop.kde.enable = cfg.desktop.kde.enable;
+      my.features.desktop.kde.enable = cfg.desktop.kde.enable;
 
-    my.features.desktop.kde.wallpaper = cfg.desktop.kde.wallpaper;
+      my.features.desktop.kde.wallpaper = cfg.desktop.kde.wallpaper;
 
-    my.features.desktop.gnome.enable = cfg.desktop.gnome.enable;
+      my.features.desktop.gnome.enable = cfg.desktop.gnome.enable;
 
-    my.features.gaming.enable = cfg.gaming.enable;
+      my.features.gaming.enable = cfg.gaming.enable;
 
-    my.features.videoEditing.enable = cfg.videoEditing.enable;
+      my.features.videoEditing.enable = cfg.videoEditing.enable;
 
-    my.features.tv.enable = cfg.tv.enable;
+      my.features.tv.enable = cfg.tv.enable;
 
-    my.features.tailscale.enable = cfg.tailscale.enable;
+      my.features.tailscale.enable = cfg.tailscale.enable;
 
-    my.features.protonVpn.enable = cfg.protonVpn.enable;
-  };
+      my.features.protonVpn.enable = cfg.protonVpn.enable;
+    })
+
+    # Desktop workstations run the per-user NetworkManager file secret agent
+    # and opt into the shared site secrets file used by the networking
+    # profiles; headless hosts omit both.
+    (lib.mkIf (cfg.enable && cfg.desktop.enable) {
+      my.secrets.secretsUser = "hazie";
+
+      my.sharedSecrets.enable = true;
+    })
+  ];
 }

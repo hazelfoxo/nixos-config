@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./wifi.nix
+    ./wifi-static.nix
     ./wireguard.nix
   ];
 }

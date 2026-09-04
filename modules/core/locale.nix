@@ -1,7 +1,7 @@
- { ... }:
+{ ... }:
 
- {
- # Default NixOS UK Locale Settings
+{
+  # Default NixOS UK Locale Settings
   time.timeZone = "Europe/London";
 
   i18n.defaultLocale = "en_GB.UTF-8";
@@ -20,8 +20,8 @@
 
   console.keyMap = "uk";
 
-   # Set Keyboard Layout
-    services.xserver.xkb = {
+  # Set Keyboard Layout
+  services.xserver.xkb = {
     layout = "gb";
     variant = "";
     options = ""; # Disable X11 Specific Global Keyboard Shortcuts

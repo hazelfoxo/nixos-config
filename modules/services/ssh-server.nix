@@ -1,11 +1,19 @@
 { config, lib, ... }:
 
-let cfg = config.my.server.ssh;
-in {
+let
+  cfg = config.my.server.ssh;
+in
+{
   options.my.server.ssh = {
     enable = lib.mkEnableOption "a hardened SSH server";
-    port = lib.mkOption { type = lib.types.port; default = 2222; };
-    allowedUsers = lib.mkOption { type = lib.types.listOf lib.types.str; default = [ ]; };
+    port = lib.mkOption {
+      type = lib.types.port;
+      default = 2222;
+    };
+    allowedUsers = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+    };
   };
 
   config = lib.mkIf cfg.enable {
