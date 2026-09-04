@@ -11,6 +11,10 @@ lib.mkIf config.my.core.desktop.enable {
   programs.firefox = {
     enable = true;
 
+    policies.Preferences = {
+      "middlemouse.paste" = false;
+    };
+
     autoConfig = ''
       pref(
         "identity.fxaccounts.account.device.name",
