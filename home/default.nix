@@ -9,6 +9,7 @@
 
   # Import Home Manager modules.
   imports = [
+    inputs.plasma-manager.homeModules.plasma-manager
     ./modules/programs
     ./modules/desktop
     ./modules/shell
