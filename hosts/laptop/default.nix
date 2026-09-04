@@ -31,7 +31,10 @@
     enable = true;
     desktop = {
       enable = true;
-      kde.enable = true;
+      kde = {
+        enable = true;
+        sddmWallpaper = ../home/files/wallpapers/Forest-Dark-Winter.jpg;
+      };
     };
     gaming.enable = true;
     videoEditing.enable = true;
