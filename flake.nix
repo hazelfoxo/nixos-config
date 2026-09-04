@@ -71,6 +71,9 @@
           inherit system;
 
           specialArgs = {
+            # Only flake-boundary modules may touch these: ./modules/core
+            # (which loads the home-manager/sops/lanzaboote modules and
+            # populates `my.inputs`) and hosts/laptop (disko).
             inherit inputs;
 
             # Per-host metadata consumed by the my.host option wiring below.

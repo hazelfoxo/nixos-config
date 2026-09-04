@@ -1,7 +1,7 @@
-{ inputs, ... }:
+{ config, ... }:
 
 {
   nixpkgs.overlays = [
-    inputs.spotx-nix.overlays.default
+    config.my.inputs.spotxOverlay
   ];
 }

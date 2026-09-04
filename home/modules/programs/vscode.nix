@@ -1,10 +1,5 @@
-{ pkgs, inputs, ... }:
+{ pkgs, vscodeMarketplace, ... }:
 
-let
-  vscode-marketplace =
-    inputs.nix-vscode-extensions.extensions.${pkgs.stdenv.hostPlatform.system}
-      .vscode-marketplace;
-in
 {
   programs.vscode = {
     enable = true;
@@ -13,8 +8,8 @@ in
       extensions = with pkgs.vscode-extensions; [
         catppuccin.catppuccin-vsc
 
-        vscode-marketplace.icrawl.discord-vscode
-        vscode-marketplace.jnoortheen.nix-ide
+        vscodeMarketplace.icrawl.discord-vscode
+        vscodeMarketplace.jnoortheen.nix-ide
       ];
 
       userSettings = {
@@ -22,8 +17,8 @@ in
         "chat.titleBar.openInAgentsWindow.enabled" = false;
         "chat.titleBar.signIn.enabled" = false;
         "editor.fontFamily" = "'CaskaydiaCove Nerd Font', monospace";
-        "git.confirmSync" =  false;
-        "git.enableSmartCommit"= true;
+        "git.confirmSync" = false;
+        "git.enableSmartCommit" = true;
         "git.autofetch" = true;
       };
     };

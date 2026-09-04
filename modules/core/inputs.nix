@@ -1,0 +1,41 @@
+{
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
+
+{
+  # Consumable pieces of the flake inputs, exposed as options so that
+  # non-boundary modules can use them without receiving `inputs` themselves.
+  # This file is a flake boundary: only it, the extension imports in
+  # ./default.nix, and hosts/laptop's direct disko import touch `inputs`.
+  options.my.inputs = {
+    spotxOverlay = lib.mkOption {
+      type = lib.types.unspecified;
+      readOnly = true;
+      description = "SpotX overlay applied to nixpkgs.";
+    };
+
+    vscodeMarketplace = lib.mkOption {
+      type = lib.types.unspecified;
+      readOnly = true;
+      description = "VSCode marketplace extension set from nix-vscode-extensions.";
+    };
+
+    plasmaManagerModule = lib.mkOption {
+      type = lib.types.unspecified;
+      readOnly = true;
+      description = "plasma-manager home-manager module, installed under home-manager.users.";
+    };
+  };
+
+  config.my.inputs = {
+    spotxOverlay = inputs.spotx-nix.overlays.default;
+
+    vscodeMarketplace =
+      inputs.nix-vscode-extensions.extensions.${pkgs.stdenv.hostPlatform.system}.vscode-marketplace;
+
+    plasmaManagerModule = inputs.plasma-manager.homeModules.plasma-manager;
+  };
+}

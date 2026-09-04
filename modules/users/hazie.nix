@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   # Define Hazie's user account.
@@ -21,9 +21,14 @@
     useUserPackages = true;
 
     extraSpecialArgs = {
-      inherit inputs;
+      vscodeMarketplace = config.my.inputs.vscodeMarketplace;
     };
 
-    users.hazie = import ../../home;
+    users.hazie = {
+      imports = [
+        (import ../../home)
+        config.my.inputs.plasmaManagerModule
+      ];
+    };
   };
 }
