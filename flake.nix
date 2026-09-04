@@ -2,11 +2,9 @@
   description = "Hazie's NixOS systems";
 
   inputs = {
-
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    nix-vscode-extensions.url =
-      "github:nix-community/nix-vscode-extensions";
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
     disko = {
       url = "github:nix-community/disko";
@@ -19,10 +17,10 @@
     };
 
     plasma-manager = {
-    url = "github:nix-community/plasma-manager";
-    inputs.nixpkgs.follows = "nixpkgs";
-    inputs.home-manager.follows = "home-manager";
-  };
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
 
     spotx-nix = {
       url = "github:SpotX-Official/SpotX-Nix";
@@ -38,10 +36,10 @@
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
   };
 
-  outputs = inputs@{ nixpkgs, ... }:
+  outputs =
+    inputs@{ nixpkgs, ... }:
 
     let
 
@@ -60,32 +58,58 @@
 
         server = {
           hostName = "hazie-server";
-          baseModules = [ ];
+          sopsFile = ./secrets/hosts/server.yaml;
         };
       };
 
-      mkSystem = name: hostConfig:
-        let
-          baseModules = hostConfig.baseModules or [ ./modules/core ];
-        in
+      # Build a system from a host name and its metadata declared above.
+      mkSystem =
+        name: hostConfig:
+
         nixpkgs.lib.nixosSystem {
 
           inherit system;
 
           specialArgs = {
             inherit inputs;
-            host = hostConfig // { inherit name; };
+
+            # Per-host metadata consumed by the my.host option wiring below.
+            host = hostConfig // {
+              inherit name;
+            };
           };
 
           modules = [
+            # Shared base applied to every host. It wires up flake module
+            # inputs (home-manager, sops, ...) and provides the my.* options.
+            ./modules/core
+
             ./hosts/${name}
-          ] ++ baseModules;
+
+            # Populate the my.host option from the host definition above.
+            ({ host, ... }: {
+              my.host = {
+                name = host.name;
+                hostName = host.hostName;
+                sopsFile = host.sopsFile;
+              };
+            })
+          ];
 
         };
 
-    in {
+    in
+    {
 
       nixosConfigurations = nixpkgs.lib.mapAttrs mkSystem hosts;
+
+      formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-rfc-style;
+
+      devShells.${system}.default = nixpkgs.legacyPackages.${system}.mkShell {
+        packages = [
+          nixpkgs.legacyPackages.${system}.nixfmt-rfc-style
+        ];
+      };
 
     };
 

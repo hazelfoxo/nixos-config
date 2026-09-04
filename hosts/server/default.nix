@@ -1,4 +1,4 @@
-{ host, ... }:
+{ ... }:
 
 {
   imports = [
@@ -10,13 +10,9 @@
     ../../modules/profiles/server.nix
   ];
 
-  networking.hostName = host.hostName;
-  environment.variables.NIXOS_HOST = host.name;
-
-  sops = {
-    defaultSopsFile = ../../secrets/hosts/server.yaml;
-    age.keyFile = "/var/lib/sops-nix/device-key.txt";
-  };
+  # Headless server template: a plain systemd-boot like the workstations, but
+  # without the desktop boot cosmetics. Override for Secure Boot if needed.
+  my.boot.loader = "systemd-boot";
 
   my.server.firewall.enable = true;
 

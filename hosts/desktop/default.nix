@@ -1,4 +1,4 @@
-{ host, ... }:
+{ ... }:
 
 {
   imports = [
@@ -6,22 +6,16 @@
     # ./disko.nix
     ./networking
 
-    # inputs.disko.nixosModules.disko
     ../../modules/profiles/workstation.nix
     ../../modules/profiles/shared-networking.nix
     ../../modules/users/hazie.nix
-    ../../modules/core/boot/secureboot.nix
-    ../../modules/hardware/gpu/nvidia.nix
   ];
-  
-  sops.defaultSopsFile = host.sopsFile;
 
-  networking.hostName = host.hostName;
-
-  environment.variables.NIXOS_HOST = host.name;
-  
+  # Bootloader and GPU drivers are selected through the
+  # my.profiles.workstation.host options imported above.
   my.secrets.secretsUser = "hazie";
   my.sharedSecrets.enable = true;
+
   my.profiles.sharedNetworking = {
     wifi.enable = true;
     schoolVpn.enable = true;
@@ -29,11 +23,18 @@
 
   my.profiles.workstation = {
     enable = true;
+
+    host = {
+      gpu = "nvidia";
+      boot = "secureboot";
+    };
+
     desktop = {
       enable = true;
       kde.enable = true;
       kde.wallpaper = ../../home/files/wallpapers/Forest-Dark-Winter.jpg;
     };
+
     gaming.enable = true;
     videoEditing.enable = true;
     tailscale.enable = true;

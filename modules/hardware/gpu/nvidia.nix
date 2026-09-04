@@ -1,8 +1,14 @@
-{ config, lib, pkgs, ... }:
 {
-# Modified config to enable nvida drivers from NixOS Wiki
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+
+# Modified config to enable nvidia drivers from NixOS Wiki
 # https://nixos.wiki/wiki/Nvidia
 # Nvidia power management has been enabled to fix wake from sleep graphical issues.
+lib.mkIf (config.my.hardware.gpu == "nvidia") {
 
   # Enable OpenGL
   hardware.graphics = {
@@ -10,7 +16,7 @@
   };
 
   # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
 
@@ -36,7 +42,7 @@
     open = false;
 
     # Enable the Nvidia settings menu,
-	# accessible via `nvidia-settings`.
+    # accessible via `nvidia-settings`.
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.

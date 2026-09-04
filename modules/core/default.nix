@@ -1,20 +1,23 @@
-  { inputs, ... }:
+{ inputs, lib, ... }:
 
-  {
-    imports = [
-      inputs.home-manager.nixosModules.home-manager
-      inputs.sops-nix.nixosModules.sops
+{
+  options.my.core.desktop.enable = lib.mkEnableOption "desktop-oriented system services";
 
-      ./locale.nix
-      ./system.nix
-      ./nix.nix
-      ./packages.nix
-      ./fonts.nix
-      ./programs.nix
-      ./security.nix
-      ./boot
-      ./secrets.nix
-      ./shared-secrets.nix
-      ./nixpkgs.nix
-    ];
-  }
+  imports = [
+    inputs.home-manager.nixosModules.home-manager
+    inputs.sops-nix.nixosModules.sops
+
+    ./host.nix
+    ./locale.nix
+    ./system.nix
+    ./nix.nix
+    ./packages.nix
+    ./fonts.nix
+    ./programs.nix
+    ./security.nix
+    ./boot
+    ./secrets.nix
+    ./shared-secrets.nix
+    ./nixpkgs.nix
+  ];
+}

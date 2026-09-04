@@ -1,6 +1,11 @@
-{ pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+
+lib.mkIf config.my.core.desktop.enable {
   fonts = {
     packages = with pkgs; [
       corefonts

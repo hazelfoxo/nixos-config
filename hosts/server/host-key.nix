@@ -1,26 +1,18 @@
-{ config, inputs, lib, ... }:
+{ config, lib, ... }:
 
 let
   cfg = config.my.server.hostKey;
 in
 {
-  imports = [
-    inputs.sops-nix.nixosModules.sops
-  ];
+  options.my.server.hostKey.enable = lib.mkEnableOption "restore the server SSH host key from SOPS";
 
-  options.my.server.hostKey.enable = lib.mkEnableOption
-    "restore the server SSH host key from SOPS";
-
+  # Secrets and SOPS defaults come from the shared core; this file only
+  # wires the restored host key into OpenSSH.
   config = lib.mkIf cfg.enable {
-    sops = {
-      defaultSopsFile = ../../secrets/hosts/server.yaml;
-      age.keyFile = "/var/lib/sops-nix/device-key.txt";
-
-      secrets.ssh-host-ed25519 = {
-        owner = "root";
-        group = "root";
-        mode = "0600";
-      };
+    sops.secrets.ssh-host-ed25519 = {
+      owner = "root";
+      group = "root";
+      mode = "0600";
     };
 
     services.openssh = {

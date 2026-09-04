@@ -1,6 +1,12 @@
-{ pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+
+lib.mkIf (config.my.hardware.gpu == "intel") {
+
   hardware.graphics = {
     enable = true;
 

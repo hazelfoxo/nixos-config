@@ -1,12 +1,21 @@
-{ pkgs, ... }:
+{ config, lib, ... }:
 
 {
+  config = lib.mkMerge [
 
-  # Enable Polkit Service
-  security.polkit = {
-    enable = true;
-    enablePkexecWrapper = true;
-  };
+    {
+      system.stateVersion = "26.05";
+    }
 
-  system.stateVersion = "26.05";
+    (lib.mkIf config.my.core.desktop.enable {
+
+      # Enable Polkit Service
+      security.polkit = {
+        enable = true;
+        enablePkexecWrapper = true;
+      };
+
+    })
+
+  ];
 }

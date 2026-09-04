@@ -7,11 +7,29 @@ in
   options.my.profiles.workstation = {
     enable = lib.mkEnableOption "the shared workstation configuration";
 
-    desktop.enable =
-      lib.mkEnableOption "desktop applications and services";
+    host.gpu = lib.mkOption {
+      type = lib.types.enum [
+        "none"
+        "nvidia"
+        "intel"
+      ];
+      default = "none";
+      description = "GPU platform; selects the matching hardware module.";
+    };
 
-    desktop.kde.enable =
-      lib.mkEnableOption "the KDE Plasma desktop";
+    host.boot = lib.mkOption {
+      type = lib.types.enum [
+        "none"
+        "systemd-boot"
+        "secureboot"
+      ];
+      default = "none";
+      description = "Boot strategy; \"secureboot\" uses Lanzaboote.";
+    };
+
+    desktop.enable = lib.mkEnableOption "desktop applications and services";
+
+    desktop.kde.enable = lib.mkEnableOption "the KDE Plasma desktop";
 
     desktop.kde.wallpaper = lib.mkOption {
       type = lib.types.path;
@@ -19,20 +37,15 @@ in
       description = "Wallpaper used by KDE Plasma and SDDM.";
     };
 
-    desktop.gnome.enable =
-      lib.mkEnableOption "the GNOME desktop";
+    desktop.gnome.enable = lib.mkEnableOption "the GNOME desktop";
 
-    gaming.enable =
-      lib.mkEnableOption "gaming applications";
+    gaming.enable = lib.mkEnableOption "gaming applications";
 
-    videoEditing.enable =
-      lib.mkEnableOption "video editing applications";
+    videoEditing.enable = lib.mkEnableOption "video editing applications";
 
-    tailscale.enable =
-      lib.mkEnableOption "Tailscale";
+    tailscale.enable = lib.mkEnableOption "Tailscale";
 
-    protonVpn.enable =
-      lib.mkEnableOption "Proton VPN";
+    protonVpn.enable = lib.mkEnableOption "Proton VPN";
   };
 
   imports = [
@@ -45,28 +58,26 @@ in
   ];
 
   config = lib.mkIf cfg.enable {
-    my.features.desktop.enable =
-      cfg.desktop.enable;
+    my.core.desktop.enable = true;
 
-    my.features.desktop.kde.enable =
-      cfg.desktop.kde.enable;
+    my.hardware.gpu = cfg.host.gpu;
 
-    my.features.desktop.kde.wallpaper =
-      cfg.desktop.kde.wallpaper;
+    my.boot.loader = cfg.host.boot;
 
-    my.features.desktop.gnome.enable =
-      cfg.desktop.gnome.enable;
+    my.features.desktop.enable = cfg.desktop.enable;
 
-    my.features.gaming.enable =
-      cfg.gaming.enable;
+    my.features.desktop.kde.enable = cfg.desktop.kde.enable;
 
-    my.features.videoEditing.enable =
-      cfg.videoEditing.enable;
+    my.features.desktop.kde.wallpaper = cfg.desktop.kde.wallpaper;
 
-    my.features.tailscale.enable =
-      cfg.tailscale.enable;
+    my.features.desktop.gnome.enable = cfg.desktop.gnome.enable;
 
-    my.features.protonVpn.enable =
-      cfg.protonVpn.enable;
+    my.features.gaming.enable = cfg.gaming.enable;
+
+    my.features.videoEditing.enable = cfg.videoEditing.enable;
+
+    my.features.tailscale.enable = cfg.tailscale.enable;
+
+    my.features.protonVpn.enable = cfg.protonVpn.enable;
   };
 }

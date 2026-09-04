@@ -1,4 +1,4 @@
-{ config, inputs, pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   # Define Hazie's user account.
@@ -22,11 +22,6 @@
 
     extraSpecialArgs = {
       inherit inputs;
-
-      kde = {
-        enable = config.my.features.desktop.kde.enable;
-        wallpaper = config.my.profiles.workstation.desktop.kde.wallpaper;
-      };
     };
 
     users.hazie = import ../../home;

@@ -1,25 +1,40 @@
-{ ... }:
+{
+  config,
+  lib,
+  ...
+}:
 
 {
-  # Allow bootloader to create UEFI entries
-  boot.loader = {
-    efi.canTouchEfiVariables = true;
-  };
-
-  boot.plymouth = {
-    # Enable plymouth and set theme
-    enable = true;
-    theme = "bgrt";
-  };
-
-  # Set boot parameters for clean boot animation
-  boot.kernelParams = [
-    "quiet"
+  imports = [
+    ./loader.nix
+    ./systemd-boot.nix
+    ./secureboot.nix
   ];
 
-  # Supress boot messages
-  boot.consoleLogLevel = 3;
+  config = lib.mkMerge [
+    # Allow bootloaders to create UEFI entries on hosts that own one.
+    (lib.mkIf (config.my.boot.loader != "none") {
+      boot.loader.efi.canTouchEfiVariables = true;
+    })
 
-  # Disable bootloader menu timeout
-  boot.loader.timeout = 0;
+    # Desktop-focused boot cosmetics and loader behaviour.
+    (lib.mkIf config.my.core.desktop.enable {
+      boot.plymouth = {
+        # Enable plymouth and set theme
+        enable = true;
+        theme = "bgrt";
+      };
+
+      # Set boot parameters for clean boot animation
+      boot.kernelParams = [
+        "quiet"
+      ];
+
+      # Supress boot messages
+      boot.consoleLogLevel = 3;
+
+      # Disable bootloader menu timeout
+      boot.loader.timeout = 0;
+    })
+  ];
 }

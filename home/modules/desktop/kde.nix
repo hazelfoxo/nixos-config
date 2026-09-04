@@ -1,4 +1,4 @@
-{ kde, inputs, ... }:
+{ osConfig, inputs, ... }:
 
 {
   imports = [
@@ -6,8 +6,8 @@
   ];
 
   programs.plasma = {
-    enable = kde.enable;
+    enable = osConfig.my.features.desktop.kde.enable;
 
-    workspace.wallpaper = kde.wallpaper;
+    workspace.wallpaper = osConfig.my.features.desktop.kde.wallpaper;
   };
 }

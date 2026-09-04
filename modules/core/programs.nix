@@ -1,6 +1,12 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+
+lib.mkIf config.my.core.desktop.enable {
+
   # Enable Firefox
   programs.firefox = {
     enable = true;
