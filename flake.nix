@@ -104,12 +104,15 @@
     in
     {
 
+      packages.${system}.disko = inputs.disko.packages.${system}.disko;
+
       nixosConfigurations = nixpkgs.lib.mapAttrs mkSystem hosts;
 
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-rfc-style;
 
       devShells.${system}.default = nixpkgs.legacyPackages.${system}.mkShell {
         packages = [
+          nixpkgs.legacyPackages.${system}.sops
           nixpkgs.legacyPackages.${system}.nixfmt-rfc-style
         ];
       };

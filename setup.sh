@@ -2,10 +2,6 @@
 
 set -euo pipefail
 
-if ! command -v sops >/dev/null 2>&1; then
-    exec nix-shell -p sops --run "bash '$0'"
-fi
-
 BOOTSTRAP_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 TARGET_ROOT="/mnt"
 FINAL_REPO="$TARGET_ROOT/etc/nixos"
@@ -13,7 +9,41 @@ KEY="$BOOTSTRAP_DIR/keys.txt"
 
 REMOTE_URL="git@github.com:hazelfoxo/nixos-config.git"
 
+KNOWN_HOSTS="desktop laptop server"
+
+if ! command -v sops >/dev/null 2>&1; then
+    exec nix --extra-experimental-features "nix-command flakes" \
+        develop "$BOOTSTRAP_DIR" --command bash "$0"
+fi
+
 read -rp "Host: " HOST
+
+[[ " $KNOWN_HOSTS " == *" $HOST "* ]] || {
+    echo "Error: Unknown host '$HOST'. Valid hosts: $KNOWN_HOSTS."
+    exit 1
+}
+
+echo "==> Verifying keys..."
+
+[[ -f "$KEY" ]] || {
+    echo "Error: Personal key not found at $KEY."
+    exit 1
+}
+
+DEVICE_SECRET="$BOOTSTRAP_DIR/secrets/device-keys/$HOST.txt"
+
+[[ -f "$DEVICE_SECRET" ]] || {
+    echo "Error: Device secret for '$HOST' not found at $DEVICE_SECRET."
+    exit 1
+}
+
+echo "==> Verifying GitHub SSH access..."
+
+if ! ssh -o BatchMode=yes -o ConnectTimeout=10 -T git@github.com 2>&1 |
+    grep -q "successfully authenticated"; then
+    echo "Error: GitHub SSH authentication failed. Load an SSH key into ssh-agent or fix ~/.ssh."
+    exit 1
+fi
 
 echo
 echo "==> Optional Disko setup"
@@ -23,24 +53,12 @@ read -rp "Type 'ERASE $HOST' to run Disko, or press Enter to skip: " DISKO_CONFI
 if [[ "$DISKO_CONFIRMATION" == "ERASE $HOST" ]]; then
     echo "==> Running Disko for '$HOST'..."
     sudo nix --extra-experimental-features "nix-command flakes" \
-        run github:nix-community/disko -- \
+        run "$BOOTSTRAP_DIR#disko" -- \
         --mode destroy,format,mount \
         --flake "$BOOTSTRAP_DIR#$HOST"
 else
     echo "==> Skipping Disko."
 fi
-
-DEVICE_SECRET="$BOOTSTRAP_DIR/secrets/device-keys/$HOST.txt"
-
-[[ -f "$KEY" ]] || {
-    echo "Error: Personal key not found."
-    exit 1
-}
-
-[[ -f "$DEVICE_SECRET" ]] || {
-    echo "Error: Device secret for '$HOST' not found."
-    exit 1
-}
 
 mountpoint -q "$TARGET_ROOT" || {
     echo "Error: $TARGET_ROOT is not mounted. Run Disko or mount the target system first."
