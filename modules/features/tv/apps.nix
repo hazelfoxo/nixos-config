@@ -1,8 +1,12 @@
-{ pkgs, ... }:
-
 {
-    # Define user programs and applications
-    environment.systemPackages  = with pkgs; [
-        vacuum-tube
-    ];
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+
+lib.mkIf config.my.features.tv.enable {
+  environment.systemPackages = with pkgs; [
+    vacuum-tube
+  ];
 }

@@ -43,6 +43,8 @@ in
 
     videoEditing.enable = lib.mkEnableOption "video editing applications";
 
+    tv.enable = lib.mkEnableOption "TV applications";
+
     tailscale.enable = lib.mkEnableOption "Tailscale";
 
     protonVpn.enable = lib.mkEnableOption "Proton VPN";
@@ -55,6 +57,7 @@ in
     ../networking
     ../features/gaming
     ../features/video-editing
+    ../features/tv
   ];
 
   config = lib.mkIf cfg.enable {
@@ -75,6 +78,8 @@ in
     my.features.gaming.enable = cfg.gaming.enable;
 
     my.features.videoEditing.enable = cfg.videoEditing.enable;
+
+    my.features.tv.enable = cfg.tv.enable;
 
     my.features.tailscale.enable = cfg.tailscale.enable;
 
