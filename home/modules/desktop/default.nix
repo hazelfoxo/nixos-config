@@ -3,5 +3,6 @@
 {
   imports = [
     ./appearance.nix
+    ./wallpapers.nix
   ];
 }
