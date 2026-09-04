@@ -16,9 +16,14 @@
       };
       katerc."KTextEditor Renderer"."Text Font" = "CaskaydiaCove Nerd Font,...";
       kwinrc.Plugins.magiclampEnabled = true;
+      kwinrc.Plugins.squashEnabled = false;
+      kwinrc.Plugins.blurEnabled = true;
+      kwinrc.Wayland.EnablePrimarySelection = false;
       spectaclerc.General.clipboardGroup = "PostScreenshotCopyImage";
       spectaclerc.ImageSave.translatedScreenshotsFolder = "Screenshots";
       spectaclerc.VideoSave.translatedScreencastsFolder = "Screencasts";
+      kiorc.Confirmations.ConfirmDelete = true;
+      kiorc.Confirmations.ConfirmEmptyTrash = true;
     };
     shortcuts = {
       krunnerrc.Plugins.baloosearchEnabled = false;
