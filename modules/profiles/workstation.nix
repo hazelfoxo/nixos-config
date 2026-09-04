@@ -45,6 +45,8 @@ in
 
     tv.enable = lib.mkEnableOption "TV applications";
 
+    opencode.enable = lib.mkEnableOption "opencode";
+
     tailscale.enable = lib.mkEnableOption "Tailscale";
 
     protonVpn.enable = lib.mkEnableOption "Proton VPN";
@@ -58,6 +60,7 @@ in
     ../features/gaming
     ../features/video-editing
     ../features/tv
+    ../features/opencode
   ];
 
   config = lib.mkMerge [
@@ -81,6 +84,8 @@ in
       my.features.videoEditing.enable = cfg.videoEditing.enable;
 
       my.features.tv.enable = cfg.tv.enable;
+
+      my.features.opencode.enable = cfg.opencode.enable;
 
       my.features.tailscale.enable = cfg.tailscale.enable;
 

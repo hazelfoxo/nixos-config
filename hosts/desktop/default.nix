@@ -37,6 +37,7 @@
 
     gaming.enable = true;
     videoEditing.enable = true;
+    opencode.enable = true;
     tailscale.enable = true;
     protonVpn.enable = true;
   };
