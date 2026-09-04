@@ -38,10 +38,10 @@
             size = "100%";
 
             content = {
+              label = "NixOS";
               type = "filesystem";
               format = "ext4";
               mountpoint = "/";
-              extraArgs = [ "-L" "NixOS" ];
             };
           };
         };
