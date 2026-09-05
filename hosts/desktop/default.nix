@@ -6,33 +6,37 @@
     # ./disko.nix
     ./networking
 
-    ../../modules/profiles/workstation.nix
-    ../../modules/profiles/shared-networking.nix
+    ../../modules/profiles
     ../../modules/users/hazie.nix
   ];
 
   # Bootloader and GPU drivers are selected through the
   # my.profiles.workstation.host options imported above.
-  # my.secrets.secretsUser and my.sharedSecrets are set by the workstation
-  # profile when its desktop is enabled.
+  # my.secrets.secretsUser and my.sharedSecrets are set by the desktop
+  # profile when it is enabled.
 
-  my.profiles.sharedNetworking = {
-    wifi.enable = true;
-    schoolVpn.enable = true;
-  };
+  my.profiles = {
+    workstation = {
+      enable = true;
+      host = {
+        gpu = "nvidia";
+        boot = "secureboot";
+      };
+    };
 
-  my.profiles.workstation = {
-    enable = true;
+    sshClient.enable = true;
 
-    host = {
-      gpu = "nvidia";
-      boot = "secureboot";
+    sharedNetworking = {
+      wifi.enable = true;
+      schoolVpn.enable = true;
     };
 
     desktop = {
       enable = true;
-      kde.enable = true;
-      kde.wallpaper = ../../home/files/wallpapers/Forest-Dark-Winter.jpg;
+      kde = {
+        enable = true;
+        wallpaper = ../../home/files/wallpapers/Forest-Dark-Winter.jpg;
+      };
     };
 
     gaming.enable = true;

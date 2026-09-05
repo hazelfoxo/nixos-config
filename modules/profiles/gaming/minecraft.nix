@@ -5,8 +5,8 @@
   ...
 }:
 
-lib.mkIf config.my.features.opencode.enable {
+lib.mkIf config.my.profiles.gaming.enable {
   environment.systemPackages = with pkgs; [
-    opencode
+    prismlauncher
   ];
 }

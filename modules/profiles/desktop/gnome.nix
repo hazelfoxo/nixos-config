@@ -5,7 +5,7 @@
   ...
 }:
 
-lib.mkIf config.my.features.desktop.gnome.enable {
+lib.mkIf config.my.profiles.desktop.gnome.enable {
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
 

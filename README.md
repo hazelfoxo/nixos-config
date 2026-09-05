@@ -27,10 +27,11 @@ nixos-config/
 ├── hosts/      # Host-specific NixOS configurations  
 ├── modules/    # Reusable NixOS modules  
 │   ├── core/       # Base OS, Nix, users, secrets, and boot settings  
-│   ├── features/   # Optional desktop, gaming, media, and TV features  
 │   ├── hardware/   # Shared hardware and GPU-driver modules  
-│   ├── networking/ # Shared network and VPN module definitions  
-│   └── profiles/   # Compositions of modules  
+│   ├── networking/ # Low-level network and VPN module definitions  
+│   ├── profiles/   # Self-contained, enable-able profiles (desktop, gaming, ...)
+│   └── services/   # Server services (SSH server, fail2ban)
+│   └── users/      # User accounts and Home Manager wiring  
 ├── secrets/    # Stores secrets for SSH and Wireguard  
 └── flake.nix   # Flake entry point and system configuration  
 └── setup.sh    # Bootstrap for installing repo  

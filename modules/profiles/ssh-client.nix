@@ -1,32 +1,40 @@
-{ config, ... }:
+{
+  config,
+  lib,
+  ...
+}:
 
 {
-  my.ssh = {
-    enable = true;
+  options.my.profiles.sshClient.enable = lib.mkEnableOption "the SSH client profile";
 
-    owner = "hazie";
+  config = lib.mkIf config.my.profiles.sshClient.enable {
+    my.ssh = {
+      enable = true;
 
-    hosts = {
-      "github.com" = {
-        address = "github.com";
-        user = "git";
+      owner = "hazie";
 
-        sopsKey = "github-ssh-private-key";
+      hosts = {
+        "github.com" = {
+          address = "github.com";
+          user = "git";
 
-        knownHostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
-      };
+          sopsKey = "github-ssh-private-key";
 
-      homeserver = {
-        address = "10.0.0.1";
-        user = "hazie";
-        port = 2222;
+          knownHostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
+        };
 
-        sopsKey = "homeserver_ssh_private_key";
+        homeserver = {
+          address = "10.0.0.1";
+          user = "hazie";
+          port = 2222;
 
-        knownHostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDPT/09Fl/p124dDSh7TE41JTYHPTtnZJZwR8uh67XEA root@homeserver";
+          sopsKey = "homeserver_ssh_private_key";
+
+          knownHostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDPT/09Fl/p124dDSh7TE41JTYHPTtnZJZwR8uh67XEA root@homeserver";
+        };
+
       };
 
     };
-
   };
 }

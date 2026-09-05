@@ -5,7 +5,7 @@
   ...
 }:
 
-lib.mkIf config.my.features.gaming.enable {
+lib.mkIf config.my.profiles.gaming.enable {
   # Enable Steam
   programs.steam = {
     enable = true;

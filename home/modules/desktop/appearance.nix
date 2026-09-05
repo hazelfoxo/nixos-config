@@ -34,7 +34,7 @@
   '';
 
   xdg.dataFile."plasma-systemmonitor/applications.page" =
-    lib.mkIf osConfig.my.features.desktop.kde.enable
+    lib.mkIf osConfig.my.profiles.desktop.kde.enable
       {
         text = ''
           [Face-94920553440704][Appearance]

@@ -7,7 +7,7 @@
     ./host-key.nix
     ./networking
 
-    ../../modules/profiles/server.nix
+    ../../modules/profiles
   ];
 
   # Headless server template: a plain systemd-boot like the workstations, but

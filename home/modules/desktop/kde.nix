@@ -2,16 +2,16 @@
 
 {
   programs.plasma = {
-    enable = osConfig.my.features.desktop.kde.enable;
+    enable = osConfig.my.profiles.desktop.kde.enable;
 
-    workspace.wallpaper = osConfig.my.features.desktop.kde.wallpaper;
+    workspace.wallpaper = osConfig.my.profiles.desktop.kde.wallpaper;
 
     input = {
       touchpads = [
         {
           name = "DLL09D9:00 04F3:3146 Touchpad";
-    	    vendorId = "04f3";
-    	    productId = "3146";
+          vendorId = "04f3";
+          productId = "3146";
           enable = true;
           naturalScroll = true;
         }
@@ -37,8 +37,7 @@
         XftSubPixel = "rgb";
       };
 
-      katerc."KTextEditor Renderer"."Text Font" =
-        "CaskaydiaCove Nerd Font,...";
+      katerc."KTextEditor Renderer"."Text Font" = "CaskaydiaCove Nerd Font,...";
 
       kwinrc = {
         Plugins = {
