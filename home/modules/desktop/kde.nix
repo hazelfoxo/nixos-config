@@ -14,38 +14,55 @@
         XftHintStyle = "hintslight";
         XftSubPixel = "rgb";
       };
-      katerc."KTextEditor Renderer"."Text Font" = "CaskaydiaCove Nerd Font,...";
-      kwinrc.Plugins.magiclampEnabled = true;
-      kwinrc.Plugins.squashEnabled = false;
-      kwinrc.Plugins.blurEnabled = true;
+
+      katerc."KTextEditor Renderer"."Text Font" =
+        "CaskaydiaCove Nerd Font,...";
+
+      kwinrc.Plugins = {
+        magiclampEnabled = true;
+        squashEnabled = false;
+        blurEnabled = true;
+      };
+
       kwinrc.Wayland.EnablePrimarySelection = false;
+
+      kiorc.Confirmations = {
+        ConfirmDelete = true;
+        ConfirmEmptyTrash = true;
+      };
+
+      krunnerrc.Plugins = {
+        baloosearchEnabled = false;
+        browserhistoryEnabled = false;
+        browsertabsEnabled = false;
+        helprunnerEnabled = false;
+        krunner_appstreamEnabled = false;
+        krunner_bookmarksrunnerEnabled = false;
+        krunner_charrunnerEnabled = false;
+        krunner_katesessionsEnabled = false;
+        krunner_konsoleprofilesEnabled = false;
+        krunner_placesrunnerEnabled = false;
+        krunner_recentdocumentsEnabled = false;
+        krunner_sessionsEnabled = false;
+        krunner_spellcheckEnabled = true;
+        krunner_webshortcutsEnabled = false;
+        locationsEnabled = false;
+        "org.kde.activities2Enabled" = false;
+        "org.kde.datetimeEnabled" = false;
+        unitconverterEnabled = true;
+        windowsEnabled = false;
+      };
+
+      krunnerrc."Plugins/Favorites".plugins =
+        "krunner_powerdevil,krunner_services,krunner_systemsettings";
+
       spectaclerc.General.clipboardGroup = "PostScreenshotCopyImage";
       spectaclerc.ImageSave.translatedScreenshotsFolder = "Screenshots";
       spectaclerc.VideoSave.translatedScreencastsFolder = "Screencasts";
-      kiorc.Confirmations.ConfirmDelete = true;
-      kiorc.Confirmations.ConfirmEmptyTrash = true;
     };
+
     shortcuts = {
-      krunnerrc.Plugins.baloosearchEnabled = false;
-      krunnerrc.Plugins.browserhistoryEnabled = false;
-      krunnerrc.Plugins.browsertabsEnabled = false;
-      krunnerrc.Plugins.helprunnerEnabled = false;
-      krunnerrc.Plugins.krunner_appstreamEnabled = false;
-      krunnerrc.Plugins.krunner_bookmarksrunnerEnabled = false;
-      krunnerrc.Plugins.krunner_charrunnerEnabled = false;
-      krunnerrc.Plugins.krunner_katesessionsEnabled = false;
-      krunnerrc.Plugins.krunner_konsoleprofilesEnabled = false;
-      krunnerrc.Plugins.krunner_placesrunnerEnabled = false;
-      krunnerrc.Plugins.krunner_recentdocumentsEnabled = false;
-      krunnerrc.Plugins.krunner_sessionsEnabled = false;
-      krunnerrc.Plugins.krunner_spellcheckEnabled = true;
-      krunnerrc.Plugins.krunner_webshortcutsEnabled = false;
-      krunnerrc.Plugins.locationsEnabled = false;
-      krunnerrc.Plugins."org.kde.activities2Enabled" = false;
-      krunnerrc.Plugins."org.kde.datetimeEnabled" = false;
-      krunnerrc.Plugins.unitconverterEnabled = true;
-      krunnerrc.Plugins.windowsEnabled = false;
-      krunnerrc."Plugins/Favorites".plugins = "krunner_sessions,krunner_powerdevil,krunner_services,krunner_systemsettings";
+      "services/kitty.desktop"._launch = "Meta+Return";
     };
   };
 }
