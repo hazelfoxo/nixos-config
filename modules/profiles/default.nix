@@ -17,5 +17,6 @@
     ./video-editing.nix
     ./tailscale.nix
     ./proton-vpn.nix
+    ./android-tools.nix
   ];
 }

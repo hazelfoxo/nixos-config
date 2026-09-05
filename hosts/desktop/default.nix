@@ -44,5 +44,6 @@
     opencode.enable = true;
     tailscale.enable = true;
     protonVpn.enable = true;
+    androidTools.enable = true;
   };
 }
