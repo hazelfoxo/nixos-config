@@ -7,12 +7,15 @@
     workspace.wallpaper = osConfig.my.features.desktop.kde.wallpaper;
 
     input = {
-      # touchpads = [
-      #   {
-      #     enable = true;
-      #     naturalScroll = true;
-      #   }
-      # ];
+	touchpads = [
+         {
+	   name = "DLL09D9:00 04F3:3146 Touchpad";
+    	   vendorId = "04f3";
+    	   productId = "3146";
+           enable = true;
+           naturalScroll = true;
+         }
+       ];
 
       mice = [
         {
