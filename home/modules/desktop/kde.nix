@@ -18,10 +18,16 @@
       katerc."KTextEditor Renderer"."Text Font" =
         "CaskaydiaCove Nerd Font,...";
 
-      kwinrc.Plugins = {
-        magiclampEnabled = true;
-        squashEnabled = false;
-        blurEnabled = true;
+      kwinrc = {
+        Plugins = {
+          magiclampEnabled = true;
+          squashEnabled = false;
+          blurEnabled = true;
+        };
+        Effect-blur = {
+          Saturation = 275;
+          BlurStrength = 8;
+        };
       };
 
       kwinrc.Wayland.EnablePrimarySelection = false;
