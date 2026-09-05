@@ -6,6 +6,25 @@
 
     workspace.wallpaper = osConfig.my.features.desktop.kde.wallpaper;
 
+    input = {
+      # touchpads = [
+      #   {
+      #     enable = true;
+      #     naturalScroll = true;
+      #   }
+      # ];
+
+      mice = [
+        {
+          name = "SINOWEALTH Model O Eternal";
+          vendorId = "3794";
+          productId = "a000";
+          enable = true;
+          acceleration = 0;
+        }
+      ];
+    };
+
     configFile = {
       kdeglobals.General = {
         accentColorFromWallpaper = true;
