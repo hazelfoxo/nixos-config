@@ -58,6 +58,8 @@
         ConfirmEmptyTrash = true;
       };
 
+      krunnerrc.General.FreeFloating = true;
+      
       krunnerrc.Plugins = {
         baloosearchEnabled = false;
         browserhistoryEnabled = false;
