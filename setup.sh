@@ -63,7 +63,6 @@ echo "==> Verifying GitHub SSH access..."
 if ! GIT_SSH_COMMAND="ssh \
     -i $BOOTSTRAP_SSH_KEY \
     -o IdentitiesOnly=yes \
-    -o BatchMode=yes \
     -o ConnectTimeout=10 \
     -o StrictHostKeyChecking=yes" \
     git ls-remote "$REMOTE_URL" HEAD >/dev/null 2>&1; then
