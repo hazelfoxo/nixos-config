@@ -5,7 +5,8 @@
     enable = osConfig.my.profiles.desktop.kde.enable;
 
     workspace.wallpaper = osConfig.my.profiles.desktop.kde.wallpaper;
-
+    kscreenlocker.wallpaper = osConfig.my.profiles.desktop.kde.wallpaper;
+    
     input = {
       touchpads = [
         {
