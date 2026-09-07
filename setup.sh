@@ -5,7 +5,8 @@ set -euo pipefail
 BOOTSTRAP_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 
 TARGET_ROOT="/mnt"
-FINAL_REPO="$TARGET_ROOT/etc/nixos"
+CONFIG_DIR="$TARGET_ROOT/home/hazie/nixos-config"
+NIXOS_DIR="$TARGET_ROOT/etc/nixos"
 
 KEY="$BOOTSTRAP_DIR/keys.txt"
 BOOTSTRAP_SECRET="$BOOTSTRAP_DIR/secrets/bootstrap.txt"
@@ -116,8 +117,13 @@ mountpoint -q "$TARGET_ROOT" || {
     exit 1
 }
 
-[[ ! -e "$FINAL_REPO" ]] || {
-    echo "Error: Canonical configuration path already exists: $FINAL_REPO"
+[[ ! -e "$CONFIG_DIR" ]] || {
+    echo "Error: Canonical configuration path already exists: $CONFIG_DIR"
+    exit 1
+}
+
+[[ ! -e "$NIXOS_DIR" ]] || {
+    echo "Error: NixOS configuration path already exists: $NIXOS_DIR"
     exit 1
 }
 
@@ -130,25 +136,37 @@ sops decrypt "$DEVICE_SECRET" |
     sudo install -m 600 /dev/stdin \
         "$TARGET_ROOT/var/lib/sops-nix/device-key.txt"
 
-echo "==> Cloning canonical configuration repository into the target system..."
+echo "==> Creating canonical configuration directory..."
 
 sudo install -d -m 755 \
     -o "$(id -u)" \
     -g "$(id -g)" \
-    "$TARGET_ROOT/etc"
+    "$TARGET_ROOT/home/hazie"
+
+echo "==> Cloning canonical configuration repository..."
 
 GIT_SSH_COMMAND="ssh \
     -o IdentitiesOnly=no \
     -o StrictHostKeyChecking=yes" \
-    git clone "$REMOTE_URL" "$FINAL_REPO"
+    git clone "$REMOTE_URL" "$CONFIG_DIR"
 
-sudo chown -R root:root "$TARGET_ROOT/etc"
+echo "==> Linking /etc/nixos to ~/nixos-config..."
+
+sudo ln -s "/home/hazie/nixos-config" "$NIXOS_DIR"
 
 echo "==> Installing NixOS from the canonical Git repository..."
 
 sudo nixos-install \
-    --flake "$FINAL_REPO#$HOST" \
+    --flake "$NIXOS_DIR#$HOST" \
     --no-root-passwd
 
+echo "==> Setting configuration ownership..."
+
+sudo chown -R hazie:users "$CONFIG_DIR"
+
 echo
-echo "==> Installation complete. Reboot into the installed system."
+echo "==> Installation complete."
+echo "    Configuration: /home/hazie/nixos-config"
+echo "    Symlink:       /etc/nixos -> /home/hazie/nixos-config"
+echo
+echo "Reboot into the installed system."
