@@ -5,6 +5,7 @@
   users.users.hazie = {
     isNormalUser = true;
     description = "Hazie";
+    hashedPassword = "$y$j9T$erHrywcS5E69q9X6XoyqH1$7bcF58yYxXEzyCqJXVX.HUa3DgZ8huExTc8q1afZ2i5";
 
     # Set shell
     shell = pkgs.fish;
