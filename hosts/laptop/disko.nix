@@ -26,7 +26,7 @@
           };
 
           swap = {
-            size = "16.9G";
+            size = "24G";
 
             content = {
               type = "swap";
@@ -38,7 +38,6 @@
             size = "100%";
 
             content = {
-              label = "NixOS";
               type = "filesystem";
               format = "ext4";
               mountpoint = "/";
