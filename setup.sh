@@ -49,8 +49,19 @@ DEVICE_SECRET="$BOOTSTRAP_DIR/secrets/device-keys/$HOST.txt"
 BOOTSTRAP_SSH_KEY="$(mktemp)"
 chmod 600 "$BOOTSTRAP_SSH_KEY"
 
-# Remove the decrypted key when the script exits, regardless of success/failure.
-trap 'rm -f "$BOOTSTRAP_SSH_KEY"' EXIT
+# Temporary SSH agent.
+SSH_AGENT_PID=""
+
+# Clean up the decrypted key and SSH agent when the script exits.
+cleanup() {
+    if [[ -n "$SSH_AGENT_PID" ]]; then
+        ssh-agent -k >/dev/null 2>&1 || true
+    fi
+
+    rm -f "$BOOTSTRAP_SSH_KEY"
+}
+
+trap cleanup EXIT
 
 export SOPS_AGE_KEY_FILE="$KEY"
 
@@ -58,11 +69,19 @@ echo "==> Decrypting bootstrap GitHub SSH key..."
 
 sops decrypt "$BOOTSTRAP_SECRET" > "$BOOTSTRAP_SSH_KEY"
 
+echo "==> Starting temporary SSH agent..."
+
+eval "$(ssh-agent -s)"
+
+echo "==> Adding bootstrap SSH key to agent..."
+
+ssh-add "$BOOTSTRAP_SSH_KEY"
+
 echo "==> Verifying GitHub SSH access..."
 
 if ! GIT_SSH_COMMAND="ssh \
-    -i $BOOTSTRAP_SSH_KEY \
-    -o IdentitiesOnly=yes \
+    -o IdentitiesOnly=no \
+    -o BatchMode=yes \
     -o ConnectTimeout=10 \
     -o StrictHostKeyChecking=yes" \
     git ls-remote "$REMOTE_URL" HEAD >/dev/null 2>&1; then
@@ -76,6 +95,7 @@ echo "==> GitHub SSH access verified."
 echo
 echo "==> Optional Disko setup"
 echo "WARNING: Disko will destroy, format, and mount every disk defined for '$HOST'."
+echo "WARNING: This will permanently erase all data on those disks."
 
 read -rp "Type 'ERASE $HOST' to run Disko, or press Enter to skip: " DISKO_CONFIRMATION
 
@@ -87,7 +107,6 @@ if [[ "$DISKO_CONFIRMATION" == "ERASE $HOST" ]]; then
         --mode destroy,format,mount \
         --yes-wipe-all-disks \
         --flake "$BOOTSTRAP_DIR#$HOST"
-
 else
     echo "==> Skipping Disko."
 fi
@@ -119,8 +138,7 @@ sudo install -d -m 755 \
     "$TARGET_ROOT/etc"
 
 GIT_SSH_COMMAND="ssh \
-    -i $BOOTSTRAP_SSH_KEY \
-    -o IdentitiesOnly=yes \
+    -o IdentitiesOnly=no \
     -o StrictHostKeyChecking=yes" \
     git clone "$REMOTE_URL" "$FINAL_REPO"
 
