@@ -85,7 +85,9 @@ if [[ "$DISKO_CONFIRMATION" == "ERASE $HOST" ]]; then
     sudo nix --extra-experimental-features "nix-command flakes" \
         run "$BOOTSTRAP_DIR#disko" -- \
         --mode destroy,format,mount \
+        --yes-wipe-all-disks
         --flake "$BOOTSTRAP_DIR#$HOST"
+
 else
     echo "==> Skipping Disko."
 fi
@@ -128,8 +130,7 @@ echo "==> Installing NixOS from the canonical Git repository..."
 
 sudo nixos-install \
     --flake "$FINAL_REPO#$HOST" \
-    --no-root-passwd \
-    --extra-experimental-features "nix-command flakes"
+    --no-root-passwd
 
 echo
 echo "==> Installation complete. Reboot into the installed system."
