@@ -6,5 +6,7 @@
     htop
     btop
     fastfetch
+    usbutils
+    pciutils
   ];
 }
