@@ -85,7 +85,7 @@ if [[ "$DISKO_CONFIRMATION" == "ERASE $HOST" ]]; then
     sudo nix --extra-experimental-features "nix-command flakes" \
         run "$BOOTSTRAP_DIR#disko" -- \
         --mode destroy,format,mount \
-        --yes-wipe-all-disks
+        --yes-wipe-all-disks \
         --flake "$BOOTSTRAP_DIR#$HOST"
 
 else
