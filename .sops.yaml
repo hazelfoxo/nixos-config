@@ -33,3 +33,9 @@ creation_rules:
     key_groups:
       - age:
           - *user
+
+
+  - path_regex: secrets/bootstrap.txt$
+    key_groups:
+      - age:
+          - *user
