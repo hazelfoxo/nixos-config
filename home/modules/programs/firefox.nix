@@ -94,9 +94,7 @@
             "browser.newtabpage.activity-stream.feeds.section.highlights" = true;
             "browser.newtabpage.activity-stream.showSearch" = true;
             };
-            
-            # Disable middle mouse paste
-            "middlemouse.paste" = false;
+
         };
     };
 }
