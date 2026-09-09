@@ -4,9 +4,9 @@
     programs.firefox = {
         enable = true;
 
-        nativeMessagingHosts = [
-            pkgs.kdePackages.plasma-browser-integration
-        ];
+        nativeMessagingHosts = lib.optional
+            osConfig.my.profiles.desktop.kde.enable
+            pkgs.kdePackages.plasma-browser-integration;
 
         profiles.default = {
             settings = {
