@@ -58,7 +58,7 @@ cmd_upgrade_internal() {
   else
     echo "==> Staging updated flake.lock..."
     git -C "$REPO" add flake.lock
-    git -C "$REPO" commit -m "Update flake.lock"
+    git -C "$REPO" commit -m "Update flake.lock" -- flake.lock
     echo "==> Pushing updated flake.lock..."
     if git -C "$REPO" push; then
       echo "==> Push successful! flake.lock updated."
