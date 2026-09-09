@@ -53,8 +53,8 @@ nixctl <command>
 ```
 
 ### Commands
-- `nixctl pull` - pull latest configuration repo commits
-- `nixctl pull --switch` - pull and then rebuild and switch system
+- `nixctl pull` - pull latest configuration repo commits and switch system
+- `nixctl pull --pull-only` - pull without switching system
 - `nixctl switch` - rebuild system from flake and switch to it
 - `nixctl upgrade` - updates all packages and pushes the new `flake.lock`
 - `nixctl clean` - garbage-collect generations older than 14 days

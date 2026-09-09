@@ -12,8 +12,8 @@ Usage: nixctl <command>
 Consolidated NixOS maintenance commands.
 
 Commands:
-  pull        Pull latest configuration repo commits
-              --switch: also rebuild and switch system
+  pull        Pull latest config commits and switch system
+              --pull-only: only pull, skip switching
   switch      Rebuild and switch system from the flake
   upgrade     Pull, update flake inputs, rebuild, commit and push flake.lock
   clean       Garbage-collect generations older than 14 days
@@ -33,19 +33,23 @@ inhibit() {
 }
 
 cmd_pull() {
-  case "${1:-}" in
-    --switch)
-      git -C "$REPO" pull
-      cmd_switch
-      ;;
-    "")
-      git -C "$REPO" pull
-      ;;
-    *)
-      echo "error: unknown option '$1' for pull" >&2
-      exit 1
-      ;;
-  esac
+  local pull_only=0
+  local arg
+  for arg in "$@"; do
+    case "$arg" in
+      --pull-only) pull_only=1 ;;
+      *)
+        echo "error: unknown option '$arg' for pull" >&2
+        return 1
+        ;;
+    esac
+  done
+
+  git -C "$REPO" pull
+
+  if [[ "$pull_only" -eq 0 ]]; then
+    cmd_switch
+  fi
 }
 
 cmd_switch() {
