@@ -15,14 +15,6 @@ lib.mkIf config.my.core.desktop.enable {
       "middlemouse.paste" = false;
     };
 
-    autoConfig = ''
-      pref(
-        "identity.fxaccounts.account.device.name",
-        "${config.networking.hostName}"
-      );
-    '';
-  };
-
   # Enable Fish
   programs.fish.enable = true;
 
