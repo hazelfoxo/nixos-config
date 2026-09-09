@@ -13,6 +13,7 @@ Consolidated NixOS maintenance commands.
 
 Commands:
   pull        Pull latest configuration repo commits
+              --switch: also rebuild and switch system
   switch      Rebuild and switch system from the flake
   upgrade     Pull, update flake inputs, rebuild, commit and push flake.lock
   clean       Garbage-collect generations older than 14 days
@@ -32,7 +33,19 @@ inhibit() {
 }
 
 cmd_pull() {
-  git -C "$REPO" pull
+  case "${1:-}" in
+    --switch)
+      git -C "$REPO" pull
+      cmd_switch
+      ;;
+    "")
+      git -C "$REPO" pull
+      ;;
+    *)
+      echo "error: unknown option '$1' for pull" >&2
+      exit 1
+      ;;
+  esac
 }
 
 cmd_switch() {
@@ -78,7 +91,7 @@ cmd_clean_all() {
 
 main() {
   case "${1:-}" in
-    pull)                  cmd_pull ;;
+    pull)                  shift; cmd_pull "$@" ;;
     switch)                cmd_switch ;;
     upgrade)               cmd_upgrade ;;
     upgrade-internal)      cmd_upgrade_internal ;;
