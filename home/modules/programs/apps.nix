@@ -7,7 +7,6 @@
     telegram-desktop
     spotify-spotx
     libreoffice
-    google-chrome
     yt-dlp
     krita
     handbrake
