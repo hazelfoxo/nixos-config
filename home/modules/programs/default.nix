@@ -3,6 +3,7 @@
 {
   imports = [
     ./apps.nix
+    ./chrome.nix
     ./firefox.nix
     ./git.nix
     ./ssh.nix
