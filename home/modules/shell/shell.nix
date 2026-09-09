@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   programs.fish = {
@@ -16,46 +16,42 @@
 
       # Pull latest repo commits
       nix-pull = ''
-        git -C ~/nixos-config pull
+        git -C /etc/nixos pull
       '';
 
       # Rebuild system from flake
       nix-switch = ''
-        sudo nixos-rebuild switch --flake ~/nixos-config#$NIXOS_HOST
+        systemd-inhibit --what=idle:sleep --why="NixOS rebuild in progress" \
+          sudo nixos-rebuild switch --flake /etc/nixos#$NIXOS_HOST
       '';
 
       # Upgrade package lock and then packages for system
       nix-upgrade = ''
-        echo "==> Pulling latest NixOS configuration..."
-        git -C /etc/nixos pull --ff-only
-
-        and echo "==> Updating flake inputs..."
-        and nix flake update --flake /etc/nixos
-
-        and echo "==> Rebuilding and switching NixOS..."
-        and sudo nixos-rebuild switch --flake /etc/nixos#$NIXOS_HOST
-
-        and begin
+        systemd-inhibit --what=idle:sleep --why="NixOS upgrade in progress" fish -c '
+          echo "==> Pulling latest NixOS configuration..."
+          git -C /etc/nixos pull --ff-only
+          and echo "==> Updating flake inputs..."
+          and nix flake update --flake /etc/nixos
+          and echo "==> Rebuilding and switching NixOS..."
+          and sudo nixos-rebuild switch --flake /etc/nixos#$NIXOS_HOST
+          and begin
             if git -C /etc/nixos diff --quiet flake.lock
-                echo "==> flake.lock unchanged. Nothing to commit or push."
+              echo "==> flake.lock unchanged. Nothing to commit or push."
             else
-                echo "==> Staging updated flake.lock..."
-                git -C /etc/nixos add flake.lock
-
-                and git -C /etc/nixos commit -m 'Update flake.lock'
-
-                and begin
-                    echo "==> Pushing updated flake.lock..."
-
-                    if git -C /etc/nixos push
-                        echo "==> Push successful! flake.lock updated."
-                    else
-                        echo "==> Push failed!"
-                    end
+              echo "==> Staging updated flake.lock..."
+              git -C /etc/nixos add flake.lock
+              and git -C /etc/nixos commit -m "Update flake.lock"
+              and begin
+                echo "==> Pushing updated flake.lock..."
+                if git -C /etc/nixos push
+                  echo "==> Push successful! flake.lock updated."
+                else
+                  echo "==> Push failed!"
                 end
+              end
             end
-        end
-
+          end
+        '
       '';
 
       # Deletes generations older than 14d days and garbage-collects old stores
