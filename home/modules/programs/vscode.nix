@@ -6,10 +6,10 @@
 
     profiles.default = {
       extensions = with pkgs.vscode-extensions; [
-        catppuccin.catppuccin-vsc
+        catppuccin.catppuccin-vsc # Catpuccin Theme
 
-        vscodeMarketplace.icrawl.discord-vscode
-        vscodeMarketplace.jnoortheen.nix-ide
+        vscodeMarketplace.icrawl.discord-vscode # Discord Presence
+        vscodeMarketplace.jnoortheen.nix-ide # Nix IDE
       ];
 
       userSettings = {
