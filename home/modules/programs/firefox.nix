@@ -1,4 +1,4 @@
-{ osConfig, pkgs, ... }:
+{ osConfig, lib, pkgs, ... }:
 
 {
     programs.firefox = {
