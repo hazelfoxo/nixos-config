@@ -43,9 +43,24 @@ nixos-config/
   add services before deploying it. Paste administrator public keys into
   `hosts/server/authorized_keys`.
 
-## Aliased Commands
-### Nix Commands
-- nix-switch - builds configuration and immediately activates it
-- nix-upgrade - updates flake.lock and runs nix-switch aftewards
-- nix-clean - clears old generations older than 14 days
-- nix-clean-all - clears all old generations
+## `nixctl`
+This is a unifid tool for managing the NixOS configuration,  `nixctl`
+(defined in `home/modules/shell/scripts/nixctl.sh`).
+
+### Usage
+```
+nixctl <command>
+```
+
+### Commands
+- `nixctl pull` - pull latest configuration repo commits
+- `nixctl pull --switch` - pull and then rebuild and switch system
+- `nixctl switch` - rebuild system from flake and switch to it
+- `nixctl upgrade` - updates all packages and pushes the new `flake.lock`
+- `nixctl clean` - garbage-collect generations older than 14 days
+- `nixctl clean-all` - garbage-collect all old generations
+- `nixctl help` - show usage
+
+### Environment
+- `NIXOS_CONFIG` - path to the configuration repo (default: `/etc/nixos`)
+- `NIXOS_HOST` - flake attribute to build (default: current hostname)
