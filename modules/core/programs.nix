@@ -15,6 +15,8 @@ lib.mkIf config.my.core.desktop.enable {
       "middlemouse.paste" = false;
     };
 
+  };
+  
   # Enable Fish
   programs.fish.enable = true;
 
