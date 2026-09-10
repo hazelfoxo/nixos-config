@@ -25,6 +25,7 @@
           productId = "a000";
           enable = true;
           acceleration = 0;
+          accelerationProfile = "none";
         }
       ];
     };
