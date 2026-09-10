@@ -7,15 +7,9 @@
 
 lib.mkIf config.my.core.desktop.enable {
 
-  # Enable Firefox
-  programs.firefox = {
-    enable = true;
-
-    policies.Preferences = {
-      "middlemouse.paste" = false;
-    };
-
-  };
+  environment.systemPackages = with pkgs; [
+    firefox
+  ];
   
   # Enable Fish
   programs.fish.enable = true;
