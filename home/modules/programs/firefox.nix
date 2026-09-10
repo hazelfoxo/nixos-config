@@ -123,7 +123,7 @@
                 "browser.newtabpage.activity-stream.widgets.hideAllToast.enabled" = true;
 
                 "browser.newtabpage.activity-stream.widgets.order" =
-                "pictureOfTheDay,sportsWidget,clocks,weather,focusTimer,lists,privacy,crossword,stocks";
+                "pictureOfTheDay,sportsWidget,clocks,weather,focusTimer,privacy,crossword,lists,stocks";
 
                 "browser.newtabpage.activity-stream.widgets.pictureOfTheDay.size" = "large";
                 "browser.newtabpage.activity-stream.widgets.crossword.size" = "large";
