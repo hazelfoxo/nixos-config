@@ -96,4 +96,8 @@
       "services/kitty.desktop"._launch = "Meta+Return";
     };
   };
+
+  home.file.".local/share/icons/breeze/places".source = ../../files/icons/places;
+  home.file.".local/share/icons/breeze-dark/places".source = ../../files/icons/places;
+  
 }
