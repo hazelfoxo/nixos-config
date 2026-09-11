@@ -2,14 +2,35 @@
 <!--?xml version="1.0" encoding="UTF-8" standalone="no"?-->
 
 <svg
-   viewBox="0 0 96 96"
+   viewBox="0 0 64 64"
    version="1.1"
    id="svg4"
    xml:space="preserve"
-   width="96"
-   height="96"
+   width="64"
+   height="64"
+   sodipodi:docname="folder-nixos.svg"
+   inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+   id="namedview1"
+   pagecolor="#ffffff"
+   bordercolor="#000000"
+   borderopacity="0.25"
+   inkscape:showpageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#d1d1d1"
+   inkscape:zoom="6.0625"
+   inkscape:cx="48"
+   inkscape:cy="39.092784"
+   inkscape:window-width="1536"
+   inkscape:window-height="790"
+   inkscape:window-x="0"
+   inkscape:window-y="0"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="svg4" />
 
   <defs
    id="defs1">
@@ -26,38 +47,43 @@
   </defs>
 
   <!-- folder bg -->
-  <path
-   style="fill:currentColor"
-   class="ColorScheme-Accent"
-   d="m6 9v21h-1v57h86v-63h-1v-9h-42l-6-6z"
-   id="path1" />
+  
 
   <!-- folder fg -->
-  <path
-   d="m6 9v21h27l6-6h51v-9h-42l-6-6z"
-   fill-opacity=".33"
-   id="path2" />
+  
 
   <!-- folder highlight -->
-  <path
-   d="m42 9 5 7h43v-1h-42zm-3 15-6 6h-28v1h29z"
-   fill="#fff"
-   fill-opacity=".2"
-   id="path3" />
+  
 
   <!-- folder shadow -->
-  <path
-   d="m39 24-7 5h-26v1h27zm-34 62v1h86v-1z"
-   fill-opacity=".2"
-   class="ColorScheme-Text"
-   id="path4" />
+  
 
   <!-- NixOS emblem -->
   <g
-   transform="matrix(0.06693801,0,0,0.06693801,20.737496,103.94388)"
-   class="ColorScheme-Text"
-   style="opacity:0.6;fill:currentColor;stroke-width:11.046;stroke-dasharray:none"
-   id="g4">
+   id="g1"
+   transform="translate(0,-3.3023255)"><path
+     style="fill:currentColor;stroke-width:0.674419"
+     class="ColorScheme-Accent"
+     d="M 3.6744186,9 V 23.162791 H 3 v 38.44186 H 61 V 19.116279 H 60.325581 V 13.046512 H 32 L 27.953488,9 Z"
+     id="path1" /><path
+     d="m 3.674419,9 v 14.162791 h 18.209302 l 4.046512,-4.046512 H 60.325581 V 13.046512 H 32 L 27.953488,9 Z"
+     fill-opacity="0.33"
+     id="path2"
+     style="stroke-width:0.674419" /><path
+     d="m 28.290697,9 3.372093,4.72093 h 29 V 13.046512 H 32.337209 Z m -2.023254,10.116279 -4.046512,4.046512 H 3.3372099 v 0.674418 H 22.89535 Z"
+     fill="#ffffff"
+     fill-opacity="0.2"
+     id="path3"
+     style="stroke-width:0.674419" /><path
+     d="m 25.930233,19.116279 -4.720931,3.372093 H 3.6744186 v 0.674419 H 21.883721 Z M 3,60.930233 v 0.674418 h 58 v -0.674418 z"
+     fill-opacity="0.2"
+     class="ColorScheme-Text"
+     id="path4"
+     style="stroke-width:0.674419" /><g
+     transform="matrix(0.04514424,0,0,0.04514424,13.61366,73.031919)"
+     class="ColorScheme-Text"
+     style="opacity:0.6;fill:currentColor;stroke-width:11.046;stroke-dasharray:none"
+     id="g4">
 
     <g
    transform="rotate(-60,226.35754,-449.37199)"
@@ -114,6 +140,6 @@
    width="100%"
    height="100%" />
 
-  </g>
+  </g></g>
 
 </svg>
