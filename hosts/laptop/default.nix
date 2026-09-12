@@ -30,8 +30,9 @@
 
     sharedNetworking = {
       wifi.enable = true;
-      homeserverSsh.enable = true;
     };
+
+    homeserver.enable = true;
 
     school.enable = true;
 
