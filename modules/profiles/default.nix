@@ -9,6 +9,7 @@
     ./workstation.nix
     ./server.nix
     ./shared-networking.nix
+    ./school.nix
     ./ssh-client.nix
     ./desktop
     ./gaming

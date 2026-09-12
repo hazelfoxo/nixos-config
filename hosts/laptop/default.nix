@@ -30,8 +30,9 @@
 
     sharedNetworking = {
       wifi.enable = true;
-      schoolVpn.enable = true;
     };
+
+    school.enable = true;
 
     desktop = {
       enable = true;
