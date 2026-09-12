@@ -5,7 +5,7 @@
     enable = true;
 
     profiles."Home VPN" = {
-      privateKeySecret = "homeserver_wg_private_key";
+      privateKeySecret = "homeserver-wg-private-key";
       interface = "wg0";
       address = [ "10.0.0.2/32" ];
       serverPublicKey = "SY57GcLr+gbxxN278xyepRXm37ZbLikM5+b4pRp+anQ=";
