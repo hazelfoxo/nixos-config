@@ -12,11 +12,6 @@
     ../../modules/users/hazie.nix
   ];
 
-  # Bootloader and GPU drivers are selected through the
-  # my.profiles.workstation.host options imported above.
-  # my.secrets.secretsUser and my.sharedSecrets are set by the desktop
-  # profile when it is enabled.
-
   my.profiles = {
     workstation = {
       enable = true;
