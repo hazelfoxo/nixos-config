@@ -38,6 +38,7 @@ in
         address = "git.chester.network";
         user = "git";
         sopsKey = "school-gitlab-ssh-private-key";
+        knownHostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH01CaONW6JX9VW6m7DpCJvNkBM4ndbAWJu+V4QduVex";
       };
     })
   ];
