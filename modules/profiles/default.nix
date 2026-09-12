@@ -8,7 +8,7 @@
     ./shared-networking.nix
     ./homeserver.nix
     ./school.nix
-    ./ssh-client.nix
+    ./github.nix
     ./desktop
     ./gaming
     ./opencode.nix

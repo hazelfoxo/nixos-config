@@ -19,7 +19,7 @@
       };
     };
 
-    sshClient.enable = true;
+    github.enable = true;
 
     sharedNetworking = {
       wifi.enable = true;
