@@ -33,6 +33,12 @@ in
           configFile = ../../assets/openvpn/school.ovpn;
         };
       };
+
+      my.ssh.hosts."git.chester.network" = {
+        address = "git.chester.network";
+        user = "git";
+        sopsKey = "school-gitlab-ssh-private-key";
+      };
     })
   ];
 }
