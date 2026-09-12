@@ -1,7 +1,10 @@
 { lib, osConfig, ... }:
 
+# Configure desktop appearance settings
+
 {
 
+  # Fontconfig configuration for anti-aliasing and hinting
   xdg.configFile."fontconfig/fonts.conf".text = ''
     <?xml version='1.0'?>
     <fontconfig>
@@ -33,6 +36,7 @@
     </fontconfig>
   '';
 
+  # KDE Plasma System Monitor patch for Applications page icon
   xdg.dataFile."plasma-systemmonitor/applications.page" =
     lib.mkIf osConfig.my.profiles.desktop.kde.enable
       {

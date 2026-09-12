@@ -1,5 +1,7 @@
 { ... }:
 
+# Audio configuration for NixOS hosts
+
 {
   # Disales PulseAudio Service
   services.pulseaudio.enable = false;

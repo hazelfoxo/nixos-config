@@ -5,11 +5,9 @@
   ...
 }:
 
+# Inputs for NixOS hosts
+
 {
-  # Consumable pieces of the flake inputs, exposed as options so that
-  # non-boundary modules can use them without receiving `inputs` themselves.
-  # This file is a flake boundary: only it, the extension imports in
-  # ./default.nix, and hosts/laptop's direct disko import touch `inputs`.
   options.my.inputs = {
     spotxOverlay = lib.mkOption {
       type = lib.types.unspecified;

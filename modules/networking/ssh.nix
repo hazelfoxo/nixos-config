@@ -1,5 +1,7 @@
 { config, lib, ... }:
 
+# SSH configuration for NixOS hosts
+
 let
   cfg = config.my.ssh;
 

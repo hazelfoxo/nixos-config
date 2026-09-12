@@ -1,5 +1,7 @@
 { config, lib, ... }:
 
+# Wi-Fi Network Manager configuration for NixOS hosts
+
 let
   cfg = config.my.wifi;
   sharedSecrets =

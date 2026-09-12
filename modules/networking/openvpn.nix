@@ -5,6 +5,8 @@
   ...
 }:
 
+# OpenVPN Network Manager configuration for NixOS hosts
+
 let
   cfg = config.my.openvpn;
 

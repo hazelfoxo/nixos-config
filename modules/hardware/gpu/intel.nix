@@ -5,6 +5,8 @@
   ...
 }:
 
+# Intel GPU configuration for NixOS hosts
+
 lib.mkIf (config.my.hardware.gpu == "intel") {
 
   hardware.graphics = {

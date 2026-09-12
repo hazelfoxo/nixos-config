@@ -1,5 +1,7 @@
 { config, lib, ... }:
 
+# Tailscale profile configuration for NixOS hosts
+
 {
   options.my.profiles.tailscale.enable = lib.mkEnableOption "Tailscale";
 

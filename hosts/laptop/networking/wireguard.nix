@@ -1,5 +1,7 @@
 { ... }:
 
+# Wireguard VPN configuration for the desktop host
+
 {
   my.wireguard.profiles."Home VPN" = {
     privateKeySecret = "homeserver-wg-private-key";

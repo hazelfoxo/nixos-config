@@ -5,6 +5,8 @@
   ...
 }:
 
+# Secrets configuration for NixOS hosts
+
 let
   cfg = config.my.secrets;
 in

@@ -1,5 +1,7 @@
 { ... }:
 
+# Enable kitty terminal and configure its settings
+
 {
   programs.kitty = {
     enable = true;

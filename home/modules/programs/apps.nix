@@ -1,7 +1,8 @@
 { pkgs, ... }:
 
+# Configure additional programs and packages
+
 {
-  # Define user programs and applications
   home.packages = with pkgs; [
     discord
     telegram-desktop

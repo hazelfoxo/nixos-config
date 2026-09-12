@@ -1,5 +1,7 @@
 { ... }:
 
+# Disk layout configuration for the laptop host
+
 {
   disko.devices = {
     disk.main = {
@@ -10,6 +12,8 @@
         type = "gpt";
 
         partitions = {
+
+          # ESP Partition
           ESP = {
             size = "1G";
             type = "EF00";
@@ -22,6 +26,8 @@
             };
           };
 
+          # Swap Partition
+
           swap = {
             size = "24G";
 
@@ -30,6 +36,8 @@
               randomEncryption = false;
             };
           };
+
+          # Root Partition
 
           root = {
             size = "100%";

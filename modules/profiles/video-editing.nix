@@ -5,6 +5,8 @@
   ...
 }:
 
+# Video editing profile configuration for NixOS hosts
+
 {
   options.my.profiles.videoEditing.enable = lib.mkEnableOption "the video editing profile";
 

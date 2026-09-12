@@ -5,6 +5,8 @@
   ...
 }:
 
+# Nvidia GPU configuration for NixOS hosts
+
 # Modified config to enable nvidia drivers from NixOS Wiki
 # https://nixos.wiki/wiki/Nvidia
 # Nvidia power management has been enabled to fix wake from sleep graphical issues.

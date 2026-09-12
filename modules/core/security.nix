@@ -1,5 +1,7 @@
 { ... }:
 
+# Security configuration for NixOS hosts
+
 {
   # Enable NixOS firewall
   networking.firewall.enable = true;

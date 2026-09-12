@@ -1,5 +1,7 @@
 { config, lib, ... }:
 
+# WireGuard server configuration for NixOS hosts
+
 let
   cfg = config.my.server.wireguard;
 in

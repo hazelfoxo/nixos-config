@@ -5,6 +5,8 @@
   ...
 }:
 
+# Steam Configuration for NixOS hosts
+
 lib.mkIf config.my.profiles.gaming.enable {
   # Enable Steam
   programs.steam = {

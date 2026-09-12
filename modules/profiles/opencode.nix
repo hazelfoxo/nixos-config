@@ -5,6 +5,8 @@
   ...
 }:
 
+# Opencode profile configuration for NixOS hosts
+
 {
   options.my.profiles.opencode.enable = lib.mkEnableOption "opencode";
 

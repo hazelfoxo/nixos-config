@@ -1,5 +1,7 @@
 { config, lib, ... }:
 
+# Fail2ban configuration for NixOS Server hosts
+
 let
   cfg = config.my.server.fail2ban;
 in

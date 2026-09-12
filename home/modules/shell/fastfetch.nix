@@ -1,8 +1,9 @@
 { ... }:
 
+# Enable fastfetch and configure its settings
+
 {
   programs.fastfetch = {
-    # Enable startship service
     enable = true;
   };
 

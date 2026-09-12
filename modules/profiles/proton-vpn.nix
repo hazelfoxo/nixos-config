@@ -5,6 +5,8 @@
   ...
 }:
 
+# ProtonVPN profile configuration for NixOS hosts
+
 {
   options.my.profiles.protonVpn.enable = lib.mkEnableOption "Proton VPN";
 

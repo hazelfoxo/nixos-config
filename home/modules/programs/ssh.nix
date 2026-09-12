@@ -1,8 +1,9 @@
 { pkgs, ... }:
 
+# Configure SSH settings and enable SSH agent
+
 {
   programs.ssh = {
-    # Enable SSH Service
     enable = true;
     # Disable default SSH config to prepare for removal of defaults
     enableDefaultConfig = false;

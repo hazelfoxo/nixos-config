@@ -1,5 +1,7 @@
 { config, lib, ... }:
 
+# Workstation profile for NixOS hosts
+
 let
   cfg = config.my.profiles.workstation;
 in

@@ -4,8 +4,6 @@ let
   cfg = config.my.profiles.sharedNetworking;
 in
 {
-  # The WiFi and OpenVPN modules themselves are imported once by the shared
-  # profiles layer; this profile only configures them.
   options.my.profiles.sharedNetworking = {
     wifi.enable = lib.mkEnableOption "the shared home Wi-Fi profile";
   };

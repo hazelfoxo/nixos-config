@@ -1,5 +1,7 @@
 { pkgs, ... }:
 
+# System packages configuration for NixOS hosts
+
 {
   environment.systemPackages = with pkgs; [
     git

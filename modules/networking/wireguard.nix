@@ -1,5 +1,7 @@
 { config, lib, ... }:
 
+# Wireguar Network Manager Profile Configuration for NixOS hosts
+
 let
   cfg = config.my.wireguard;
 

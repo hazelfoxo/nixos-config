@@ -1,5 +1,7 @@
 { lib, ... }:
 
+# Shared secrets configuration for NixOS hosts
+
 {
   options.my.sharedSecrets = {
     enable = lib.mkEnableOption "the shared SOPS secrets file";

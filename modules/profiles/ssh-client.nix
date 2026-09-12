@@ -4,6 +4,8 @@
   ...
 }:
 
+# SSH client profile configuration for NixOS hosts
+
 {
   options.my.profiles.sshClient.enable = lib.mkEnableOption "the SSH client profile";
 

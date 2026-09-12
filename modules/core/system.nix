@@ -1,5 +1,7 @@
 { config, lib, ... }:
 
+# NixOS system configuration for NixOS hosts
+
 {
   config = lib.mkMerge [
 

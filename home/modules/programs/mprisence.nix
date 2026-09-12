@@ -1,10 +1,13 @@
 { pkgs, ... }:
 
+# Mprisence configuration for home-manager
+
 {
-  # Include the mprisense cmd tool
   home.packages = [
+    # Install mprisence
     pkgs.mprisence
 
+    # Aliases for starting and stopping the mprisence service
     (pkgs.writeShellScriptBin "start-mprisence" ''
       systemctl --user start mprisence.service
     '')

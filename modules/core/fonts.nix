@@ -5,6 +5,8 @@
   ...
 }:
 
+# Fonts configuration for NixOS hosts
+
 lib.mkIf config.my.core.desktop.enable {
   fonts = {
     packages = with pkgs; [

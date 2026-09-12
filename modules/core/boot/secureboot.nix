@@ -5,6 +5,8 @@
   ...
 }:
 
+# Secureboot configuration for NixOS hosts
+
 {
   config = lib.mkIf (config.my.boot.loader == "secureboot") {
     environment.systemPackages = [

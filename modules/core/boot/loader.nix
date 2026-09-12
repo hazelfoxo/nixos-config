@@ -1,5 +1,7 @@
 { lib, ... }:
 
+# Bootloader configuration options for NixOS hosts
+
 {
   options.my.boot.loader = lib.mkOption {
     type = lib.types.enum [

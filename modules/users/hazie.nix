@@ -1,5 +1,7 @@
 { config, pkgs, ... }:
 
+# Define Hazie's user account and configure home-manager for the user.
+
 {
   # Define Hazie's user account.
   users.users.hazie = {

@@ -4,6 +4,8 @@
   ...
 }:
 
+# Bootloader configuration for NixOS hosts
+
 {
   imports = [
     ./loader.nix

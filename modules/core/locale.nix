@@ -1,5 +1,7 @@
 { ... }:
 
+# Locale configuration for NixOS hosts
+
 {
   # Default NixOS UK Locale Settings
   time.timeZone = "Europe/London";

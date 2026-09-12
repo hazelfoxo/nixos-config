@@ -5,6 +5,8 @@
   ...
 }:
 
+# The TV profile configuration for NixOS hosts
+
 {
   options.my.profiles.tv.enable = lib.mkEnableOption "the TV profile";
 

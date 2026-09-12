@@ -1,5 +1,7 @@
 { ... }:
 
+# Disk layout configuration for the desktop host
+
 {
   disko.devices = {
     disk.main = {
@@ -10,6 +12,7 @@
         type = "gpt";
 
         partitions = {
+          # ESP Partition
           ESP = {
             size = "1G";
             type = "EF00";
@@ -25,6 +28,7 @@
             };
           };
 
+          # Swap Partition
           swap = {
             size = "34.2G";
 
@@ -34,6 +38,7 @@
             };
           };
 
+          # Root Partition
           root = {
             size = "100%";
 

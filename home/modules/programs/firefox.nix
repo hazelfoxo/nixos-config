@@ -1,5 +1,7 @@
 { osConfig, lib, pkgs, ... }:
 
+# Enable firefox and configure its settings
+
 {
     programs.firefox = {
         enable = true;

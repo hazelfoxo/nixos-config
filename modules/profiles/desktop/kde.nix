@@ -5,6 +5,8 @@
   ...
 }:
 
+# KDE desktop environment configuration for NixOS hosts
+
 {
   config = lib.mkIf config.my.profiles.desktop.kde.enable {
     services.displayManager.sddm.enable = true;

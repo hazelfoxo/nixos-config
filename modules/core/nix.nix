@@ -1,5 +1,7 @@
 { ... }:
 
+# Nix configuration options for NixOS hosts
+
 {
   nix.settings.experimental-features = [
     "nix-command"

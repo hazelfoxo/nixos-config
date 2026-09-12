@@ -1,5 +1,7 @@
 { lib, ... }:
 
+# Hardware GPU configuration for NixOS hosts
+
 {
   options.my.hardware.gpu = lib.mkOption {
     type = lib.types.enum [

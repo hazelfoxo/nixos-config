@@ -5,6 +5,8 @@
   ...
 }:
 
+# Shared school profile for NixOS hosts
+
 let
   cfg = config.my.profiles.school;
 in

@@ -1,5 +1,7 @@
 { config, lib, ... }:
 
+# Desktop profile configuration for NixOS hosts
+
 {
   options.my.profiles.desktop = {
     enable = lib.mkEnableOption "the desktop profile";

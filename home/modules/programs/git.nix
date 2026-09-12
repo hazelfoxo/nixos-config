@@ -1,8 +1,9 @@
 { pkgs, ... }:
 
+# Configure git settings and credentials
+
 {
   programs.git = {
-    # Enable git service
     enable = true;
 
     settings = {
@@ -15,11 +16,9 @@
       init.defaultBranch = "main";
     };
 
-    # Use a different identity for Chester University repos.
-    # Home-manager appends this after `settings`, so the included
-    # identity takes precedence over the personal defaults above.
     includes = [
       {
+        # Define git credentials for Uni Gitlab Repositories
         condition = "hasconfig:remote.*.url:git@git.chester.network:*/**";
         contents = {
           user = {

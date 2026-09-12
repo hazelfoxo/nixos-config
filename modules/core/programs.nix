@@ -5,6 +5,8 @@
   ...
 }:
 
+# System programs for NixOS hosts
+
 lib.mkIf config.my.core.desktop.enable {
 
   environment.systemPackages = with pkgs; [

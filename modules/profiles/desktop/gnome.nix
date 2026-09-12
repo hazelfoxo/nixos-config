@@ -5,6 +5,8 @@
   ...
 }:
 
+# Gnome desktop environment configuration for NixOS hosts
+
 lib.mkIf config.my.profiles.desktop.gnome.enable {
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;

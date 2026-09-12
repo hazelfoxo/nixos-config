@@ -1,10 +1,13 @@
 { pkgs, vscodeMarketplace, ... }:
 
+# Enable Visual Studio Code and configure its settings
+
 {
   programs.vscode = {
     enable = true;
 
     profiles.default = {
+      # Configure Visual Studio Code extensions
       extensions = with pkgs.vscode-extensions; [
         catppuccin.catppuccin-vsc # Catpuccin Theme
 
@@ -12,6 +15,7 @@
         vscodeMarketplace.jnoortheen.nix-ide # Nix IDE
       ];
 
+      # Configure Visual Studio Code user settings
       userSettings = {
         "workbench.colorTheme" = "Catppuccin Mocha";
         "chat.titleBar.openInAgentsWindow.enabled" = false;

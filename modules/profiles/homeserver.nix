@@ -4,6 +4,8 @@
   ...
 }:
 
+# Homeserver profile configuration for NixOS hosts
+
 {
   options.my.profiles.homeserver = {
     enable = lib.mkEnableOption "SSH and WireGuard access to the homeserver";

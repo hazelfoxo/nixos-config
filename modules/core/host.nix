@@ -1,5 +1,7 @@
 { config, lib, ... }:
 
+# Host configuration options for NixOS hosts
+
 {
   options.my.host = {
     name = lib.mkOption {
