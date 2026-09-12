@@ -113,6 +113,12 @@ in
               type = lib.types.bool;
               default = false;
             };
+
+            neverDefault = lib.mkOption {
+              type = lib.types.bool;
+              default = false;
+              description = "Only route traffic on the VPN's network through the tunnel.";
+            };
           };
         }
       );
@@ -247,7 +253,12 @@ in
             ta-dir = toString profile.keyDirection;
           };
 
-          ipv4.method = "auto";
+          ipv4 = {
+            method = "auto";
+          }
+          // lib.optionalAttrs profile.neverDefault {
+            never-default = true;
+          };
           ipv6.method = "ignore";
         }
       ) cfg.profiles;

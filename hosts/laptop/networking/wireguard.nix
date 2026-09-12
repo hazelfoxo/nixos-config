@@ -11,6 +11,7 @@
       serverPublicKey = "SY57GcLr+gbxxN278xyepRXm37ZbLikM5+b4pRp+anQ=";
       endpoint = "hazie.duckdns.org:51820";
       allowedIPs = [ "10.0.0.1/32" ];
+      neverDefault = true;
     };
   };
 }

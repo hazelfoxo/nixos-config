@@ -31,6 +31,7 @@ in
           port = 1195;
           protocol = "udp";
           configFile = ../../assets/openvpn/school.ovpn;
+          neverDefault = true;
         };
       };
 

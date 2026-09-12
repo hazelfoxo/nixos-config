@@ -43,6 +43,12 @@ in
               type = lib.types.int;
               default = 25;
             };
+
+            neverDefault = lib.mkOption {
+              type = lib.types.bool;
+              default = false;
+              description = "Only route traffic to the WireGuard subnet through the tunnel.";
+            };
           };
         }
       );
@@ -102,6 +108,8 @@ in
 
         ipv4 = {
           method = "manual";
+
+          never-default = profile.neverDefault;
 
           addresses = lib.concatStringsSep ";" profile.address;
         };
