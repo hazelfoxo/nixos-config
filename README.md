@@ -39,13 +39,10 @@ nixos-config/
 ## Hosts
 - Desktop host with NVIDIA driver support
 - Laptop host with Intel GPU support
-- Minimal headless server template; replace its generic hardware template and
-  add services before deploying it. Paste administrator public keys into
-  `hosts/server/authorized_keys`.
+- Minimal headless server host (WIP)
 
 ## `nixctl`
-This is a unifid tool for managing the NixOS configuration,  `nixctl`
-(defined in `home/modules/shell/scripts/nixctl.sh`).
+This is a unified tool for managing the NixOS configuration.
 
 ### Usage
 ```
