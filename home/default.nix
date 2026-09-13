@@ -12,5 +12,6 @@
     ./modules/programs
     ./modules/desktop
     ./modules/shell
+    ./modules/directories.nix
   ];
 }
