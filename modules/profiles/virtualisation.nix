@@ -14,17 +14,13 @@
   options.my.profiles.virtualisation.enable = lib.mkEnableOption "the virtualisation profile";
 
   config = lib.mkIf config.my.profiles.virtualisation.enable {
-    virtualisation = {
-      libvirtd = {
-        enable = true;
-        qemu = {
-          package = pkgs.qemu_kvm;
-          swtpm.enable = true;
-        };
+    virtualisation.libvirtd = {
+      enable = true;
+      qemu = {
+        package = pkgs.qemu_kvm;
+        swtpm.enable = true;
       };
     };
-
-    users.users.hazie.extraGroups = [ "libvirtd" ];
 
     environment.systemPackages = with pkgs; [
       virt-manager

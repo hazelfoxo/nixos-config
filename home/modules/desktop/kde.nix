@@ -45,7 +45,7 @@
         XftHintStyle = "hintslight";
         XftSubPixel = "rgb";
       };
-  
+
       katerc."KTextEditor Renderer"."Text Font" = "CaskaydiaCove Nerd Font,...";
 
       # KWin configuration for blur and magic lamp effects
@@ -64,12 +64,12 @@
         # Disable middle-click pasting
         Wayland.EnablePrimarySelection = false;
       };
-      
+
       kiorc.Confirmations = {
         ConfirmDelete = true;
         ConfirmEmptyTrash = true;
       };
-      
+
       # Krunner configuration for enabling/disabling plugins and setting favorites
       krunnerrc = {
         General.FreeFloating = true;
@@ -118,5 +118,5 @@
     ".local/share/icons/breeze/places".source = ../../files/icons/places;
     ".local/share/icons/breeze-dark/places".source = ../../files/icons/places;
   };
-  
+
 }

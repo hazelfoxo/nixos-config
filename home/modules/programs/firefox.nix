@@ -1,136 +1,131 @@
-{ osConfig, lib, pkgs, ... }:
+{
+  osConfig,
+  lib,
+  pkgs,
+  ...
+}:
 
 # Enable firefox and configure its settings
 
 {
-    programs.firefox = {
-        enable = true;
+  programs.firefox = {
+    enable = true;
 
-        nativeMessagingHosts = lib.optional
-            osConfig.my.profiles.desktop.kde.enable
-            pkgs.kdePackages.plasma-browser-integration;
+    nativeMessagingHosts = lib.optional osConfig.my.profiles.desktop.kde.enable pkgs.kdePackages.plasma-browser-integration;
 
-        profiles.default = {
-            settings = {
-                # ─────────────────────────────────────────────
-                # General
-                # ─────────────────────────────────────────────
+    profiles.default = {
+      settings = {
+        # ─────────────────────────────────────────────
+        # General
+        # ─────────────────────────────────────────────
 
-                # Firefox Sync device name
-                "identity.fxaccounts.account.device.name" =
-                osConfig.networking.hostName;
+        # Firefox Sync device name
+        "identity.fxaccounts.account.device.name" = osConfig.networking.hostName;
 
-                # Disable middle-click paste
-                "middlemouse.paste" = false;
+        # Disable middle-click paste
+        "middlemouse.paste" = false;
 
+        # ─────────────────────────────────────────────
+        # New Tab
+        # ─────────────────────────────────────────────
 
-                # ─────────────────────────────────────────────
-                # New Tab
-                # ─────────────────────────────────────────────
+        # Nova / widget system
+        "browser.newtabpage.activity-stream.widgets.enabled" = true;
+        "browser.newtabpage.activity-stream.widgets.system.enabled" = true;
+        "browser.newtabpage.activity-stream.nova.enabled" = true;
 
-                # Nova / widget system
-                "browser.newtabpage.activity-stream.widgets.enabled" = true;
-                "browser.newtabpage.activity-stream.widgets.system.enabled" = true;
-                "browser.newtabpage.activity-stream.nova.enabled" = true;
+        # ─────────────────────────────────────────────
+        # New Tab — Content
+        # ─────────────────────────────────────────────
 
+        # Search and sites
+        "browser.newtabpage.activity-stream.showSearch" = true;
+        "browser.newtabpage.activity-stream.feeds.topsites" = true;
+        "browser.newtabpage.activity-stream.feeds.section.highlights" = true;
 
-                # ─────────────────────────────────────────────
-                # New Tab — Content
-                # ─────────────────────────────────────────────
+        # Disable Pocket / recommended stories
+        "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
 
-                # Search and sites
-                "browser.newtabpage.activity-stream.showSearch" = true;
-                "browser.newtabpage.activity-stream.feeds.topsites" = true;
-                "browser.newtabpage.activity-stream.feeds.section.highlights" = true;
+        # Disable sponsored content
+        "browser.newtabpage.activity-stream.showSponsored" = false;
+        "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
 
-                # Disable Pocket / recommended stories
-                "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
+        # ─────────────────────────────────────────────
+        # New Tab — Widgets
+        # ─────────────────────────────────────────────
 
-                # Disable sponsored content
-                "browser.newtabpage.activity-stream.showSponsored" = false;
-                "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+        # Widget availability
+        "browser.newtabpage.activity-stream.widgets.clocks.enabled" = false;
+        "browser.newtabpage.activity-stream.widgets.crossword.enabled" = true;
+        "browser.newtabpage.activity-stream.widgets.focusTimer.enabled" = true;
+        "browser.newtabpage.activity-stream.widgets.lists.enabled" = true;
+        "browser.newtabpage.activity-stream.widgets.pictureOfTheDay.enabled" = true;
+        "browser.newtabpage.activity-stream.widgets.privacy.enabled" = false;
+        "browser.newtabpage.activity-stream.widgets.recentSearches.enabled" = true;
+        "browser.newtabpage.activity-stream.widgets.sportsWidget.enabled" = false;
+        "browser.newtabpage.activity-stream.widgets.stocks.enabled" = false;
 
+        # ─────────────────────────────────────────────
+        # New Tab — System Widgets
+        # ─────────────────────────────────────────────
 
-                # ─────────────────────────────────────────────
-                # New Tab — Widgets
-                # ─────────────────────────────────────────────
+        "browser.newtabpage.activity-stream.widgets.system.clocks.enabled" = true;
+        "browser.newtabpage.activity-stream.widgets.system.crossword.enabled" = true;
+        "browser.newtabpage.activity-stream.widgets.system.focusTimer.enabled" = true;
+        "browser.newtabpage.activity-stream.widgets.system.lists.enabled" = true;
+        "browser.newtabpage.activity-stream.widgets.system.pictureOfTheDay.enabled" = true;
+        "browser.newtabpage.activity-stream.widgets.system.privacy.enabled" = true;
+        "browser.newtabpage.activity-stream.widgets.system.sportsWidget.enabled" = true;
+        "browser.newtabpage.activity-stream.widgets.system.stocks.enabled" = true;
+        "browser.newtabpage.activity-stream.widgets.system.weatherForecast.enabled" = true;
 
-                # Widget availability
-                "browser.newtabpage.activity-stream.widgets.clocks.enabled" = false;
-                "browser.newtabpage.activity-stream.widgets.crossword.enabled" = true;
-                "browser.newtabpage.activity-stream.widgets.focusTimer.enabled" = true;
-                "browser.newtabpage.activity-stream.widgets.lists.enabled" = true;
-                "browser.newtabpage.activity-stream.widgets.pictureOfTheDay.enabled" = true;
-                "browser.newtabpage.activity-stream.widgets.privacy.enabled" = false;
-                "browser.newtabpage.activity-stream.widgets.recentSearches.enabled" = true;
-                "browser.newtabpage.activity-stream.widgets.sportsWidget.enabled" = false;
-                "browser.newtabpage.activity-stream.widgets.stocks.enabled" = false;
+        # ─────────────────────────────────────────────
+        # New Tab — Widget Interactions
+        # ─────────────────────────────────────────────
 
+        "browser.newtabpage.activity-stream.widgets.focusTimer.interaction" = true;
+        "browser.newtabpage.activity-stream.widgets.lists.interaction" = true;
+        "browser.newtabpage.activity-stream.widgets.pictureOfTheDay.interaction" = true;
+        "browser.newtabpage.activity-stream.widgets.sportsWidget.interaction" = true;
+        "browser.newtabpage.activity-stream.widgets.weatherForecast.interaction" = true;
+        "browser.newtabpage.activity-stream.widgets.crossword.interaction" = true;
 
-                # ─────────────────────────────────────────────
-                # New Tab — System Widgets
-                # ─────────────────────────────────────────────
+        # ─────────────────────────────────────────────
+        # New Tab — Widget Settings
+        # ─────────────────────────────────────────────
 
-                "browser.newtabpage.activity-stream.widgets.system.clocks.enabled" = true;
-                "browser.newtabpage.activity-stream.widgets.system.crossword.enabled" = true;
-                "browser.newtabpage.activity-stream.widgets.system.focusTimer.enabled" = true;
-                "browser.newtabpage.activity-stream.widgets.system.lists.enabled" = true;
-                "browser.newtabpage.activity-stream.widgets.system.pictureOfTheDay.enabled" = true;
-                "browser.newtabpage.activity-stream.widgets.system.privacy.enabled" = true;
-                "browser.newtabpage.activity-stream.widgets.system.sportsWidget.enabled" = true;
-                "browser.newtabpage.activity-stream.widgets.system.stocks.enabled" = true;
-                "browser.newtabpage.activity-stream.widgets.system.weatherForecast.enabled" = true;
+        # Focus Timer
+        "browser.newtabpage.activity-stream.widgets.focusTimer.showSystemNotifications" = true;
 
+        # Sports
+        "browser.newtabpage.activity-stream.widgets.sports.forceLiveDataTrustable" = true;
+        "browser.newtabpage.activity-stream.widgets.sportsWidget.celebrations.enabled" = true;
+        "browser.newtabpage.activity-stream.widgets.sportsWidget.live.enabled" = true;
 
-                # ─────────────────────────────────────────────
-                # New Tab — Widget Interactions
-                # ─────────────────────────────────────────────
+        # Weather
+        "browser.newtabpage.activity-stream.widgets.weather.size" = "large";
 
-                "browser.newtabpage.activity-stream.widgets.focusTimer.interaction" = true;
-                "browser.newtabpage.activity-stream.widgets.lists.interaction" = true;
-                "browser.newtabpage.activity-stream.widgets.pictureOfTheDay.interaction" = true;
-                "browser.newtabpage.activity-stream.widgets.sportsWidget.interaction" = true;
-                "browser.newtabpage.activity-stream.widgets.weatherForecast.interaction" = true;
-                "browser.newtabpage.activity-stream.widgets.crossword.interaction" = true;
+        # Lists
+        "browser.newtabpage.activity-stream.widgets.lists.badge.enabled" = true;
 
+        # Picture of the Day
+        "browser.newtabpage.activity-stream.widgets.pictureOfTheDay.setAsWallpaper.enabled" = true;
 
-                # ─────────────────────────────────────────────
-                # New Tab — Widget Settings
-                # ─────────────────────────────────────────────
+        # ─────────────────────────────────────────────
+        # New Tab — Layout
+        # ─────────────────────────────────────────────
 
-                # Focus Timer
-                "browser.newtabpage.activity-stream.widgets.focusTimer.showSystemNotifications" = true;
+        "browser.newtabpage.activity-stream.widgets.maximized" = true;
+        "browser.newtabpage.activity-stream.widgets.row\\.expanded" = true;
+        "browser.newtabpage.activity-stream.widgets.hideAllToast.enabled" = true;
 
-                # Sports
-                "browser.newtabpage.activity-stream.widgets.sports.forceLiveDataTrustable" = true;
-                "browser.newtabpage.activity-stream.widgets.sportsWidget.celebrations.enabled" = true;
-                "browser.newtabpage.activity-stream.widgets.sportsWidget.live.enabled" = true;
+        "browser.newtabpage.activity-stream.widgets.order" =
+          "pictureOfTheDay,sportsWidget,clocks,weather,focusTimer,privacy,crossword,lists,stocks";
 
-                # Weather
-                "browser.newtabpage.activity-stream.widgets.weather.size" = "large";
+        "browser.newtabpage.activity-stream.widgets.pictureOfTheDay.size" = "large";
+        "browser.newtabpage.activity-stream.widgets.crossword.size" = "large";
+      };
 
-                # Lists
-                "browser.newtabpage.activity-stream.widgets.lists.badge.enabled" = true;
-
-                # Picture of the Day
-                "browser.newtabpage.activity-stream.widgets.pictureOfTheDay.setAsWallpaper.enabled" = true;
-
-
-                # ─────────────────────────────────────────────
-                # New Tab — Layout
-                # ─────────────────────────────────────────────
-
-                "browser.newtabpage.activity-stream.widgets.maximized" = true;
-                "browser.newtabpage.activity-stream.widgets.row\\.expanded" = true;
-                "browser.newtabpage.activity-stream.widgets.hideAllToast.enabled" = true;
-
-                "browser.newtabpage.activity-stream.widgets.order" =
-                "pictureOfTheDay,sportsWidget,clocks,weather,focusTimer,privacy,crossword,lists,stocks";
-
-                "browser.newtabpage.activity-stream.widgets.pictureOfTheDay.size" = "large";
-                "browser.newtabpage.activity-stream.widgets.crossword.size" = "large";
-            };
-
-        };
     };
+  };
 }
