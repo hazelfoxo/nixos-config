@@ -47,6 +47,6 @@
     };
     tailscale.enable = true;
     protonVpn.enable = true;
-    virtualisation.enable = true;
+    virtualisation.enable = false;
   };
 }
