@@ -10,13 +10,12 @@
     ./school.nix
     ./github.nix
     ./desktop
+    ./dev.nix
     ./gaming
-    ./opencode.nix
     ./tv.nix
     ./video-editing.nix
     ./tailscale.nix
     ./proton-vpn.nix
-    ./android-tools.nix
     ./virtualisation.nix
   ];
 }
