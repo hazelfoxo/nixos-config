@@ -38,6 +38,14 @@
 
     # Appearance configuration
     configFile = {
+
+      gwenviewrc = {
+        SideBar = {
+          PreferredMetaInfoKeyList =
+            "General.Name,General.Size,General.Created,General.ImageSize,General.MimeType";
+        };
+      };
+
       kdeglobals.General = {
         accentColorFromWallpaper = true;
         fixed = "CaskaydiaCove Nerd Font,10,...";
