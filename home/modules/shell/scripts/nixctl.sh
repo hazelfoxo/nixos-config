@@ -96,8 +96,8 @@ cmd_clean_all() {
 
 cmd_shell() {
   if [[ "$#" -eq 0 ]]; then
-    echo "error: shell requires at least one package" >&2
-    usage
+    echo "nixctl: error: shell requires at least one package" >&2
+    echo "Usage: nixctl shell <pkg...>" >&2
     return 1
   fi
   nix-shell -p "$@"
