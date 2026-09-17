@@ -18,6 +18,7 @@ Commands:
   upgrade     Pull, update flake inputs, rebuild, commit and push flake.lock
   clean       Garbage-collect generations older than 14 days
   clean-all   Garbage-collect all old generations
+  shell <pkg…>  Open a nix-shell with the given packages (-p)
   help        Show this help
 
 Environment:
@@ -93,6 +94,15 @@ cmd_clean_all() {
   sudo nix-collect-garbage -d
 }
 
+cmd_shell() {
+  if [[ "$#" -eq 0 ]]; then
+    echo "error: shell requires at least one package" >&2
+    usage
+    return 1
+  fi
+  nix-shell -p "$@"
+}
+
 main() {
   case "${1:-}" in
     pull)                  shift; cmd_pull "$@" ;;
@@ -101,6 +111,7 @@ main() {
     upgrade-internal)      cmd_upgrade_internal ;;
     clean)                 cmd_clean ;;
     clean-all)             cmd_clean_all ;;
+    shell)                 shift; cmd_shell "$@" ;;
     help | -h | --help)    usage ;;
     *)                     usage; exit 1 ;;
   esac
