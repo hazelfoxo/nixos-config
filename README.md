@@ -56,6 +56,7 @@ nixctl <command>
 - `nixctl upgrade` - updates all packages and pushes the new `flake.lock`
 - `nixctl clean` - garbage-collect generations older than 14 days
 - `nixctl clean-all` - garbage-collect all old generations
+- `nixctl shell <pkg…>` - open a `nix-shell` with the given packages
 - `nixctl help` - show usage
 
 ### Environment
