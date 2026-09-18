@@ -6,7 +6,7 @@
   disko.devices = {
     disk.main = {
       type = "disk";
-      device = "/dev/disk/by-id/nata-KINGSTON_SA400S37240G_50026B7782AE9930";
+      device = "/dev/disk/by-id/ata-KINGSTON_SA400S37240G_50026B7782AE9930";
 
       content = {
         type = "gpt";
