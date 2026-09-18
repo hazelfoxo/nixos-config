@@ -152,12 +152,13 @@ GIT_SSH_COMMAND="ssh \
 
 echo "==> Linking /etc/nixos to ~/nixos-config..."
 
+sudo install -d -m 755 "$TARGET_ROOT/etc"
 sudo ln -s "/home/hazie/nixos-config" "$NIXOS_DIR"
 
 echo "==> Installing NixOS from the canonical Git repository..."
 
 sudo nixos-install \
-    --flake "$NIXOS_DIR#$HOST" \
+    --flake "$CONFIG_DIR#$HOST" \
     --no-root-passwd
 
 echo "==> Setting configuration ownership..."
