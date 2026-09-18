@@ -1,10 +1,12 @@
-{ ... }:
+{ inputs, ... }:
 
 {
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
     ./networking
+
+    inputs.disko.nixosModules.disko
 
     ../../modules/profiles
     ../../modules/users/hazie.nix
