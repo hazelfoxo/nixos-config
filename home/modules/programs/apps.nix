@@ -11,5 +11,6 @@
     yt-dlp
     krita
     handbrake
+    feishin
   ];
 }
