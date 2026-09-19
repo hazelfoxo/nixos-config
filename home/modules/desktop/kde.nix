@@ -33,6 +33,16 @@
           acceleration = 0;
           accelerationProfile = "none";
         }
+	
+        # Logitech M196
+        {
+          name = "Logi M196 Mouse";
+          vendorId = "046d";
+          productId = "b03f";
+          enable = true;
+          acceleration = 0;
+          accelerationProfile = "none";
+        }
       ];
     };
 
