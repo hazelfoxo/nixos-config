@@ -41,6 +41,7 @@
 
     gaming.enable = true;
     videoEditing.enable = true;
+    creative.painting.enable = true;
     musicTagging.enable = true;
     dev = {
       enable = true;
