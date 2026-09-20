@@ -155,7 +155,7 @@ It's a nix flake based setup that I've tailored for my own workflow. It contains
 
 ## Structure
 nixos-config/  
-├── assets/     # Configuration Assets
+├── assets/     # Configuration Assets  
 ├── home/       # Home Manager and user configuration  
 ├── hosts/      # Host-specific NixOS configurations  
 ├── modules/    # Reusable NixOS modules  
@@ -165,10 +165,10 @@ nixos-config/
 │   ├── profiles/    # Self-contained, enable-able profiles (desktop, gaming, ...)  
 │   └── services/    # Server services (SSH server, fail2ban)  
 │   └── users/       # User accounts and Home Manager wiring  
-├── secrets/    # Stores secrets for SSH and Wireguard 
-│   └── hosts/       # Encypted secrets for hosts
-│   └── device-keys/ # Encrypted per device decryption keys
-│   └── shared.yaml  # Shared encrypted secrets between all hosts  
+├── secrets/    # Stores secrets for SSH and Wireguard  
+│   └── hosts/       # Encypted secrets for hosts  
+│   └── device-keys/ # Encrypted per device decryption keys  
+│   └── shared.yaml  # Shared encrypted secrets between all hosts    
 └── flake.nix   # Flake entry point and system configuration  
 └── setup.sh    # Bootstrap for installing repo  
 
