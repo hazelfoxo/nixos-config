@@ -17,11 +17,27 @@ It's a nix flake based setup that I've tailored for my own workflow. It contains
 - `laptop` host with Intel GPU support
 - `server` minimal host (WIP)
 
-## Apps
+## Core System Packages
+- git
+- htop
+- btop
+- fastfetch
+- usbtils
+- pciutils
+- sops
+
+## Core Home Apps
+- Firefox
+- Thunderbird
 - Discord
 - Telegram
 - Spotify with Adblocking
 - GPU Screenrecorder
+- Feishin
+- Kitty
+- handbrake
+- yt-dlp
+- libreoffice
 
 ## Hardware
 - Bluetooth
