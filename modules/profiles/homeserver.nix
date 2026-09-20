@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 
@@ -27,5 +28,9 @@
     };
 
     my.wireguard.enable = true;
+
+    environment.systemPackages = with pkgs; [
+      sshfs
+    ];
   };
 }
