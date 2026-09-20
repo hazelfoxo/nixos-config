@@ -108,12 +108,12 @@
 
       nixosConfigurations = nixpkgs.lib.mapAttrs mkSystem hosts;
 
-      formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-rfc-style;
+      formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt;
 
       devShells.${system}.default = nixpkgs.legacyPackages.${system}.mkShell {
         packages = [
           nixpkgs.legacyPackages.${system}.sops
-          nixpkgs.legacyPackages.${system}.nixfmt-rfc-style
+          nixpkgs.legacyPackages.${system}.nixfmt
         ];
       };
 
