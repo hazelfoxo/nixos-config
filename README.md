@@ -6,10 +6,16 @@ It's a nix flake based setup that I've tailored for my own workflow. It contains
 <img width="3440" height="1440" alt="Screenshot_20260905_013414" src="https://github.com/user-attachments/assets/6bb144f2-0c53-4d6c-83e4-c381a65aac2e" />
 
 ## Installation
-1. Clone the repo and move it into a directory that isn't `~/nixos-config`.
-2. Copy your personal key into the repo and run `setup.sh`
-3. Chose a configuration and let the system build itself.
-4. Enjoy your build system.
+1. Boot into the install media - the full and minimal iso work.
+2. Connect to the internet and clone the repo onto the live environment.
+3. Copy your personal key into the repo and run `setup.sh`
+4. Choose a configuration and watch as the system builds itself.
+6. Enjoy your built system.
+
+## Hosts
+- `desktop` host with NVIDIA driver support
+- `laptop` host with Intel GPU support
+- `server` minimal host (WIP)
 
 ## Apps
 - Discord
@@ -35,11 +41,6 @@ nixos-config/
 ├── secrets/    # Stores secrets for SSH and Wireguard  
 └── flake.nix   # Flake entry point and system configuration  
 └── setup.sh    # Bootstrap for installing repo  
-
-## Hosts
-- Desktop host with NVIDIA driver support
-- Laptop host with Intel GPU support
-- Minimal headless server host (WIP)
 
 ## `nixctl`
 This is a unified tool for managing the NixOS configuration.
