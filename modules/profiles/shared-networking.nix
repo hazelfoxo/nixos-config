@@ -1,5 +1,7 @@
 { config, lib, ... }:
 
+# Shared Networking for NixOS hosts
+
 let
   cfg = config.my.profiles.sharedNetworking;
 in
