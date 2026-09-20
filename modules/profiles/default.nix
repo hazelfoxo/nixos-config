@@ -17,5 +17,6 @@
     ./tailscale.nix
     ./proton-vpn.nix
     ./virtualisation.nix
+    ./music-tagging.nix
   ];
 }

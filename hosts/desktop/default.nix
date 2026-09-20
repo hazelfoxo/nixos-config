@@ -41,6 +41,7 @@
 
     gaming.enable = true;
     videoEditing.enable = true;
+    musicTagging.enable = true;
     dev = {
       enable = true;
       opencode.enable = true;
