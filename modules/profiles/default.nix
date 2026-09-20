@@ -14,6 +14,7 @@
     ./gaming
     ./tv.nix
     ./video-editing.nix
+    ./creative.nix
     ./tailscale.nix
     ./proton-vpn.nix
     ./virtualisation.nix
