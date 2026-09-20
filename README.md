@@ -17,27 +17,137 @@ It's a nix flake based setup that I've tailored for my own workflow. It contains
 - `laptop` host with Intel GPU support
 - `server` minimal host (WIP)
 
-## Core System Packages
+## Packages
+
+<details>
+<summary><b>System</b></summary>
+
 - git
 - htop
 - btop
 - fastfetch
-- usbtils
+- usbutils
 - pciutils
 - sops
 
-## Core Home Apps
-- Firefox
-- Thunderbird
+</details>
+
+<details>
+<summary><b>Home</b></summary>
+
+### Personal
 - Discord
 - Telegram
-- Spotify with Adblocking
-- GPU Screenrecorder
-- Feishin
-- Kitty
-- handbrake
+- Spotify (SpotX, ad-free)
+- Feishin (music player)
+- LibreOffice
+- Thunderbird
+
+### Tools
+- HandBrake
 - yt-dlp
-- libreoffice
+- mprisence (Discord rich presence)
+- nixctl (config manager)
+- VS Code
+- Kitty
+
+### Browsers
+- Google Chrome
+- Firefox
+
+### System Tools
+- Fish
+- Starship
+- Fastfetch
+- Git
+- SSH agent
+
+</details>
+
+## Profiles
+
+<details>
+<summary><b>Desktop (KDE) (Configurable)</b></summary>
+
+- KDE Plasma 6
+- Kate
+- KCalc
+- Haruna
+- KPartitionManager
+- SDDM
+- GPU Screen Recorder
+
+</details>
+
+<details>
+<summary><b>Gaming</b></summary>
+
+- Steam
+- Prism Launcher (Minecraft)
+
+</details>
+
+<details>
+<summary><b>Video editing</b></summary>
+
+- Kdenlive
+- ffmpeg
+- HandBrake
+
+</details>
+
+<details>
+<summary><b>Creative (Configurable)</b></summary>
+
+- Krita
+- MyPaint
+- Inkscape
+- GIMP
+- Darktable
+- RawTherapee
+- Blender
+- FreeCAD
+
+</details>
+
+<details>
+<summary><b>Music tagging</b></summary>
+
+- Picard
+- Kid3
+
+</details>
+
+<details>
+<summary><b>Dev (Configurable)</b></summary>
+
+- android-tools
+- opencode
+
+</details>
+
+<details>
+<summary><b>School</b></summary>
+
+- Teams for Linux
+
+</details>
+
+<details>
+<summary><b>Homeserver</b></summary>
+
+- wireguard-tools
+- sshfs
+
+</details>
+
+<details>
+<summary><b>VPN</b></summary>
+
+- Proton VPN
+- Tailscale
+
+</details>
 
 ## Hardware
 - Bluetooth
