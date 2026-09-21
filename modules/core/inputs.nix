@@ -26,6 +26,12 @@
       readOnly = true;
       description = "plasma-manager home-manager module, installed under home-manager.users.";
     };
+
+    sil6250Linux = lib.mkOption {
+      type = lib.types.unspecified;
+      readOnly = true;
+      description = "sil6250 Linux kernel driver source.";
+    };
   };
 
   config.my.inputs = {
@@ -35,5 +41,7 @@
       inputs.nix-vscode-extensions.extensions.${pkgs.stdenv.hostPlatform.system}.vscode-marketplace;
 
     plasmaManagerModule = inputs.plasma-manager.homeModules.plasma-manager;
+
+    sil6250Linux = inputs.sil6250-linux;
   };
 }

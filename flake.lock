@@ -197,6 +197,7 @@
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixpkgs": "nixpkgs_2",
         "plasma-manager": "plasma-manager",
+        "sil6250-linux": "sil6250-linux",
         "sops-nix": "sops-nix",
         "spotx-nix": "spotx-nix"
       }
@@ -219,6 +220,22 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "sil6250-linux": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1787380302,
+        "narHash": "sha256-LVgVw2MTe1JOBAo7skFFcwCVa95VS/IfFzC3WuqvwQE=",
+        "owner": "AlexDaichendt",
+        "repo": "sil6250-linux",
+        "rev": "0148954c0ee7559ae4d016aef64079d0c44474f3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AlexDaichendt",
+        "repo": "sil6250-linux",
         "type": "github"
       }
     },

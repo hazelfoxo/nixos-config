@@ -12,10 +12,12 @@
     ../../modules/users/hazie.nix
   ];
 
+  my.hardware.sil6250.enable = true;
+
   my.profiles = {
-    
+
     github.enable = true;
-    
+
     workstation = {
       enable = true;
       host = {
@@ -49,7 +51,7 @@
     # videoEditing.enable = true;
     # creative.painting.enable = true;
     # musicTagging.enable = true;
-    
+
     # tailscale.enable = true;
     # protonVpn.enable = true;
     # virtualisation.enable = false;

@@ -36,6 +36,12 @@
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    sil6250-linux = {
+      url = "github:AlexDaichendt/sil6250-linux";
+      flake = false;
+    };
+
   };
 
   outputs =
