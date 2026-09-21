@@ -29,7 +29,7 @@
 
     homeserver.enable = true;
 
-    # school.enable = true;
+    school.enable = true;
 
     desktop = {
       enable = true;
