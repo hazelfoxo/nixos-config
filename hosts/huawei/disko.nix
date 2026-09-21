@@ -6,7 +6,7 @@
   disko.devices = {
     disk.main = {
       type = "disk";
-      device = "/dev/disk/by-id/nvme-KBG40ZNS512G_NVMe_KIOXIA_512GB_80GPHIE0Q2D1";
+      device = "/dev/disk/by-id/nvme-eui.e8238fa6bf530001001b444a41db09fd";
 
       content = {
         type = "gpt";
