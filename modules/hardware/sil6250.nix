@@ -159,12 +159,10 @@ in
     # block password login, see NixOS/nixpkgs#239770); nixpkgs creates a separate
     # `kde-fingerprint` service instead, which we replicate here.
     security.pam.services = {
-      # sddm.fprintAuth = true;
-      # login.fprintAuth = true;
-      kde-fingerprint.fprintAuth = true;
-      # kde-fingerprint.p11Auth = false;
-      # polkit-1.fprintAuth = true;
-      # sudo.fprintAuth = true;
+        sddm.fprintAuth = true;
+        sudo.fprintAuth = true;
+        kde-fingerprint.fprintAuth = true;
+        polkit-1.fprintAuth = true;
     };
   };
 }
