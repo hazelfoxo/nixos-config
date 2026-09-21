@@ -83,7 +83,7 @@ echo "==> Verifying GitHub SSH access..."
 if ! GIT_SSH_COMMAND="ssh \
     -o IdentitiesOnly=no \
     -o BatchMode=yes \
-    -o ConnectTimeout=10 " \
+    -o ConnectTimeout=10" \
     git ls-remote "$REMOTE_URL" HEAD >/dev/null 2>&1; then
 
     echo "Error: Bootstrap SSH key cannot access the GitHub repository."
