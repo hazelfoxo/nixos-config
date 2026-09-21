@@ -56,6 +56,11 @@
           sopsFile = ./secrets/hosts/laptop.yaml;
         };
 
+        huawei = {
+          hostName = "hazie-huawei";
+          sopsFile = ./secrets/hosts/huawei.yaml;
+        };
+
         server = {
           hostName = "hazie-server";
           sopsFile = ./secrets/hosts/server.yaml;

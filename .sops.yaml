@@ -1,6 +1,7 @@
 keys:
   - &user age1ghs3a7lxt8hduwa5dcym5cumv5kuj2xxq7uxqsvfmzj438tths0sx5s0t3
   - &laptop age1z7myt7u792ksk4ym82vyr3zcq2pqxpvrc3srkhkwfq3uz2m2evcsnvwv0j
+  - &huawei age1kfreleqck5ddfg4ngrqjk9kcu3ga8qyr50938xqqcjyn857xmsasxf2y96
   - &desktop age16evxrv8apm5gnn6rx06r89md54yj80epyq25wgq4tcwcsz6vaf2sh0lte2
   - &server age1mjkz9psplks5z4xewxamqxxw6g0mp065gn0la8vrztmpzxd68auq7k2y8j
 creation_rules:
@@ -10,6 +11,7 @@ creation_rules:
           - *user
           - *laptop
           - *desktop
+          - *huawei 
 
   - path_regex: secrets/hosts/laptop\.yaml$
     key_groups:
@@ -23,6 +25,12 @@ creation_rules:
           - *user
           - *desktop
 
+  - path_regex: secrets/hosts/huawei\.yaml$
+    key_groups:
+      - age:
+          - *user
+          - *huawei
+
   - path_regex: secrets/hosts/server\.yaml$
     key_groups:
       - age:
@@ -33,7 +41,6 @@ creation_rules:
     key_groups:
       - age:
           - *user
-
 
   - path_regex: secrets/bootstrap.txt$
     key_groups:

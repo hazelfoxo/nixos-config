@@ -13,7 +13,7 @@ BOOTSTRAP_SECRET="$BOOTSTRAP_DIR/secrets/bootstrap.txt"
 
 REMOTE_URL="git@github.com:hazelfoxo/nixos-config.git"
 
-KNOWN_HOSTS="desktop laptop server"
+KNOWN_HOSTS="desktop huawei laptop server"
 
 if ! command -v sops >/dev/null 2>&1; then
     exec nix --extra-experimental-features "nix-command flakes" \
