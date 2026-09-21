@@ -21,6 +21,14 @@
           enable = true;
           naturalScroll = true;
         }
+        # Huawei Touchpad
+        {
+          name = "FTCS1000:00 2808:0105 Touchpad";
+          vendorId = "2808";
+          productId = "0105";
+          enable = true;
+          naturalScroll = true;
+        }
       ];
 
       mice = [
@@ -39,6 +47,15 @@
           name = "Logi M196 Mouse";
           vendorId = "046d";
           productId = "b03f";
+          enable = true;
+          acceleration = 0;
+          accelerationProfile = "none";
+        }
+        # Rapoo Mouse
+        {
+          name = "Logi M196 Mouse";
+          vendorId = "248a";
+          productId = "8266";
           enable = true;
           acceleration = 0;
           accelerationProfile = "none";
