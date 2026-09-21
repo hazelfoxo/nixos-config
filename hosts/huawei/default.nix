@@ -43,10 +43,10 @@
     # videoEditing.enable = true;
     # creative.painting.enable = true;
     # musicTagging.enable = true;
-    # dev = {
-    #   enable = true;
-    #   opencode.enable = true;
-    # };
+    dev = {
+      enable = true;
+      opencode.enable = true;
+    };
     # tailscale.enable = true;
     # protonVpn.enable = true;
     # virtualisation.enable = false;
