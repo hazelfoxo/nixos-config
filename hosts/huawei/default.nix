@@ -4,7 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
-    #./networking
+    ./networking
 
     inputs.disko.nixosModules.disko
 
@@ -27,7 +27,7 @@
       wifi.enable = true;
     };
 
-    # homeserver.enable = true;
+    homeserver.enable = true;
 
     # school.enable = true;
 
