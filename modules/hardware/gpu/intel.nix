@@ -18,6 +18,9 @@ lib.mkIf (config.my.hardware.gpu == "intel") {
     ];
   };
 
+  # Load i915 in the initrd so plymouth can take over the display early.
+  boot.initrd.availableKernelModules = [ "i915" ];
+
   # Intel CPU thermal management
   services.thermald.enable = true;
 
