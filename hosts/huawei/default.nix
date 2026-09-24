@@ -13,6 +13,7 @@
   ];
 
   my.hardware.sil6250.enable = true;
+  my.hardware.battery.enable = true;
 
   my.profiles = {
 
