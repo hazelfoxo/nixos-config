@@ -1,4 +1,4 @@
-{ osConfig, ... }:
+{ osConfig, lib, ... }:
 
 # Kde Plasma desktop configuration module for NixOS home-manager
 
@@ -145,6 +145,31 @@
     # Custom Keyboard Shortcuts
     shortcuts = {
       "services/kitty.desktop"._launch = "Meta+Return";
+    };
+
+    # Power management for battery-backed hosts
+    powerdevil = lib.mkIf osConfig.my.hardware.battery.enable {
+      battery = {
+        whenLaptopLidClosed = "sleep";
+        whenSleepingEnter = "standbyThenHibernate";
+        dimDisplay.idleTimeout = 120;
+        turnOffDisplay.idleTimeout = 300;
+      };
+
+      lowBattery = {
+        whenLaptopLidClosed = "sleep";
+        whenSleepingEnter = "standbyThenHibernate";
+        dimDisplay.idleTimeout = 60;
+        turnOffDisplay.idleTimeout = 120;
+        displayBrightness = 5;
+        keyboardBrightness = 0;
+      };
+
+      batteryLevels = {
+        lowLevel = 10;
+        criticalLevel = 5;
+        criticalAction = "hibernate";
+      };
     };
   };
 
