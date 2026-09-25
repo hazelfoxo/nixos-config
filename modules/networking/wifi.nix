@@ -55,6 +55,20 @@ in
               description = "SOPS secret holding the WPA-PSK passphrase.";
             };
 
+            keyMgmt = lib.mkOption {
+              type = lib.types.enum [
+                "wpa-psk"
+                "sae"
+              ];
+              default = "wpa-psk";
+              description = ''
+                key-mgmt for this profile, used when 802-1x is disabled.
+
+                Use "sae" for WPA3-Personal networks (phone hotspots);
+                "wpa-psk" covers WPA/WPA2-PSK.
+              '';
+            };
+
             sopsFile = lib.mkOption {
               type = lib.types.nullOr lib.types.path;
               default = if sharedSecrets.enable then sharedSecrets.file else null;
@@ -250,7 +264,7 @@ in
           }
           // lib.optionalAttrs (!profile.eap.enable) {
             wifi-security = {
-              key-mgmt = "wpa-psk";
+              key-mgmt = profile.keyMgmt;
               psk = "$WIFI_PASSWORD_${env}";
               psk-flags = 0;
             };

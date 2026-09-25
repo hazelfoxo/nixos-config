@@ -24,6 +24,7 @@ in
         connectionName = "Phone Hotspot";
         ssidSecret = "phone-hotspot-ssid";
         passwordSecret = "phone-hotspot-password";
+        keyMgmt = "sae";
       };
 
       # More connections go here.
