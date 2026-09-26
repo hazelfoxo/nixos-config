@@ -175,8 +175,6 @@
 
   # Extra breeeze folder icons
   home.file = {
-    ".local/share/icons/breeze/places".source = ../../files/icons/places;
-    ".local/share/icons/breeze-dark/places".source = ../../files/icons/places;
+    ".local/share/icons".source = ../../files/icons;
   };
-
 }
