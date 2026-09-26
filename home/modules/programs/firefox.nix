@@ -124,6 +124,17 @@
 
         "browser.newtabpage.activity-stream.widgets.pictureOfTheDay.size" = "large";
         "browser.newtabpage.activity-stream.widgets.crossword.size" = "large";
+
+	# ─────────────────────────────────────────────
+        # Nova
+        # ─────────────────────────────────────────────
+	"browser.aboutaddons.novaThemesPickerEnabled" = true;
+        "browser.nova.enabled" = true;
+	"browser.urlbar.quicksuggest.ampTopPickUseNovaIconSize" = true;
+	"pdfjs.enableNova" = true;
+	"about.glean.redesign.enabled" = true;
+	"browser.settings-redesign.enabled" = true;
+	
       };
 
     };
