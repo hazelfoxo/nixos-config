@@ -11,5 +11,6 @@
     ./vscode.nix
     ./mprisence.nix
     ./thunderbird.nix
+    ./tailscale.nix
   ];
 }

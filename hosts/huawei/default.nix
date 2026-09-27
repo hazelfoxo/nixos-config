@@ -4,7 +4,6 @@
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
-    ./networking
 
     inputs.disko.nixosModules.disko
 
@@ -53,7 +52,7 @@
     # creative.painting.enable = true;
     # musicTagging.enable = true;
 
-    # tailscale.enable = true;
+    # tailscale is enabled by the homeserver profile
     # protonVpn.enable = true;
     # virtualisation.enable = false;
   };

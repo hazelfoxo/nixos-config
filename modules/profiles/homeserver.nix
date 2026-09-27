@@ -9,7 +9,7 @@
 
 {
   options.my.profiles.homeserver = {
-    enable = lib.mkEnableOption "SSH and WireGuard access to the homeserver";
+    enable = lib.mkEnableOption "SSH and Tailscale access to the homeserver";
   };
 
   config = lib.mkIf config.my.profiles.homeserver.enable {
@@ -17,7 +17,7 @@
       enable = true;
 
       hosts.homeserver = {
-        address = "10.0.0.1";
+        address = "homeserver";
         user = "hazie";
         port = 2222;
 
@@ -27,7 +27,7 @@
       };
     };
 
-    my.wireguard.enable = true;
+    my.profiles.tailscale.enable = true;
 
     environment.systemPackages = with pkgs; [
       sshfs

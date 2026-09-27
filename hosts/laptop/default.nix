@@ -4,7 +4,6 @@
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
-    ./networking
 
     inputs.disko.nixosModules.disko
 
@@ -47,7 +46,6 @@
       enable = true;
       opencode.enable = true;
     };
-    tailscale.enable = true;
     protonVpn.enable = true;
     virtualisation.enable = false;
   };

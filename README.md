@@ -136,7 +136,7 @@ It's a nix flake based setup that I've tailored for my own workflow. It contains
 <details>
 <summary><b>Homeserver</b></summary>
 
-- wireguard-tools
+- Tailscale
 - sshfs
 
 </details>
@@ -165,7 +165,7 @@ nixos-config/
 │   ├── profiles/    # Self-contained, enable-able profiles (desktop, gaming, ...)  
 │   └── services/    # Server services (SSH server, fail2ban)  
 │   └── users/       # User accounts and Home Manager wiring  
-├── secrets/    # Stores secrets for SSH and Wireguard  
+├── secrets/    # Stores secrets for SSH and Wi-Fi  
 │   └── hosts/       # Encypted secrets for hosts  
 │   └── device-keys/ # Encrypted per device decryption keys  
 │   └── shared.yaml  # Shared encrypted secrets between all hosts    
