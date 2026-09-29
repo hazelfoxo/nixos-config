@@ -185,6 +185,7 @@ nixctl <command>
 - `nixctl pull --pull-only` - pull without switching system
 - `nixctl switch` - rebuild system from flake and switch to it
 - `nixctl upgrade` - updates all packages and pushes the new `flake.lock`
+- `nixctl push [msg]` - stage all changes, commit them and push (opens an editor if no message is given)
 - `nixctl clean` - garbage-collect generations older than 14 days
 - `nixctl clean-all` - garbage-collect all old generations
 - `nixctl shell <pkg…>` - open a `nix-shell` with the given packages

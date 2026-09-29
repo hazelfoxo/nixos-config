@@ -16,6 +16,8 @@ Commands:
               --pull-only: only pull, skip switching
   switch      Rebuild and switch system from the flake
   upgrade     Pull, update flake inputs, rebuild, commit and push flake.lock
+  push [msg]  Stage all changes, commit them and push
+              (without a message, an editor is opened)
   clean       Garbage-collect generations older than 14 days
   clean-all   Garbage-collect all old generations
   shell <pkg…>  Open a nix-shell with the given packages (-p)
@@ -86,6 +88,30 @@ cmd_upgrade_internal() {
   fi
 }
 
+cmd_push() {
+  local message="$*"
+
+  echo "==> Staging all changes..."
+  git -C "$REPO" add -A
+
+  if git -C "$REPO" diff --cached --quiet; then
+    echo "==> Nothing to commit."
+  elif [[ -n "$message" ]]; then
+    echo "==> Committing: $message"
+    git -C "$REPO" commit -m "$message"
+  elif [[ -t 0 && -t 1 ]]; then
+    echo "==> Opening editor for commit message..."
+    git -C "$REPO" commit
+  else
+    echo "nixctl: error: commit message required when not running interactively" >&2
+    echo "Usage: nixctl push <message>" >&2
+    return 1
+  fi
+
+  echo "==> Pushing to remote..."
+  git -C "$REPO" push
+}
+
 cmd_clean() {
   sudo nix-collect-garbage --delete-older-than 14d
 }
@@ -109,6 +135,7 @@ main() {
     switch)                cmd_switch ;;
     upgrade)               cmd_upgrade ;;
     upgrade-internal)      cmd_upgrade_internal ;;
+    push)                  shift; cmd_push "$@" ;;
     clean)                 cmd_clean ;;
     clean-all)             cmd_clean_all ;;
     shell)                 shift; cmd_shell "$@" ;;
