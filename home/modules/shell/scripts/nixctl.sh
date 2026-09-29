@@ -15,6 +15,11 @@ Commands:
   pull        Rebase-pull latest config commits and switch system
               --pull-only: only pull, skip switching
   switch      Rebuild and switch system from the flake
+              [action]   nixos-rebuild action: switch (default), boot, test,
+                         build, dry-run, dry-build, dry-activate,
+                         list-generations
+              Anything else is passed through to nixos-rebuild, e.g.
+              nixctl switch --rollback
   upgrade     Pull, update flake inputs, rebuild, commit and push flake.lock
   push [msg]  Stage all changes, commit them and push
               (without a message, an editor is opened)
@@ -131,8 +136,43 @@ cmd_pull() {
   fi
 }
 
+# nixos-rebuild actions worth exposing. Only switch, boot and test need root;
+# the rest are read-only or build-only, so they must not go through sudo.
+switch_actions=(switch boot test build dry-run dry-build dry-activate list-generations)
+switch_root_actions=(switch boot test)
+
+# Usage: cmd_switch [action] [extra nixos-rebuild args...]
+# The action is positional and defaults to switch, so `nixctl switch boot`
+# stages the new config for the next reboot without activating it. Anything
+# else is passed straight through to nixos-rebuild, so `nixctl switch
+# --rollback` and `nixctl switch --specialisation foo` both work.
 cmd_switch() {
-  inhibit "NixOS rebuild in progress" sudo nixos-rebuild switch --flake "$REPO#$HOST"
+  local action=switch
+  local -a args=()
+  local -a elevated=()
+  local rebuild
+  local arg
+
+  for arg in "$@"; do
+    if [[ "$arg" != -* && "$action" == switch && " ${switch_actions[*]} " == *" $arg "* ]]; then
+      action="$arg"
+    else
+      args+=("$arg")
+    fi
+  done
+
+  if [[ " ${switch_root_actions[*]} " != *" $action "* ]]; then
+    rebuild=(nixos-rebuild "$action" --flake "$REPO#$HOST" "${args[@]}")
+  else
+    rebuild=(sudo nixos-rebuild "$action" --flake "$REPO#$HOST" "${args[@]}")
+    elevated=(1)
+  fi
+
+  if [[ "${elevated[0]:-}" == 1 ]]; then
+    inhibit "NixOS ${action} in progress" "${rebuild[@]}"
+  else
+    "${rebuild[@]}"
+  fi
 }
 
 # Rebuilds and switches to re-link anything a garbage collection removed. Skips
@@ -233,7 +273,7 @@ cmd_shell() {
 main() {
   case "${1:-}" in
     pull)                  shift; cmd_pull "$@" ;;
-    switch)                cmd_switch ;;
+    switch)                shift; cmd_switch "$@" ;;
     upgrade)               cmd_upgrade ;;
     upgrade-internal)      cmd_upgrade_internal ;;
     push)                  shift; cmd_push "$@" ;;
