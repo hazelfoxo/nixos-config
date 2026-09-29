@@ -19,8 +19,8 @@ Commands:
   push [msg]  Stage all changes, commit them and push
               (without a message, an editor is opened)
               --only <path>: stage and commit just this path
-  clean       Garbage-collect generations older than 14 days, then switch
-  clean-all   Garbage-collect all old generations, then switch
+  clean       Delete unreachable store paths
+  clean-all   Delete all old generations, then switch
   shell <pkg…>  Open a nix-shell with the given packages (-p)
   help        Show this help
 
@@ -211,9 +211,8 @@ cmd_push() {
 }
 
 cmd_clean() {
-  echo "==> Garbage-collecting generations older than 14 days..."
-  sudo nix-collect-garbage --delete-older-than 14d
-  cmd_reactivate
+  echo "==> Deleting unreachable store paths..."
+  sudo nix-collect-garbage
 }
 
 cmd_clean_all() {
