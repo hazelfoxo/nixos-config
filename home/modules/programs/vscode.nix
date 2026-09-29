@@ -31,7 +31,7 @@
           "git.confirmSync" = false;
           "git.enableSmartCommit" = true;
           "git.autofetch" = true;
-	  "workbench.startupEditor" = true;
+	        "workbench.startupEditor" = true;
         };
       };
     };
