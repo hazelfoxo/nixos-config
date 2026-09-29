@@ -12,12 +12,13 @@ Usage: nixctl <command>
 Consolidated NixOS maintenance commands.
 
 Commands:
-  pull        Pull latest config commits and switch system
+  pull        Rebase-pull latest config commits and switch system
               --pull-only: only pull, skip switching
   switch      Rebuild and switch system from the flake
   upgrade     Pull, update flake inputs, rebuild, commit and push flake.lock
   push [msg]  Stage all changes, commit them and push
               (without a message, an editor is opened)
+              --only <path>: stage and commit just this path
   clean       Garbage-collect generations older than 14 days
   clean-all   Garbage-collect all old generations
   shell <pkg…>  Open a nix-shell with the given packages (-p)
@@ -116,13 +117,14 @@ cmd_pull() {
       --pull-only) pull_only=1 ;;
       *)
         echo "error: unknown option '$arg' for pull" >&2
+        echo "Usage: nixctl pull [--pull-only]" >&2
         return 1
         ;;
     esac
   done
 
   wait_for_network "before pull"
-  git -C "$REPO" pull
+  git -C "$REPO" pull --rebase --autostash
 
   if [[ "$pull_only" -eq 0 ]]; then
     cmd_switch
@@ -139,8 +141,7 @@ cmd_upgrade() {
 
 cmd_upgrade_internal() {
   echo "==> Pulling latest NixOS configuration..."
-  wait_for_network "before pull"
-  git -C "$REPO" pull --ff-only
+  cmd_pull --pull-only
 
   echo "==> Updating flake inputs..."
   nix flake update --flake "$REPO"
@@ -148,43 +149,50 @@ cmd_upgrade_internal() {
   echo "==> Rebuilding and switching NixOS..."
   sudo nixos-rebuild switch --flake "$REPO#$HOST"
 
-  if git -C "$REPO" diff --quiet flake.lock; then
+  if git -C "$REPO" diff --quiet -- flake.lock; then
     echo "==> flake.lock unchanged. Nothing to commit or push."
+  elif cmd_push --only flake.lock "Update flake.lock"; then
+    echo "==> flake.lock updated."
   else
-    echo "==> Staging updated flake.lock..."
-    git -C "$REPO" add flake.lock
-    git -C "$REPO" commit -m "Update flake.lock" -- flake.lock
-    echo "==> Waiting for the network to settle after the rebuild..."
-    wait_for_network "before push"
-    echo "==> Pushing updated flake.lock..."
-    if git_push_retry; then
-      echo "==> Push successful! flake.lock updated."
-    else
-      echo "==> Push failed! flake.lock is committed locally; run 'nixctl push' later."
-    fi
+    echo "==> flake.lock is committed locally; run 'nixctl push' later."
   fi
 }
 
 cmd_push() {
-  local message="$*"
+  local -a msg=() add_args=(add) only=()
+  local message
+  while [[ "$#" -gt 0 ]]; do
+    case "$1" in
+      --only) only+=("$2"); shift 2 ;;
+      *) msg+=("$1"); shift ;;
+    esac
+  done
+  message="${msg[*]}"
 
-  echo "==> Staging all changes..."
-  git -C "$REPO" add -A
+  if [[ "${#only[@]}" -gt 0 ]]; then
+    echo "==> Staging ${only[*]}..."
+    add_args+=("${only[@]}")
+  else
+    echo "==> Staging all changes..."
+    add_args+=(-A)
+  fi
+  git -C "$REPO" "${add_args[@]}"
 
   if git -C "$REPO" diff --cached --quiet; then
     echo "==> Nothing to commit."
   elif [[ -n "$message" ]]; then
     echo "==> Committing: $message"
-    git -C "$REPO" commit -m "$message"
+    git -C "$REPO" commit -m "$message" -- "${only[@]}"
   elif [[ -t 0 && -t 1 ]]; then
     echo "==> Opening editor for commit message..."
     git -C "$REPO" commit
   else
     echo "nixctl: error: commit message required when not running interactively" >&2
-    echo "Usage: nixctl push <message>" >&2
+    echo "Usage: nixctl push [--only <path>] <message>" >&2
     return 1
   fi
 
+  wait_for_network "before push"
   echo "==> Pushing to remote..."
   if git_push_retry; then
     echo "==> Push successful!"
