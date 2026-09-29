@@ -19,8 +19,8 @@ Commands:
   push [msg]  Stage all changes, commit them and push
               (without a message, an editor is opened)
               --only <path>: stage and commit just this path
-  clean       Garbage-collect generations older than 14 days
-  clean-all   Garbage-collect all old generations
+  clean       Garbage-collect generations older than 14 days, then switch
+  clean-all   Garbage-collect all old generations, then switch
   shell <pkg…>  Open a nix-shell with the given packages (-p)
   help        Show this help
 
@@ -135,6 +135,14 @@ cmd_switch() {
   inhibit "NixOS rebuild in progress" sudo nixos-rebuild switch --flake "$REPO#$HOST"
 }
 
+# Rebuilds and switches to re-link anything a garbage collection removed. Skips
+# the rebuild when the store already holds the current configuration, which is
+# the usual case, so this costs little more than re-activating the system.
+cmd_reactivate() {
+  echo "==> Re-linking the system after garbage collection..."
+  cmd_switch
+}
+
 cmd_upgrade() {
   inhibit "NixOS upgrade in progress" "$0" upgrade-internal
 }
@@ -203,11 +211,15 @@ cmd_push() {
 }
 
 cmd_clean() {
+  echo "==> Garbage-collecting generations older than 14 days..."
   sudo nix-collect-garbage --delete-older-than 14d
+  cmd_reactivate
 }
 
 cmd_clean_all() {
+  echo "==> Garbage-collecting all old generations..."
   sudo nix-collect-garbage -d
+  cmd_reactivate
 }
 
 cmd_shell() {
