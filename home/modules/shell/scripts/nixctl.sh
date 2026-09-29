@@ -26,6 +26,10 @@ Commands:
 Environment:
   NIXOS_CONFIG  Path to the configuration repo (default: /etc/nixos)
   NIXOS_HOST    Flake attribute to build (default: current hostname)
+  NIXCTL_NET_TIMEOUT  Seconds to wait for the local network (default: 90)
+  NIXCTL_NET_REMOTE_TIMEOUT
+                      Seconds to additionally wait for the remote (default: 15)
+  NIXCTL_PUSH_TRIES   Push attempts before giving up (default: 5)
 EOF
 }
 
@@ -33,6 +37,75 @@ inhibit() {
   local why="$1"
   shift
   systemd-inhibit --what=idle:sleep --who="nixctl" --why="$why" "$@"
+}
+
+net_timeout="${NIXCTL_NET_TIMEOUT:-90}"
+net_remote_timeout="${NIXCTL_NET_REMOTE_TIMEOUT:-15}"
+push_tries="${NIXCTL_PUSH_TRIES:-5}"
+
+remote_host() {
+  local url
+  url="$(git -C "$REPO" remote get-url --push origin 2>/dev/null || true)"
+  [[ -n "$url" ]] || return 1
+  url="${url#*://}"
+  url="${url#*@}"
+  printf '%s\n' "${url%%[:/]*}"
+}
+
+net_open() {
+  local connect="exec 3<>/dev/tcp/$1/$2"
+  if command -v timeout >/dev/null 2>&1; then
+    timeout 2 bash -c "$connect" >/dev/null 2>&1
+  else
+    (eval "$connect") >/dev/null 2>&1
+  fi
+}
+
+net_local_ready() {
+  ip route show default 2>/dev/null | grep -q .
+}
+
+net_reachable() {
+  net_open "$1" 22 || net_open "$1" 443
+}
+
+wait_until() {
+  local check="$1" timeout="$2" what="$3"
+  local deadline
+  shift 3
+  deadline=$(( SECONDS + timeout ))
+  while (( SECONDS < deadline )); do
+    if "$check" "$@"; then
+      return 0
+    fi
+    sleep 1
+  done
+  echo "nixctl: warning: ${what} not ready after ${timeout}s; continuing" >&2
+  return 0
+}
+
+wait_for_network() {
+  local what="$1" local_timeout="${2:-$net_timeout}"
+  local host
+  if ! host="$(remote_host)"; then
+    return 0
+  fi
+  wait_until net_local_ready "$local_timeout" "network ${what}"
+  wait_until net_reachable "$net_remote_timeout" "${host} ${what}" "$host"
+}
+
+git_push_retry() {
+  local attempt
+  for (( attempt = 1; attempt <= push_tries; attempt++ )); do
+    if git -C "$REPO" push; then
+      return 0
+    fi
+    if (( attempt < push_tries )); then
+      echo "==> Push attempt ${attempt}/${push_tries} failed, retrying..."
+      wait_for_network "before push retry" 30
+    fi
+  done
+  return 1
 }
 
 cmd_pull() {
@@ -48,6 +121,7 @@ cmd_pull() {
     esac
   done
 
+  wait_for_network "before pull"
   git -C "$REPO" pull
 
   if [[ "$pull_only" -eq 0 ]]; then
@@ -65,6 +139,7 @@ cmd_upgrade() {
 
 cmd_upgrade_internal() {
   echo "==> Pulling latest NixOS configuration..."
+  wait_for_network "before pull"
   git -C "$REPO" pull --ff-only
 
   echo "==> Updating flake inputs..."
@@ -79,11 +154,13 @@ cmd_upgrade_internal() {
     echo "==> Staging updated flake.lock..."
     git -C "$REPO" add flake.lock
     git -C "$REPO" commit -m "Update flake.lock" -- flake.lock
+    echo "==> Waiting for the network to settle after the rebuild..."
+    wait_for_network "before push"
     echo "==> Pushing updated flake.lock..."
-    if git -C "$REPO" push; then
+    if git_push_retry; then
       echo "==> Push successful! flake.lock updated."
     else
-      echo "==> Push failed!"
+      echo "==> Push failed! flake.lock is committed locally; run 'nixctl push' later."
     fi
   fi
 }
@@ -109,7 +186,12 @@ cmd_push() {
   fi
 
   echo "==> Pushing to remote..."
-  git -C "$REPO" push
+  if git_push_retry; then
+    echo "==> Push successful!"
+  else
+    echo "nixctl: error: push failed after ${push_tries} attempts" >&2
+    return 1
+  fi
 }
 
 cmd_clean() {
