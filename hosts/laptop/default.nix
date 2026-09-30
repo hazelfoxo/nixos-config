@@ -53,6 +53,6 @@
       opencode.enable = true;
     };
     protonVpn.enable = true;
-    virtualisation.waydroid.enable = true;
+    # virtualisation.waydroid.enable = true;
   };
 }
