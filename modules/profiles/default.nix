@@ -5,7 +5,7 @@
     ../networking
     ./workstation.nix
     ./homeserver.nix
-    ./school.nix
+    ./university.nix
     ./desktop
     ./dev.nix
     ./gaming

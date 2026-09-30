@@ -26,7 +26,7 @@
 
     homeserver.enable = true;
 
-    school.enable = true;
+    university.enable = true;
 
     desktop = {
       enable = true;
@@ -36,7 +36,10 @@
       };
     };
 
-    gaming.enable = true;
+    gaming = {
+      enable = true;
+      minecraft.enable = true;
+    };
     videoEditing.enable = true;
     creative.painting.enable = true;
     musicTagging.enable = true;

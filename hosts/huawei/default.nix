@@ -43,9 +43,10 @@
 
     homeserver.enable = true;
 
-    school.enable = true;
+    university.enable = true;
 
     # gaming.enable = true;
+    # gaming.minecraft.enable = true;
     # videoEditing.enable = true;
     # creative.painting.enable = true;
     # musicTagging.enable = true;

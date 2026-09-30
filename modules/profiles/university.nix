@@ -5,13 +5,15 @@
   ...
 }:
 
-# Shared school profile for NixOS hosts
+# University profile configuration for NixOS hosts
+
+# Campus VPN, the university GitLab over SSH, and Teams for Linux.
 
 let
-  cfg = config.my.profiles.school;
+  cfg = config.my.profiles.university;
 in
 {
-  options.my.profiles.school.enable = lib.mkEnableOption "the shared school profile";
+  options.my.profiles.university.enable = lib.mkEnableOption "the university profile";
 
   config = lib.mkIf cfg.enable {
     my.openvpn = {
