@@ -80,7 +80,7 @@ It's a nix flake based setup that I've tailored for my own workflow. It contains
 </details>
 
 <details>
-<summary><b>Gaming</b></summary>
+<summary><b>Gaming (Configurable)</b></summary>
 
 - Steam
 - Prism Launcher (Minecraft)
@@ -127,7 +127,7 @@ It's a nix flake based setup that I've tailored for my own workflow. It contains
 </details>
 
 <details>
-<summary><b>School</b></summary>
+<summary><b>University</b></summary>
 
 - Teams for Linux
 
@@ -159,11 +159,11 @@ nixos-config/
 ├── home/       # Home Manager and user configuration  
 ├── hosts/      # Host-specific NixOS configurations  
 ├── modules/    # Reusable NixOS modules  
-│   ├── core/        # Base OS, Nix, users, secrets, and boot settings  
+│   ├── core/        # Base OS, Nix, secrets, and boot settings  
 │   ├── hardware/    # Shared hardware and GPU-driver modules  
-│   ├── networking/  # Low-level network and VPN module definitions  
+│   ├── networking/  # Connectivity modules and their config (Wi-Fi, SSH, VPN)  
 │   ├── profiles/    # Self-contained, enable-able profiles (desktop, gaming, ...)  
-│   └── services/    # Server services (SSH server, fail2ban)  
+│   ├── server/      # Server-only options and services (SSH server, firewall, ...)  
 │   └── users/       # User accounts and Home Manager wiring  
 ├── secrets/    # Stores secrets for SSH and Wi-Fi  
 │   └── hosts/       # Encypted secrets for hosts  
@@ -171,6 +171,19 @@ nixos-config/
 │   └── shared.yaml  # Shared encrypted secrets between all hosts    
 └── flake.nix   # Flake entry point and system configuration  
 └── setup.sh    # Bootstrap for installing repo  
+
+### Configuration layout
+
+- `my.profiles.*` - opt-in software bundles, enabled from a host's `default.nix`
+- `my.wifi` / `my.ssh` / `my.wireguard` / `my.openvpn` - one switch per subsystem, with its connection/host data
+- `my.server.*` - server-only options, available on hosts that import `modules/server`
+- `my.host.*` - per-host metadata injected by `flake.nix`
+- Flake inputs (SpotX, VS Code marketplace, plasma-manager, sil6250) are passed to modules as arguments, not options
+
+Shared data is imported, not gated behind a second option: the workstation hosts
+import `modules/networking/shared-connections.nix` (home Wi-Fi networks) and
+`modules/networking/github.nix` (GitHub SSH key and host key) alongside the
+matching `my.wifi` / `my.ssh` settings.
 
 ## `nixctl`
 This is a unified tool for managing the NixOS configuration.
