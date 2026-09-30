@@ -88,15 +88,6 @@ It's a nix flake based setup that I've tailored for my own workflow. It contains
 </details>
 
 <details>
-<summary><b>Video editing</b></summary>
-
-- Kdenlive
-- ffmpeg
-- HandBrake
-
-</details>
-
-<details>
 <summary><b>Creative (Configurable)</b></summary>
 
 - Krita
@@ -105,14 +96,18 @@ It's a nix flake based setup that I've tailored for my own workflow. It contains
 - GIMP
 - Darktable
 - RawTherapee
+- Kdenlive
+- ffmpeg
+- HandBrake
 - Blender
 - FreeCAD
 
 </details>
 
 <details>
-<summary><b>Music tagging</b></summary>
+<summary><b>Music (Configurable)</b></summary>
 
+- Feishin
 - Picard
 - Kid3
 
