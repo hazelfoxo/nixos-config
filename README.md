@@ -192,5 +192,5 @@ nixctl <command>
 - `nixctl help` - show usage
 
 ### Environment
-- `NIXOS_CONFIG` - path to the configuration repo (default: `/etc/nixos`)
-- `NIXOS_HOST` - flake attribute to build (default: current hostname)
+- `NIXOS_CONFIG` - path to the configuration repo
+- `NIXOS_HOST` - flake attribute to build
