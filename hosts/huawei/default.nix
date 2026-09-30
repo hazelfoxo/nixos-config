@@ -49,7 +49,8 @@
     # gaming.minecraft.enable = true;
     # creative.painting.enable = true;
     # creative.video.enable = true;
-    # musicTagging.enable = true;
+    # music.enable = true;
+    # music.tagging.enable = true;
 
     # tailscale is enabled by the homeserver profile
     # protonVpn.enable = true;

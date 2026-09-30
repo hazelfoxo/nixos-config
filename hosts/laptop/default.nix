@@ -44,7 +44,10 @@
       painting.enable = true;
       video.enable = true;
     };
-    musicTagging.enable = true;
+    music = {
+      enable = true;
+      tagging.enable = true;
+    };
     dev = {
       enable = true;
       opencode.enable = true;
