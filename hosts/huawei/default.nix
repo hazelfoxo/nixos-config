@@ -7,12 +7,15 @@
 
     inputs.disko.nixosModules.disko
 
+    ../../modules/networking/shared-connections.nix
     ../../modules/profiles
     ../../modules/users/hazie.nix
   ];
 
   my.hardware.sil6250.enable = true;
   my.hardware.battery.enable = true;
+
+  my.wifi.enable = true;
 
   my.profiles = {
 
@@ -32,10 +35,6 @@
         enable = true;
         wallpaper = ../../home/files/wallpapers/Forest-Dark-Winter.jpg;
       };
-    };
-
-    sharedNetworking = {
-      wifi.enable = true;
     };
 
     dev = {

@@ -4,7 +4,6 @@
   imports = [
     ../networking
     ./workstation.nix
-    ./shared-networking.nix
     ./homeserver.nix
     ./school.nix
     ./github.nix

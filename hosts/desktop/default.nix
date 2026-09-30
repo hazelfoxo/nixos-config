@@ -7,9 +7,12 @@
 
     inputs.disko.nixosModules.disko
 
+    ../../modules/networking/shared-connections.nix
     ../../modules/profiles
     ../../modules/users/hazie.nix
   ];
+
+  my.wifi.enable = true;
 
   my.profiles = {
     workstation = {
@@ -21,10 +24,6 @@
     };
 
     github.enable = true;
-
-    sharedNetworking = {
-      wifi.enable = true;
-    };
 
     homeserver.enable = true;
 
