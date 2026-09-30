@@ -47,8 +47,8 @@
 
     # gaming.enable = true;
     # gaming.minecraft.enable = true;
-    # videoEditing.enable = true;
     # creative.painting.enable = true;
+    # creative.video.enable = true;
     # musicTagging.enable = true;
 
     # tailscale is enabled by the homeserver profile

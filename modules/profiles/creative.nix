@@ -18,6 +18,7 @@ in
     vector.enable = lib.mkEnableOption "vector graphics tools (Inkscape)";
     raster.enable = lib.mkEnableOption "raster image editing (GIMP)";
     photo.enable = lib.mkEnableOption "photo processing (Darktable, RawTherapee)";
+    video.enable = lib.mkEnableOption "video editing (Kdenlive, ffmpeg, HandBrake)";
     threeD.enable = lib.mkEnableOption "3D modeling tools (Blender, FreeCAD)";
   };
 
@@ -57,6 +58,14 @@ in
       environment.systemPackages = with pkgs; [
         darktable
         rawtherapee
+      ];
+    })
+
+    (lib.mkIf cfg.video.enable {
+      environment.systemPackages = with pkgs; [
+        kdePackages.kdenlive
+        ffmpeg
+        handbrake
       ];
     })
 

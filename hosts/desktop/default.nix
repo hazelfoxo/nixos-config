@@ -40,8 +40,10 @@
       enable = true;
       minecraft.enable = true;
     };
-    videoEditing.enable = true;
-    creative.painting.enable = true;
+    creative = {
+      painting.enable = true;
+      video.enable = true;
+    };
     musicTagging.enable = true;
     dev = {
       enable = true;
