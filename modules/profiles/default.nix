@@ -6,7 +6,6 @@
     ./workstation.nix
     ./homeserver.nix
     ./school.nix
-    ./github.nix
     ./desktop
     ./dev.nix
     ./gaming

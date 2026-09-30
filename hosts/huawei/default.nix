@@ -7,6 +7,7 @@
 
     inputs.disko.nixosModules.disko
 
+    ../../modules/networking/github.nix
     ../../modules/networking/shared-connections.nix
     ../../modules/profiles
     ../../modules/users/hazie.nix
@@ -18,8 +19,6 @@
   my.wifi.enable = true;
 
   my.profiles = {
-
-    github.enable = true;
 
     workstation = {
       enable = true;
