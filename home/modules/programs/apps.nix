@@ -9,8 +9,5 @@
     spotify-spotx
     libreoffice
     yt-dlp
-    krita
-    handbrake
-    feishin
   ];
 }
