@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  pkgs,
+  plasmaManagerModule,
+  vscodeMarketplace,
+  ...
+}:
 
 # Define Hazie's user account and configure home-manager for the user.
 
@@ -26,13 +31,13 @@
     useUserPackages = true;
 
     extraSpecialArgs = {
-      vscodeMarketplace = config.my.inputs.vscodeMarketplace;
+      vscodeMarketplace = vscodeMarketplace;
     };
 
     users.hazie = {
       imports = [
         (import ../../home)
-        config.my.inputs.plasmaManagerModule
+        plasmaManagerModule
       ];
     };
   };

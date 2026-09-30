@@ -1,4 +1,9 @@
-{ inputs, lib, ... }:
+{
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.my.core.desktop.enable = lib.mkEnableOption "desktop-oriented system services";
@@ -9,7 +14,6 @@
     inputs.lanzaboote.nixosModules.lanzaboote
 
     ./host.nix
-    ./inputs.nix
     ./locale.nix
     ./system.nix
     ./nix.nix
@@ -22,4 +26,17 @@
     ./shared-secrets.nix
     ./nixpkgs.nix
   ];
+
+  config = {
+    _module.args = {
+      spotxOverlay = inputs.spotx-nix.overlays.default;
+
+      vscodeMarketplace =
+        inputs.nix-vscode-extensions.extensions.${pkgs.stdenv.hostPlatform.system}.vscode-marketplace;
+
+      plasmaManagerModule = inputs.plasma-manager.homeModules.plasma-manager;
+
+      sil6250Linux = inputs.sil6250-linux;
+    };
+  };
 }
