@@ -171,14 +171,6 @@ nixos-config/
 
 - `my.profiles.*` - opt-in software bundles, enabled from a host's `default.nix`
 - `my.wifi` / `my.ssh` / `my.wireguard` / `my.openvpn` - one switch per subsystem, with its connection/host data
-- `my.server.*` - server-only options, available on hosts that import `modules/server`
-- `my.host.*` - per-host metadata injected by `flake.nix`
-- Flake inputs (SpotX, VS Code marketplace, plasma-manager, sil6250) are passed to modules as arguments, not options
-
-Shared data is imported, not gated behind a second option: the workstation hosts
-import `modules/networking/shared-connections.nix` (home Wi-Fi networks) and
-`modules/networking/github.nix` (GitHub SSH key and host key) alongside the
-matching `my.wifi` / `my.ssh` settings.
 
 ## `nixctl`
 This is a unified tool for managing the NixOS configuration.
