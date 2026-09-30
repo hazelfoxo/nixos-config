@@ -47,6 +47,6 @@
       opencode.enable = true;
     };
     protonVpn.enable = true;
-    virtualisation.enable = false;
+    virtualisation.waydroid.enable = true;
   };
 }
