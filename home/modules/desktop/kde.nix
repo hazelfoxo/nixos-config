@@ -53,7 +53,7 @@
         }
         # Rapoo Mouse
         {
-          name = "Logi M196 Mouse";
+          name = "RAPOO BT MOUSE";
           vendorId = "248a";
           productId = "8266";
           enable = true;
