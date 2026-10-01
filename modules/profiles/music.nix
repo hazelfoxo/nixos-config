@@ -12,14 +12,17 @@ let
 in
 {
   options.my.profiles.music = {
-    enable = lib.mkEnableOption "the music profile (Feishin)";
+    enable = lib.mkEnableOption "the music profile (Feishin, Spotify)";
 
     tagging.enable = lib.mkEnableOption "music tagging tools (Picard, Kid3)";
   };
 
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
-      environment.systemPackages = [ pkgs.feishin ];
+      environment.systemPackages = with pkgs; [
+        feishin
+        spotify-spotx
+      ];
     })
 
     (lib.mkIf cfg.tagging.enable {

@@ -45,6 +45,10 @@
 
     university.enable = true;
 
+    music = {
+      enable = true;
+    };
+
     # gaming.enable = true;
     # gaming.minecraft.enable = true;
     # creative.painting.enable = true;
