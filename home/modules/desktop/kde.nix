@@ -41,7 +41,7 @@
           acceleration = 0;
           accelerationProfile = "none";
         }
-	
+
         # Logitech M196
         {
           name = "Logi M196 Mouse";
@@ -68,8 +68,7 @@
 
       gwenviewrc = {
         SideBar = {
-          PreferredMetaInfoKeyList =
-            "General.Name,General.Size,General.Created,General.ImageSize,General.MimeType";
+          PreferredMetaInfoKeyList = "General.Name,General.Size,General.Created,General.ImageSize,General.MimeType";
         };
       };
 
