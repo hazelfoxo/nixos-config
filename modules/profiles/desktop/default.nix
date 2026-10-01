@@ -15,9 +15,9 @@ in
     kde.enable = lib.mkEnableOption "the KDE Plasma desktop";
 
     kde.wallpaper = lib.mkOption {
-      type = lib.types.path;
-      default = ../../home/files/wallpapers/Forest-Dark-Winter.jpg;
-      description = "Wallpaper used by KDE Plasma and SDDM.";
+      type = lib.types.str;
+      default = "Forest-Dark-Winter.jpg";
+      description = "Wallpaper filename in ~/.local/share/wallpapers/ used by KDE Plasma and SDDM.";
     };
 
     gnome.enable = lib.mkEnableOption "the GNOME desktop";

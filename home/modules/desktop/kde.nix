@@ -1,4 +1,4 @@
-{ osConfig, lib, ... }:
+{ osConfig, config, lib, ... }:
 
 # Kde Plasma desktop configuration module for NixOS home-manager
 
@@ -7,8 +7,8 @@
     enable = osConfig.my.profiles.desktop.kde.enable;
 
     # Set the wallpaper for both the workspace and the lock screen to the same image
-    workspace.wallpaper = osConfig.my.profiles.desktop.kde.wallpaper;
-    kscreenlocker.appearance.wallpaper = osConfig.my.profiles.desktop.kde.wallpaper;
+    workspace.wallpaper = "${config.home.homeDirectory}/.local/share/wallpapers/${osConfig.my.profiles.desktop.kde.wallpaper}";
+    kscreenlocker.appearance.wallpaper = "${config.home.homeDirectory}/.local/share/wallpapers/${osConfig.my.profiles.desktop.kde.wallpaper}";
 
     # Input Devices configuration
     input = {
