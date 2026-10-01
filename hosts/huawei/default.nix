@@ -28,12 +28,9 @@
       };
     };
 
-    desktop = {
+    desktop.kde = {
       enable = true;
-      kde = {
-        enable = true;
-        wallpaper = ../../home/files/wallpapers/Forest-Dark-Winter.jpg;
-      };
+      wallpaper = ../../home/files/wallpapers/Forest-Dark-Winter.jpg;
     };
 
     dev = {

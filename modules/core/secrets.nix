@@ -41,9 +41,14 @@ in
 
     # Make nm-file-secret-agent run as the configured secrets user.
     (lib.mkIf (cfg.secretsUser != null) {
-      systemd.services.nm-file-secret-agent.serviceConfig = {
-        User = cfg.secretsUser;
-        Group = "users";
+      systemd.services.nm-file-secret-agent = {
+        serviceConfig = {
+          User = cfg.secretsUser;
+          Group = "users";
+        };
+        # Reload the service if the secrets user changes to avoid
+        # running as root after a profile reconfiguration.
+        restartTriggers = [ cfg.secretsUser ];
       };
     })
 

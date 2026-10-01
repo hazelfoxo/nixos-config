@@ -26,6 +26,10 @@
     ];
   };
 
+  # The NetworkManager file secret agent must run as the user that owns
+  # per-user secrets; most hosts that need VPN/Wi-Fi secrets have this user.
+  my.secrets.secretsUser = "hazie";
+
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
