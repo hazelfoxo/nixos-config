@@ -1,14 +1,26 @@
-{ osConfig, lib, ... }:
+{
+  config,
+  osConfig,
+  lib,
+  ...
+}:
 
 # Kde Plasma desktop configuration module for NixOS home-manager
 
+# Plasma and the screen locker read the wallpaper from the user's own
+# wallpapers directory (populated by ./wallpapers.nix) rather than from the nix
+# store, so the session config points at a file the user can also change by
+# hand. SDDM still uses the store path, see modules/profiles/desktop/kde.nix.
+let
+  wallpaper = "${config.home.homeDirectory}/.local/share/wallpapers/${osConfig.my.profiles.desktop.kde.wallpaperName}";
+in
 {
   programs.plasma = {
     enable = osConfig.my.profiles.desktop.kde.enable;
 
     # Set the wallpaper for both the workspace and the lock screen to the same image
-    workspace.wallpaper = osConfig.my.profiles.desktop.kde.wallpaper;
-    kscreenlocker.appearance.wallpaper = osConfig.my.profiles.desktop.kde.wallpaper;
+    workspace.wallpaper = wallpaper;
+    kscreenlocker.appearance.wallpaper = wallpaper;
 
     # Input Devices configuration
     input = {

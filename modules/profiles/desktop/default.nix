@@ -17,7 +17,21 @@ in
     kde.wallpaper = lib.mkOption {
       type = lib.types.path;
       default = ../../home/files/wallpapers/Forest-Dark-Winter.jpg;
-      description = "Wallpaper used by KDE Plasma and SDDM.";
+      description = ''
+        Wallpaper used by SDDM. Resolved to a nix store path, which is what
+        the display manager needs since it runs before any user session.
+      '';
+    };
+
+    kde.wallpaperName = lib.mkOption {
+      type = lib.types.str;
+      default = builtins.baseNameOf (toString cfg.kde.wallpaper);
+      description = ''
+        Name of the wallpaper inside ~/.local/share/wallpapers/, used by KDE
+        Plasma and the screen locker. Defaults to the file name of
+        `kde.wallpaper`, which home-manager copies to that directory, so the
+        two stay in sync.
+      '';
     };
 
     gnome.enable = lib.mkEnableOption "the GNOME desktop";
