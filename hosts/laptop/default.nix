@@ -35,7 +35,7 @@
 
     gaming = {
       enable = true;
-    # minecraft.enable = true;
+      # minecraft.enable = true;
     };
     creative = {
       painting.enable = true;
