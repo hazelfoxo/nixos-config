@@ -48,17 +48,5 @@
     music = {
       enable = true;
     };
-
-    # gaming.enable = true;
-    # gaming.minecraft.enable = true;
-    # creative.painting.enable = true;
-    # creative.video.editor.enable = true;
-    # creative.video.tools.enable = true;
-    # music.enable = true;
-    # music.tagging.enable = true;
-
-    # tailscale is enabled by the homeserver profile
-    # protonVpn.enable = true;
-    # virtualisation.enable = false;
   };
 }
