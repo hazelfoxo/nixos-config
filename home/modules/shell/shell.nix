@@ -4,7 +4,7 @@
 
 {
   home.packages = [
-    (pkgs.writeShellScriptBin "nixctl" (builtins.readFile ./scripts/nixctl.sh))
+    (pkgs.writeShellScriptBin "nixctl" (builtins.readFile ../../files/scripts/nixctl.sh))
   ];
 
   programs.fish = {
