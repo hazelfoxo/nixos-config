@@ -35,7 +35,7 @@ in
   ];
 
   config = lib.mkIf cfg.enable {
-    my.core.desktop.enable = true;
+    my.core.graphical.enable = true;
 
     my.hardware.gpu = cfg.host.gpu;
 

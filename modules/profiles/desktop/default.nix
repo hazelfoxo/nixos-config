@@ -38,9 +38,6 @@
       xdg.portal.enable = true;
     })
 
-    # Desktop workstations run the per-user NetworkManager file secret agent
-    # and opt into the shared site secrets file used by the networking
-    # profiles; headless hosts omit both.
     (lib.mkIf config.my.profiles.desktop.enable {
       my.secrets.secretsUser = "hazie";
 

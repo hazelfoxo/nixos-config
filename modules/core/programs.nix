@@ -7,7 +7,7 @@
 
 # System programs for NixOS hosts
 
-lib.mkIf config.my.core.desktop.enable {
+lib.mkIf config.my.core.graphical.enable {
 
   environment.systemPackages = with pkgs; [
     firefox

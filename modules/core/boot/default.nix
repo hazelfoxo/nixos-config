@@ -15,8 +15,8 @@
       boot.loader.efi.canTouchEfiVariables = true;
     })
 
-    # Desktop-focused boot cosmetics and loader behaviour.
-    (lib.mkIf config.my.core.desktop.enable {
+    # Graphical boot cosmetics and loader behaviour.
+    (lib.mkIf config.my.core.graphical.enable {
       boot.plymouth = {
         # Enable plymouth and set theme
         enable = true;

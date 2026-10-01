@@ -6,7 +6,8 @@
 }:
 
 {
-  options.my.core.desktop.enable = lib.mkEnableOption "desktop-oriented system services";
+  options.my.core.graphical.enable =
+    lib.mkEnableOption "graphical session support: fonts, polkit, boot cosmetics, GUI system packages";
 
   imports = [
     inputs.home-manager.nixosModules.home-manager

@@ -9,7 +9,7 @@
       system.stateVersion = "26.05";
     }
 
-    (lib.mkIf config.my.core.desktop.enable {
+    (lib.mkIf config.my.core.graphical.enable {
 
       # Enable Polkit Service
       security.polkit = {

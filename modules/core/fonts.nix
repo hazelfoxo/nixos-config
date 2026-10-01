@@ -7,7 +7,7 @@
 
 # Fonts configuration for NixOS hosts
 
-lib.mkIf config.my.core.desktop.enable {
+lib.mkIf config.my.core.graphical.enable {
   fonts = {
     packages = with pkgs; [
       corefonts
