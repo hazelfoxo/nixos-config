@@ -16,7 +16,7 @@
     environment.systemPackages = [
       (pkgs.writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
         [General]
-        background=/home/${config.users.users.hazie.name or "hazie"}/.local/share/wallpapers/${config.my.profiles.desktop.kde.wallpaper}
+        background=${config.my.profiles.desktop.kde.wallpaper}
       '')
 
       pkgs.kdePackages.sddm-kcm
