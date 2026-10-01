@@ -4,6 +4,7 @@ set -euo pipefail
 NIXOS_CONFIG="${NIXOS_CONFIG:-/etc/nixos}"
 REPO="${NIXOS_CONFIG%/}"
 HOST="${NIXOS_HOST:-$HOSTNAME}"
+SYSTEM_PROFILE="${NIXCTL_SYSTEM_PROFILE:-/nix/var/nix/profiles/system}"
 
 usage() {
   cat <<'EOF'
@@ -24,6 +25,10 @@ Commands:
   push [msg]  Stage all changes, commit them and push
               (without a message, an editor is opened)
               --only <path>: stage and commit just this path
+  generations List system generations, newest last, current one marked
+              --json: raw output from nixos-rebuild
+  rollback    Switch to the previous generation
+              <gen>: switch to a specific generation id
   clean       Delete unreachable store paths
   clean-all   Delete all old generations, then switch
   shell <pkg…>  Open a nix-shell with the given packages (-p)
@@ -36,6 +41,9 @@ Environment:
   NIXCTL_NET_REMOTE_TIMEOUT
                       Seconds to additionally wait for the remote (default: 15)
   NIXCTL_PUSH_TRIES   Push attempts before giving up (default: 5)
+  NIXCTL_SYSTEM_PROFILE
+                      System profile to inspect (default:
+                      /nix/var/nix/profiles/system)
 EOF
 }
 
@@ -136,21 +144,34 @@ cmd_pull() {
   fi
 }
 
-# nixos-rebuild actions worth exposing. Only switch, boot and test need root;
-# the rest are read-only or build-only, so they must not go through sudo.
 switch_actions=(switch boot test build dry-run dry-build dry-activate list-generations)
 switch_root_actions=(switch boot test)
 
-# Usage: cmd_switch [action] [extra nixos-rebuild args...]
-# The action is positional and defaults to switch, so `nixctl switch boot`
-# stages the new config for the next reboot without activating it. Anything
-# else is passed straight through to nixos-rebuild, so `nixctl switch
-# --rollback` and `nixctl switch --specialisation foo` both work.
+run_rebuild() {
+  local action="$1"
+  shift
+  local -a rebuild
+
+  if [[ " ${switch_root_actions[*]} " != *" $action "* ]]; then
+    rebuild=(nixos-rebuild "$action" --flake "$REPO#$HOST" "$@")
+    "${rebuild[@]}"
+  else
+    rebuild=(sudo nixos-rebuild "$action" --flake "$REPO#$HOST" "$@")
+    inhibit "NixOS ${action} in progress" "${rebuild[@]}"
+  fi
+}
+
+activate_store_path() {
+  local action="$1"
+  local store_path="$2"
+  local -a rebuild=(sudo nixos-rebuild "$action" --store-path "$store_path")
+
+  inhibit "NixOS ${action} in progress" "${rebuild[@]}"
+}
+
 cmd_switch() {
   local action=switch
   local -a args=()
-  local -a elevated=()
-  local rebuild
   local arg
 
   for arg in "$@"; do
@@ -161,23 +182,9 @@ cmd_switch() {
     fi
   done
 
-  if [[ " ${switch_root_actions[*]} " != *" $action "* ]]; then
-    rebuild=(nixos-rebuild "$action" --flake "$REPO#$HOST" "${args[@]}")
-  else
-    rebuild=(sudo nixos-rebuild "$action" --flake "$REPO#$HOST" "${args[@]}")
-    elevated=(1)
-  fi
-
-  if [[ "${elevated[0]:-}" == 1 ]]; then
-    inhibit "NixOS ${action} in progress" "${rebuild[@]}"
-  else
-    "${rebuild[@]}"
-  fi
+  run_rebuild "$action" "${args[@]}"
 }
 
-# Rebuilds and switches to re-link anything a garbage collection removed. Skips
-# the rebuild when the store already holds the current configuration, which is
-# the usual case, so this costs little more than re-activating the system.
 cmd_reactivate() {
   echo "==> Re-linking the system after garbage collection..."
   cmd_switch
@@ -270,6 +277,121 @@ cmd_shell() {
   nix-shell -p "$@"
 }
 
+generations_tsv() {
+  nixos-rebuild list-generations --json | jq -r '
+    def now_local: now | localtime | mktime;
+
+    def age:
+      now_local - (strptime("%Y-%m-%d %H:%M:%S") | mktime) as $s
+      | if $s < 0 then "just now"
+        elif $s < 60 then "\($s)s ago"
+        elif $s < 3600 then "\(($s / 60) | floor)m ago"
+        elif $s < 86400 then "\(($s / 3600) | floor)h ago"
+        elif $s < 2592000 then "\(($s / 86400) | floor)d ago"
+        else "\(($s / 2592000) | floor)mo ago"
+        end;
+
+    sort_by(.generation)[]
+    | [
+        (.generation | tostring),
+        .date,
+        (.date | age),
+        .nixosVersion,
+        .kernelVersion,
+        (if .current then "<- current" else "" end)
+      ]
+    | @tsv'
+}
+
+cmd_generations() {
+  local arg
+  for arg in "$@"; do
+    case "$arg" in
+      --json) nixos-rebuild list-generations --json; return 0 ;;
+      *)
+        echo "nixctl: error: unknown option '$arg' for generations" >&2
+        echo "Usage: nixctl generations [--json]" >&2
+        return 1
+        ;;
+    esac
+  done
+
+  local rows
+  if ! rows="$(generations_tsv)"; then
+    echo "nixctl: error: could not list generations" >&2
+    return 1
+  fi
+
+  if [[ -z "$rows" ]]; then
+    echo "No generations found."
+    return 0
+  fi
+
+  {
+    printf 'GEN\tBUILD-DATE\tAGE\tNIXOS VERSION\tKERNEL\t\n'
+    printf '%s\n' "$rows"
+  } | column -t -s $'\t' | sed 's/[[:space:]]*$//'
+}
+
+cmd_rollback() {
+  local generation=""
+  local arg
+
+  for arg in "$@"; do
+    case "$arg" in
+      -*)
+        echo "nixctl: error: unknown option '$arg' for rollback" >&2
+        echo "Usage: nixctl rollback [<gen>]" >&2
+        return 1
+        ;;
+      *)
+        if [[ -n "$generation" ]]; then
+          echo "nixctl: error: rollback takes at most one generation" >&2
+          echo "Usage: nixctl rollback [<gen>]" >&2
+          return 1
+        fi
+        generation="$arg"
+        ;;
+    esac
+  done
+
+  # Plain rollback delegates to nixos-rebuild, which steps the profile back
+  # one generation and activates it in a single, well-tested path.
+  if [[ -z "$generation" ]]; then
+    echo "==> Rolling back to the previous generation..."
+    cmd_switch --rollback
+    return
+  fi
+
+  if ! [[ "$generation" =~ ^[0-9]+$ ]]; then
+    echo "nixctl: error: '$generation' is not a generation id" >&2
+    return 1
+  fi
+
+  local current target
+  current="$(generations_tsv | awk -F'\t' '$6 == "<- current" { print $1; exit }')"
+
+  if [[ -z "$current" ]]; then
+    echo "nixctl: error: no current generation found" >&2
+    return 1
+  fi
+
+  if [[ "$generation" == "$current" ]]; then
+    echo "nixctl: error: generation ${generation} is already active" >&2
+    return 1
+  fi
+
+  if ! generations_tsv | awk -F'\t' -v want="$generation" '$1 == want { found = 1 } END { exit !found }'; then
+    echo "nixctl: error: no generation ${generation}; run 'nixctl generations'" >&2
+    return 1
+  fi
+
+  target="$(dirname "$SYSTEM_PROFILE")/$(basename "$SYSTEM_PROFILE")-${generation}-link"
+
+  echo "==> Rolling back to generation ${generation}..."
+  activate_store_path switch "$target"
+}
+
 main() {
   case "${1:-}" in
     pull)                  shift; cmd_pull "$@" ;;
@@ -277,6 +399,8 @@ main() {
     upgrade)               cmd_upgrade ;;
     upgrade-internal)      cmd_upgrade_internal ;;
     push)                  shift; cmd_push "$@" ;;
+    generations)           shift; cmd_generations "$@" ;;
+    rollback)              shift; cmd_rollback "$@" ;;
     clean)                 cmd_clean ;;
     clean-all)             cmd_clean_all ;;
     shell)                 shift; cmd_shell "$@" ;;

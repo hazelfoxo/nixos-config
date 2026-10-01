@@ -186,6 +186,10 @@ nixctl <command>
 - `nixctl switch` - rebuild system from flake and switch to it
 - `nixctl upgrade` - updates all packages and pushes the new `flake.lock`
 - `nixctl push [msg]` - stage all changes, commit them and push (opens an editor if no message is given)
+- `nixctl generations` - list system generations, marking the current one
+- `nixctl generations --json` - list generations as JSON
+- `nixctl rollback` - switch to the previous generation
+- `nixctl rollback <gen>` - switch to a specific generation
 - `nixctl clean` - garbage-collect generations older than 14 days
 - `nixctl clean-all` - garbage-collect all old generations
 - `nixctl shell <pkg…>` - open a `nix-shell` with the given packages
@@ -194,3 +198,4 @@ nixctl <command>
 ### Environment
 - `NIXOS_CONFIG` - path to the configuration repo
 - `NIXOS_HOST` - flake attribute to build
+- `NIXCTL_SYSTEM_PROFILE` - system profile to inspect (default: `/nix/var/nix/profiles/system`)
