@@ -119,7 +119,7 @@
 
       nixosConfigurations = nixpkgs.lib.mapAttrs mkSystem hosts;
 
-      formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt;
+      formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-tree;
 
       devShells.${system}.default = nixpkgs.legacyPackages.${system}.mkShell {
         packages = [
