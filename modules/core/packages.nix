@@ -10,5 +10,6 @@
     fastfetch
     usbutils
     pciutils
+    jq
   ];
 }
