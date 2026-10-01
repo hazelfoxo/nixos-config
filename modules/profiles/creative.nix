@@ -12,30 +12,18 @@ let
 in
 {
   options.my.profiles.creative = {
-    enable = lib.mkEnableOption "the creative profile";
-
     painting.enable = lib.mkEnableOption "digital painting tools (Krita, MyPaint)";
     vector.enable = lib.mkEnableOption "vector graphics tools (Inkscape)";
     raster.enable = lib.mkEnableOption "raster image editing (GIMP)";
     photo.enable = lib.mkEnableOption "photo processing (Darktable, RawTherapee)";
-    video.enable = lib.mkEnableOption "video editing (Kdenlive, ffmpeg, HandBrake)";
+    video = {
+      editor.enable = lib.mkEnableOption "video editing (Kdenlive)";
+      tools.enable = lib.mkEnableOption "video encoding tools (ffmpeg, HandBrake)";
+    };
     threeD.enable = lib.mkEnableOption "3D modeling tools (Blender, FreeCAD)";
   };
 
   config = lib.mkMerge [
-    (lib.mkIf cfg.enable {
-      environment.systemPackages = with pkgs; [
-        krita
-        gimp
-        inkscape
-        mypaint
-        blender
-        darktable
-        rawtherapee
-        freecad
-      ];
-    })
-
     (lib.mkIf cfg.painting.enable {
       environment.systemPackages = with pkgs; [
         krita
@@ -61,9 +49,14 @@ in
       ];
     })
 
-    (lib.mkIf cfg.video.enable {
+    (lib.mkIf cfg.video.editor.enable {
       environment.systemPackages = with pkgs; [
         kdePackages.kdenlive
+      ];
+    })
+
+    (lib.mkIf cfg.video.tools.enable {
+      environment.systemPackages = with pkgs; [
         ffmpeg
         handbrake
       ];

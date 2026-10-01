@@ -42,7 +42,10 @@
     };
     creative = {
       painting.enable = true;
-      video.enable = true;
+      video = {
+        editor.enable = true;
+        tools.enable = true;
+      };
     };
     music = {
       enable = true;
