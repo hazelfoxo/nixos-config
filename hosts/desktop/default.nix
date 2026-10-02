@@ -38,7 +38,6 @@
       minecraft.enable = true;
     };
     creative = {
-      painting.enable = true;
       video = {
         editor.enable = true;
         tools.enable = true;
