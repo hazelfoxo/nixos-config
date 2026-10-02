@@ -16,7 +16,7 @@ in
 
     tagging.enable = lib.mkEnableOption "music tagging tools (Picard, Kid3)";
 
-    streaming.enable = lib.mkEnableOption "music streaming (Spotify)";
+    spotify.enable = lib.mkEnableOption "music streaming (Spotify)";
   };
 
   config = lib.mkMerge [
