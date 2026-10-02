@@ -2,10 +2,23 @@
 
 # Configure fish shell
 
+let
+  scriptsDir = ../../files/scripts;
+
+  writeScripts = dir:
+    map
+      (name:
+        pkgs.writeShellScriptBin
+          (builtins.replaceStrings [ ".sh" ] [ "" ] name)
+          (builtins.readFile "${dir}/${name}")
+      )
+      (builtins.filter
+        (name: builtins.match ".*\\.sh" name != null)
+        (builtins.attrNames (builtins.readDir dir)));
+in
+
 {
-  home.packages = [
-    (pkgs.writeShellScriptBin "nixctl" (builtins.readFile ../../files/scripts/nixctl.sh))
-  ];
+  home.packages = writeScripts scriptsDir;
 
   programs.fish = {
     enable = true;
