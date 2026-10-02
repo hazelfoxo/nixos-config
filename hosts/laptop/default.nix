@@ -34,7 +34,7 @@
     };
 
     gaming = {
-      enable = true;
+      enable = false;
     };
     creative = {
       painting.enable = true;
