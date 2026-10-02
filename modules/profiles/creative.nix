@@ -17,8 +17,19 @@ in
     raster.enable = lib.mkEnableOption "raster image editing (GIMP)";
     photo.enable = lib.mkEnableOption "photo processing (Darktable, RawTherapee)";
     video = {
-      editor.enable = lib.mkEnableOption "video editing (Kdenlive)";
-      tools.enable = lib.mkEnableOption "video encoding tools (ffmpeg, HandBrake)";
+      enable = lib.mkEnableOption "all video tools (Kdenlive, ffmpeg, HandBrake)";
+
+      editor.enable = lib.mkOption {
+        type = lib.types.bool;
+        default = cfg.video.enable;
+        description = "video editing (Kdenlive)";
+      };
+
+      tools.enable = lib.mkOption {
+        type = lib.types.bool;
+        default = cfg.video.enable;
+        description = "video encoding tools (ffmpeg, HandBrake)";
+      };
     };
     threeD.enable = lib.mkEnableOption "3D modeling tools (Blender, FreeCAD)";
   };

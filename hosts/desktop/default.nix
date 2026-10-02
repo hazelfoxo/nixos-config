@@ -38,9 +38,7 @@
       minecraft.enable = true;
     };
     creative = {
-      video = {
-        editor.enable = true;
-        tools.enable = true;
+      video.enable = true;
       };
     };
     music = {
