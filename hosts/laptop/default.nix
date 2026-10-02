@@ -35,7 +35,6 @@
 
     gaming = {
       enable = true;
-      # minecraft.enable = true;
     };
     creative = {
       painting.enable = true;
@@ -50,6 +49,5 @@
       opencode.enable = true;
     };
     protonVpn.enable = true;
-    # virtualisation.waydroid.enable = true;
   };
 }
