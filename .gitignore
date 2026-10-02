@@ -6,3 +6,6 @@ keys.txt
 *.swp
 *.swo
 *.kate-swp
+
+# NixOS Build Files
+/result
