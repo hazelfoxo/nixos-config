@@ -42,6 +42,10 @@
 
     university.enable = true;
 
+    creative = {
+      video.tools.enable = true;
+    };
+
     music = {
       enable = true;
     };
