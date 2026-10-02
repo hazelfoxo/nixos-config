@@ -39,7 +39,6 @@
     };
     creative = {
       video.enable = true;
-      };
     };
     music = {
       enable = true;
