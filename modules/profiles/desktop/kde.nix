@@ -13,11 +13,7 @@
 
     services.desktopManager.plasma6.enable = true;
 
-    # DDC/CI control of external monitors (brightness/contrast without a KVM).
-    # Driven by the DE rather than per host: a Plasma session is what supplies
-    # the seat `uaccess` tag that lets the logged-in user talk to /dev/i2c-*
-    # without extra group membership, so this is only useful with a DE running.
-    #my.hardware.ddc.enable = true;
+    my.hardware.ddc.enable = true;
 
     environment.systemPackages = [
       (pkgs.writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
