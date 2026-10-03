@@ -4,6 +4,7 @@
 
 {
   imports = [
+    ./kernel.nix
     ./loader.nix
     ./systemd-boot.nix
     ./secureboot.nix
